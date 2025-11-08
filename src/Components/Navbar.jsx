@@ -32,14 +32,27 @@ const Header = () => {
             to="/"
             className="flex items-center gap-2 text-xl font-extrabold text-indigo-600"
           >
-            <img className="w-[40px]" src="https://img.icons8.com/?size=48&id=FkIuPao6TWWG&format=png" alt="" /> Property
+            <img
+              className="w-[40px] sm:w-[45px] hidden sm:block"
+              src="https://img.icons8.com/?size=48&id=FkIuPao6TWWG&format=png"
+              alt="logo"
+            />
+            Property
           </Link>
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex gap-4">
             <NavItem to="/" label="Home" icon={GoHomeFill} />
-            <NavItem to="/properties" label="All Properties" icon={FaBuilding} />
-            <NavItem to="/add-property" label="Add Properties" icon={ImBoxAdd} />
+            <NavItem
+              to="/properties"
+              label="All Properties"
+              icon={FaBuilding}
+            />
+            <NavItem
+              to="/add-property"
+              label="Add Properties"
+              icon={ImBoxAdd}
+            />
             <NavItem to="/my-properties" label="My Properties" icon={FaUser} />
             <NavItem to="/my-ratings" label="My Ratings" icon={FaStar} />
           </nav>
@@ -53,10 +66,10 @@ const Header = () => {
               <IoLogIn /> Login
             </Link>
             <Link
-              to="/signup"
+              to="/register"
               className="btn btn-sm rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition-colors"
             >
-              Signup
+              Register
             </Link>
 
             {/* Mobile menu toggle */}
@@ -74,7 +87,11 @@ const Header = () => {
                     d="M6 18L18 6M6 6l12 12"
                   />
                 ) : (
-                  <path stroke="currentColor" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 )}
               </svg>
             </button>
@@ -87,8 +104,16 @@ const Header = () => {
         <div className="md:hidden border-t">
           <nav className="flex flex-col gap-2 p-2">
             <NavItem to="/" label="Home" icon={GoHomeFill} />
-            <NavItem to="/properties" label="All Properties" icon={FaBuilding} />
-            <NavItem to="/add-property" label="Add Properties" icon={ImBoxAdd} />
+            <NavItem
+              to="/properties"
+              label="All Properties"
+              icon={FaBuilding}
+            />
+            <NavItem
+              to="/add-property"
+              label="Add Properties"
+              icon={ImBoxAdd}
+            />
             <NavItem to="/my-properties" label="My Properties" icon={FaUser} />
             <NavItem to="/my-ratings" label="My Ratings" icon={FaStar} />
 
