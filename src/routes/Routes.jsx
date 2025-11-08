@@ -1,0 +1,38 @@
+import { createBrowserRouter } from "react-router-dom";
+import MainLayout from "../layout/MainLayout";
+import Home from "../Pages/Home";
+import AllProperties from "../Pages/AllProperties";
+import AddProperty from "../Pages/AddProperty";
+import MyProperties from "../Pages/MyProperties";
+import MyRatings from "../Pages/MyRatings";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
+import NotFound from "../Pages/NotFound";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/properties", element: <AllProperties /> },
+      {
+        path: "/add-property",
+        element: <AddProperty />,
+      },
+      {
+        path: "/my-properties",
+        element: <MyProperties />,
+      },
+      {
+        path: "/my-ratings",
+        element: <MyRatings />,
+      },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+    ],
+  },
+  { path: "*", element: <NotFound /> },
+]);
+
+export default router;
