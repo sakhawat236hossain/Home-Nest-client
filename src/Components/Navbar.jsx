@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import { FaBuilding, FaUser, FaStar } from "react-icons/fa6";
@@ -7,6 +7,7 @@ import { IoLogIn } from "react-icons/io5";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  // const {user}=useContext(AuthC)
 
   const NavItem = ({ to, label, icon: Icon }) => (
     <NavLink
