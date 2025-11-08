@@ -5,7 +5,7 @@ import { FaBuilding, FaUser, FaStar } from "react-icons/fa6";
 import { ImBoxAdd } from "react-icons/im";
 import { IoLogIn } from "react-icons/io5";
 
-const Header = () => {
+const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const NavItem = ({ to, label, icon: Icon }) => (
@@ -138,4 +138,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;
