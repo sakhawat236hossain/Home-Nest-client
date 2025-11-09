@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Verified & Trustworthy Homes",
+    "description": "Every property listed is carefully verified to ensure reliability, giving you the confidence to make the right choice.",
+    "icon": "shield-check"
+  },
+  {
+    "id": 2,
+    "title": "Affordable Pricing",
+    "description": "We suggest the best homes that match your budget, ensuring you get great value without unnecessary extra cost.",
+    "icon": "wallet"
+  },
+  {
+    "id": 3,
+    "title": "Secure Payment",
+    "description": "All transactions are encrypted and fully protected to keep your personal information and payment details safe.",
+    "icon": "lock"
+  },
+  {
+    "id": 4,
+    "title": "24/7 Customer Support",
+    "description": "Our support team is available around the clock, ready to help you whenever you need assistance.",
+    "icon": "headphones"
+  },
+  {
+    "id": 5,
+    "title": "Advanced Search & Filters",
+    "description": "Use location, budget, property type, and more filters to quickly find the home that perfectly matches your needs.",
+    "icon": "filter"
+  },
+  {
+    "id": 6,
+    "title": "Fast and Easy Process",
+    "description": "Register, search, and book with minimal steps — simple, smooth, and hassle-free experience.",
+    "icon": "bolt"
+  },
+  {
+    "id": 7,
+    "title": "Community Reviews & Ratings",
+    "description": "Check real experiences and ratings shared by other residents to make informed and confident decisions.",
+    "icon": "star"
+  },
+  {
+    "id": 8,
+    "title": "Trusted Home Owners",
+    "description": "All home owners on our platform are verified to ensure trust, honesty, and a safe renting or buying experience.",
+    "icon": "user-check"
+  }
+]
