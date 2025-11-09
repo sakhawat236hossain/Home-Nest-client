@@ -28,20 +28,20 @@ const Navbar = () => {
     </NavLink>
   );
 
-
-
-  const handleLogOut=()=>{
-    logOutUser()
-     toast.success("LogOut successful!");
-  }
+  const handleLogOut = () => {
+    logOutUser();
+    toast.success("LogOut successful!");
+  };
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-[1400px] mx-auto px-4">
         <div className="flex justify-between h-16 items-center">
-
           {/* Logo */}
-          <Link className="text-xl font-bold text-indigo-600 flex items-center gap-2" to="/">
+          <Link
+            className="text-xl font-bold text-indigo-600 flex items-center gap-2"
+            to="/"
+          >
             <img
               className="w-[40px] hidden sm:block"
               src="https://img.icons8.com/?size=48&id=FkIuPao6TWWG&format=png"
@@ -53,7 +53,11 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <nav className="hidden md:flex gap-4">
             <NavItem to="/" label="Home" icon={GoHomeFill} />
-            <NavItem to="/properties" label="All Properties" icon={FaBuilding} />
+            <NavItem
+              to="/properties"
+              label="All Properties"
+              icon={FaBuilding}
+            />
             <NavItem to="/add-property" label="Add Property" icon={ImBoxAdd} />
             <NavItem to="/my-properties" label="My Properties" icon={FaUser} />
             <NavItem to="/my-ratings" label="My Ratings" icon={FaStar} />
@@ -61,7 +65,6 @@ const Navbar = () => {
 
           {/* Right Side */}
           <div className="flex items-center gap-3">
-
             {!user ? (
               <>
                 <Link
@@ -80,28 +83,27 @@ const Navbar = () => {
             ) : (
               <div className="relative">
                 <img
-                  src={user.photoURL}
+                  src={user?.photoURL}
                   alt="profile"
                   className="w-10 h-10 rounded-full border cursor-pointer"
                   onClick={() => setOpenDropdown(!openDropdown)}
                 />
                 {/* Dropdown */}
-             {openDropdown && (
-  <div className="absolute top-12 right-0 bg-white shadow-md rounded-md w-50 p-3 space-y-1">
-    <p className="font-semibold text-gray-800">
-      {user.displayName || "No Name"}
-    </p>
-    <p className="text-sm text-gray-600">{user.email}</p>
+                {openDropdown && (
+                  <div className="absolute top-12 right-0 bg-white shadow-md rounded-md w-80 p-3 space-y-1">
+                    <p className="font-semibold text-gray-800">
+                      {user.displayName || "No Name"}
+                    </p>
+                    <p className="text-sm text-gray-600">{user.email}</p>
 
-    <button
-      onClick={handleLogOut}
-      className="w-full text-red-500 font-semibold hover:bg-red-50 rounded-md p-2 mt-2"
-    >
-      Logout
-    </button>
-  </div>
-)}
-
+                    <button
+                      onClick={handleLogOut}
+                      className="w-full text-red-500 font-semibold hover:bg-red-50 rounded-md p-2 mt-2"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 
@@ -119,12 +121,24 @@ const Navbar = () => {
         {mobileOpen && (
           <div className="md:hidden bg-white border-t mt-2 p-3 space-y-2">
             <NavItem to="/" label="Home" icon={GoHomeFill} />
-            <NavItem to="/properties" label="All Properties" icon={FaBuilding} />
+            <NavItem
+              to="/properties"
+              label="All Properties"
+              icon={FaBuilding}
+            />
 
             {user && (
               <>
-                <NavItem to="/add-property" label="Add Property" icon={ImBoxAdd} />
-                <NavItem to="/my-properties" label="My Properties" icon={FaUser} />
+                <NavItem
+                  to="/add-property"
+                  label="Add Property"
+                  icon={ImBoxAdd}
+                />
+                <NavItem
+                  to="/my-properties"
+                  label="My Properties"
+                  icon={FaUser}
+                />
                 <NavItem to="/my-ratings" label="My Ratings" icon={FaStar} />
 
                 {/*  Mobile Logout Button */}
@@ -155,7 +169,6 @@ const Navbar = () => {
             )}
           </div>
         )}
-
       </div>
     </header>
   );

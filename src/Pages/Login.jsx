@@ -5,7 +5,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const { logInUser } = useContext(AuthContext);
+  const { logInUser,logInWithGoogle } = useContext(AuthContext);
   const location = useLocation()
   const navigate=useNavigate()
   console.log(location);
@@ -26,6 +26,18 @@ const Login = () => {
         toast.error(error.message);
       });
   };
+
+const handleGoogleLogin = () => {
+  logInWithGoogle()
+    .then((result) => {
+      toast.success(`Welcome ${result.user.displayName}!`);
+      navigate(`${location.state?location.state:"/"}`)
+    })
+    .catch((error) => {
+      console.error(error);
+      toast.error(error.message || "Google Login Failed!");
+    });
+};
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-50 via-white to-indigo-50 p-4">
@@ -75,6 +87,7 @@ const Login = () => {
 
         <button
           type="button"
+          onClick={handleGoogleLogin}
           className="flex items-center justify-center w-full border border-gray-300 py-2 sm:py-2.5 rounded-lg hover:bg-gray-100 transition font-medium text-sm sm:text-base"
         >
           <FcGoogle className="mr-2 text-lg sm:text-xl" />

@@ -1,20 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 
 const Register = () => {
-  const { createUser,setUser } = useContext(AuthContext);
-  // const 
+  const { createUser, setUser, logInWithGoogle, updateUserProfile } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
 
     const name = e.target.name.value;
     const email = e.target.email.value;
-    const photoURL = e.target.photoURL.value;
+    const photo = e.target.photoURL.value;
     const password = e.target.password.value;
 
     if (!name || !email || !password) {
@@ -25,7 +26,11 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-     setUser(user)
+        updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
+          setUser({ ...user, displayName: name, photoURL: photo });
+        });
+        
+
         toast.success("Registration successful!");
       })
       .catch((error) => {
@@ -33,8 +38,18 @@ const Register = () => {
         toast.error(`Registration failed: ${errorMessage}`);
         console.error("Registration error:", error);
       });
+  };
 
-    console.log({ name, email, photoURL, password });
+  const handleGoogleLogin = () => {
+    logInWithGoogle()
+      .then((result) => {
+        toast.success(`Welcome ${result.user.displayName}!`);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error(error.message || "Google Login Failed!");
+      });
   };
 
   return (
@@ -123,6 +138,7 @@ const Register = () => {
         {/* Google Sign-In Button */}
         <button
           type="button"
+          onClick={handleGoogleLogin}
           className="flex items-center justify-center w-full border border-gray-300 py-2 sm:py-2.5 rounded-lg hover:bg-gray-100 transition font-medium text-sm sm:text-base"
         >
           <FcGoogle className="mr-2 text-lg sm:text-xl" />
