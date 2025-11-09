@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import { FaBuilding, FaUser, FaStar } from "react-icons/fa6";
 import { ImBoxAdd } from "react-icons/im";
-import { IoLogIn } from "react-icons/io5";
+import { IoReorderThree } from "react-icons/io5";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 
@@ -47,7 +47,7 @@ const Navbar = () => {
               src="https://img.icons8.com/?size=48&id=FkIuPao6TWWG&format=png"
               alt="logo"
             />
-            Property
+            Property Hub
           </Link>
 
           {/* Desktop Menu */}
@@ -109,10 +109,12 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden"
+              className="md:hidden text-gray-900 dark:text-white"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
-              <span className="text-3xl">☰</span>
+              <span className="text-3xl">
+                <IoReorderThree />
+              </span>
             </button>
           </div>
         </div>

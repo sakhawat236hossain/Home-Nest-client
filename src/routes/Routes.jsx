@@ -15,8 +15,15 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/properties", element: <AllProperties /> },
+      { path: "/", 
+        element: <Home />
+        
+       },
+
+      { path: "/properties", 
+        element: <AllProperties /> ,
+        loader:()=>fetch("http://localhost:8000/allProperties")
+      },
       {
         path: "/add-property",
         element:<PrivateRoute> <AddProperty /></PrivateRoute>,

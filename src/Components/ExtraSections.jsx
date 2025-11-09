@@ -10,9 +10,9 @@ const ExtraSections = () => {
   ];
 
   const testimonials = [
-    { name: "Sarah Ahmed", review: "Found my perfect home easily! Service was excellent 💙", stars: 5 },
-    { name: "John Smith", review: "Very smooth process & trustworthy property deals!", stars: 5 },
-    { name: "Ayesha Khan", review: "Customer support was super friendly & helpful!", stars: 4 },
+    { name: "Sarah Ahmed", review: "Found my perfect home easily! Service was excellent 💙", stars: 5, avatar: "https://i.pravatar.cc/150?img=1" },
+    { name: "John Smith", review: "Very smooth process & trustworthy property deals!", stars: 5, avatar: "https://i.pravatar.cc/150?img=2" },
+    { name: "Ayesha Khan", review: "Customer support was super friendly & helpful!", stars: 4, avatar: "https://i.pravatar.cc/150?img=3" },
   ];
 
   return (
@@ -31,14 +31,14 @@ const ExtraSections = () => {
             {steps.map((item, idx) => (
               <motion.div
                 key={idx}
-                className="min-w-[260px] sm:min-w-[280px] lg:min-w-[300px] p-6 bg-white rounded-xl shadow-md border hover:shadow-lg transition flex-shrink-0"
+                className="min-w-[260px] sm:min-w-[280px] lg:min-w-[300px] p-6 bg-gradient-to-tr from-blue-50 to-indigo-50 rounded-xl shadow-md border hover:shadow-2xl transition flex-shrink-0"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="text-4xl">{item.icon}</span>
-                <h3 className="text-lg font-bold text-gray-900 mt-2">{item.title}</h3>
+                <div className="w-12 h-12 flex items-center justify-center text-2xl mb-3 bg-blue-100 rounded-full">{item.icon}</div>
+                <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
                 <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
               </motion.div>
             ))}
@@ -55,7 +55,7 @@ const ExtraSections = () => {
             <img
               src={houseImg}
               alt="How It Works"
-              className="rounded-2xl shadow-xl w-full lg:max-w-[480px] object-cover"
+              className="rounded-2xl shadow-xl w-full lg:max-w-[480px] object-cover hover:scale-105 transition-transform duration-500"
             />
           </motion.div>
 
@@ -76,10 +76,11 @@ const ExtraSections = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="p-6 bg-white rounded-xl shadow-md border hover:shadow-lg transition"
+              className="p-6 bg-white rounded-xl shadow-md border hover:shadow-2xl transition flex flex-col items-center text-center"
             >
+              <img src={client.avatar} alt={client.name} className="w-16 h-16 rounded-full mb-4" />
               <p className="text-gray-700 italic">“{client.review}”</p>
-              <div className="mt-4 text-yellow-500">
+              <div className="mt-4 text-yellow-500 text-lg">
                 {"⭐".repeat(client.stars)}
               </div>
               <h4 className="mt-2 font-semibold text-gray-900">{client.name}</h4>
