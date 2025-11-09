@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 
 const Register = () => {
   const { createUser,setUser } = useContext(AuthContext);
+  // const 
 
   const handleRegister = (e) => {
     e.preventDefault();

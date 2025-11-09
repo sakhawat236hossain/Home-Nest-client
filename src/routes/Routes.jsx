@@ -8,6 +8,7 @@ import MyRatings from "../Pages/MyRatings";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import NotFound from "../Pages/NotFound";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
       { path: "/properties", element: <AllProperties /> },
       {
         path: "/add-property",
-        element: <AddProperty />,
+        element:<PrivateRoute> <AddProperty /></PrivateRoute>,
       },
       {
         path: "/my-properties",
