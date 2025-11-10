@@ -9,6 +9,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import NotFound from "../Pages/NotFound";
 import PrivateRoute from "./PrivateRoute";
+import PropertyDetails from "../Components/PropertyDetails";
 
 const router = createBrowserRouter([
   {
@@ -19,10 +20,18 @@ const router = createBrowserRouter([
         element: <Home />
         
        },
+       {
+          
+       },
 
       { path: "/properties", 
         element: <AllProperties /> ,
         loader:()=>fetch("http://localhost:8000/allProperties")
+      },
+      {
+        path:"/PropertyDetails/:id",
+        element:<PrivateRoute><PropertyDetails></PropertyDetails></PrivateRoute>,
+        loader:({params})=>fetch(`http://localhost:8000/singleProperty/${params.id}`)
       },
       {
         path: "/add-property",

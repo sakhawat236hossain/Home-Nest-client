@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const PropertiesCard = ({ property }) => {
   const {
@@ -36,7 +37,7 @@ const PropertiesCard = ({ property }) => {
     </h2>
 
     <p className="text-green-600 font-semibold dark:text-green-400 text-base">
-      💲 {price.toLocaleString()}
+      💲 {price}
     </p>
 
     <p className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-sm">
@@ -51,12 +52,15 @@ const PropertiesCard = ({ property }) => {
       </span>
     </p>
 
-    <motion.button
-      whileTap={{ scale: 0.95 }}
-      className="mt-2 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition shadow hover:shadow-xl text-sm"
-    >
-      See Details
-    </motion.button>
+    <motion.div whileTap={{ scale: 0.95 }}>
+  <Link
+    to={`/PropertyDetails/${_id}`}
+    className="mt-2 w-full inline-block text-center py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition shadow hover:shadow-xl text-sm"
+  >
+    See Details
+  </Link>
+</motion.div>
+
   </div>
 </motion.div>
 
