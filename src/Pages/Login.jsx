@@ -69,6 +69,14 @@ const handleGoogleLogin = () => {
             className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 text-sm sm:text-base"
           />
         </div>
+        {/* <div className="text-left mb-3">
+  <Link
+    to="/reset-password"
+    className="text-indigo-600 hover:underline text-sm font-medium"
+  >
+    Forgot Password?
+  </Link>
+</div> */}
 
         <button
           type="submit"

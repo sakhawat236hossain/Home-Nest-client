@@ -22,7 +22,7 @@ const handleAddProperty = (e) => {
     createdAt: new Date(),
   };
 
- fetch("http://localhost:8000/addproperty", {
+ fetch("http://localhost:8000/addProperty", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -36,12 +36,12 @@ const handleAddProperty = (e) => {
     Swal.fire({
       position: "top-end",
       icon: "success",
-      title: "✅ Property Added Successfully!",
+      title: " Property Added Successfully!",
       showConfirmButton: false,
       timer: 1500,
     });
 
-    form.reset(); // ✅ form clear perfectly
+    form.reset(); 
   })
   .catch((err) => {
     console.log(err);
@@ -49,7 +49,7 @@ const handleAddProperty = (e) => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "❌ Failed to Add Property!",
+      text: " Failed to Add Property!",
     });
   });
 
