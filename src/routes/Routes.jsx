@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import PropertyDetails from "../Components/PropertyDetails";
 
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -68,6 +69,7 @@ const router = createBrowserRouter([
       },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
+      
     ],
   },
   { path: "*", element: <NotFound /> },

@@ -1,6 +1,48 @@
 import React from 'react';
+import toast from 'react-hot-toast/headless';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const MyPropertiesCard = ({ property }) => {
+const navigate=useNavigate()
+
+
+const handleDelete = () => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      fetch(`http://localhost:8000/deleteProperty/${property._id}`, {
+        method: 'DELETE',
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          navigate("/properties")
+          console.log(data);
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your property has been removed.",
+            icon: "success"
+          });
+        })
+        .catch(err => {
+          toast.error(err.message);
+        });
+    }
+  });
+};
+
+
 
   return (
     <div className="rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 duration-200 flex flex-col bg-gradient-to-br from-indigo-50 via-white to-indigo-100 border border-indigo-200">
@@ -45,7 +87,7 @@ const MyPropertiesCard = ({ property }) => {
             Update
           </button>
 
-          <button className="flex-1 py-1.5 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition font-medium shadow-sm">
+          <button onClick={handleDelete} className="flex-1 py-1.5 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition font-medium shadow-sm">
             Delete
           </button>
 
