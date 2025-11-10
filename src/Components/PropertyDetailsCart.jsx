@@ -48,7 +48,7 @@ const PropertyDetailsCart = ({ detailsData }) => {
 
           {/* Price */}
           <p className="text-xl font-bold text-green-600 dark:text-green-400">
-            ৳ {price}
+            💲{price}
           </p>
 
           {/* Location */}

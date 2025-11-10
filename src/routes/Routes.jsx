@@ -45,7 +45,7 @@ const router = createBrowserRouter([
         path: "/add-property",
         element: (
           <PrivateRoute>
-            {" "}
+         
             <AddProperty />
           </PrivateRoute>
         ),
