@@ -11,39 +11,60 @@ import NotFound from "../Pages/NotFound";
 import PrivateRoute from "./PrivateRoute";
 import PropertyDetails from "../Components/PropertyDetails";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
-      { path: "/", 
-        element: <Home />
-        
-       },
-       {
-          
-       },
+      {
+        path: "/",
+        element: <Home />,
+        loader: () =>
+          fetch("http://localhost:8000/latestProperty").then((res) =>
+            res.json()
+          ),
+      },
 
-      { path: "/properties", 
-        element: <AllProperties /> ,
-        loader:()=>fetch("http://localhost:8000/allProperties")
+      {
+        path: "/properties",
+        element: <AllProperties />,
+        loader: () => fetch("http://localhost:8000/allProperties"),
       },
       {
-        path:"/PropertyDetails/:id",
-        element:<PrivateRoute><PropertyDetails></PropertyDetails></PrivateRoute>,
-        loader:({params})=>fetch(`http://localhost:8000/singleProperty/${params.id}`)
+        path: "/PropertyDetails/:id",
+        element: (
+          <PrivateRoute>
+            <PropertyDetails></PropertyDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:8000/singleProperty/${params.id}`),
       },
       {
         path: "/add-property",
-        element:<PrivateRoute> <AddProperty /></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <AddProperty />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-properties",
-        element: <PrivateRoute><MyProperties /></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <MyProperties />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-ratings",
-        element: <PrivateRoute><MyRatings /></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <MyRatings />
+          </PrivateRoute>
+        ),
       },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },

@@ -1,10 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
 import { IoMdClock } from "react-icons/io";
 
-const PropertiesCard = ({ property }) => {
+const LatestCart = ({ Property }) => {
   const {
     _id,
     propertyName,
@@ -13,9 +13,13 @@ const PropertiesCard = ({ property }) => {
     location,
     imageLink,
     userName,
+    userEmail,
+ 
     createdAt,
-  } = property;
+  } = Property;
 
+  // Description short form
+ 
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
@@ -39,16 +43,26 @@ const PropertiesCard = ({ property }) => {
         </h2>
 
         <p className="text-green-600 font-semibold dark:text-green-400 text-base">
-          💲 {price}
+          ৳ {price}
         </p>
 
         <p className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-sm">
-          <FaMapMarkerAlt className="opacity-70" />
-          {location}
+          <FaMapMarkerAlt className="opacity-70" /> {location}
         </p>
+
+     
+
         <p className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-sm">
-        <IoMdClock />
-          {createdAt}
+          <FaEnvelope className="opacity-70" /> {userEmail}
+        </p>
+
+        <p className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-sm">
+          <IoMdClock className="opacity-70" />
+          {new Date(createdAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
         </p>
 
         <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -71,4 +85,4 @@ const PropertiesCard = ({ property }) => {
   );
 };
 
-export default PropertiesCard;
+export default LatestCart;
