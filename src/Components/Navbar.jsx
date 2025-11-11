@@ -112,9 +112,10 @@ const Navbar = () => {
               className="md:hidden text-gray-900 dark:text-white"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
-              <span className="text-3xl">
-                <IoReorderThree />
-              </span>
+        <span className="text-3xl text-black dark:text-white">
+  <IoReorderThree />
+</span>
+
             </button>
           </div>
         </div>

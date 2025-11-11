@@ -1,6 +1,6 @@
 import React from 'react';
 import toast from 'react-hot-toast/headless';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const MyPropertiesCard = ({ property }) => {
@@ -83,17 +83,17 @@ const handleDelete = () => {
 
         {/* Buttons */}
         <div className="pt-4 flex gap-2">
-          <button className="flex-1 py-1.5 text-sm bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition font-medium shadow-sm">
+          <Link to={`/update-property/${property._id}`} className="flex-1 py-1.5 text-center text-sm bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition font-medium shadow-sm">
             Update
-          </button>
+          </Link>
 
-          <button onClick={handleDelete} className="flex-1 py-1.5 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition font-medium shadow-sm">
+          <button onClick={handleDelete} className="flex-1 py-1.5 text-sm text-center bg-red-500 text-white rounded-md hover:bg-red-600 transition font-medium shadow-sm">
             Delete
           </button>
 
-          <button className="flex-1 py-1.5 text-sm bg-gray-900 text-white rounded-md hover:bg-black transition font-medium shadow-sm">
+          <Link to={`/propertyDetails/${property._id}`} className="flex-1 py-1.5 text-sm bg-gray-900 text-center text-white rounded-md hover:bg-black transition font-medium shadow-sm">
             Details
-          </button>
+          </Link>
         </div>
 
       </div>

@@ -10,8 +10,7 @@ import Register from "../Pages/Register";
 import NotFound from "../Pages/NotFound";
 import PrivateRoute from "./PrivateRoute";
 import PropertyDetails from "../Components/PropertyDetails";
-
-
+import UpdateProperty from "../Pages/UpdateProperty";
 
 const router = createBrowserRouter([
   {
@@ -43,10 +42,19 @@ const router = createBrowserRouter([
           fetch(`http://localhost:8000/singleProperty/${params.id}`),
       },
       {
+        path: "/update-property/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateProperty></UpdateProperty>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:8000/singleProperty/${params.id}`),
+      },
+      {
         path: "/add-property",
         element: (
           <PrivateRoute>
-         
             <AddProperty />
           </PrivateRoute>
         ),
@@ -69,7 +77,6 @@ const router = createBrowserRouter([
       },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
-      
     ],
   },
   { path: "*", element: <NotFound /> },
