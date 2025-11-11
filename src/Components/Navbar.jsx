@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import { FaBuilding, FaUser, FaStar } from "react-icons/fa6";
@@ -11,6 +11,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
   const { user, logOutUser } = useContext(AuthContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   const NavItem = ({ to, label, icon: Icon }) => (
     <NavLink
@@ -33,8 +34,19 @@ const Navbar = () => {
     toast.success("LogOut successful!");
   };
 
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  // toggle them
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="shadow-md sticky top-0 z-50">
       <div className="max-w-[1400px] mx-auto px-4">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
@@ -82,26 +94,49 @@ const Navbar = () => {
               </>
             ) : (
               <div className="relative">
+                {/* Profile Image */}
                 <img
                   src={user?.photoURL}
                   alt="profile"
-                  className="w-10 h-10 rounded-full border cursor-pointer"
+                  className="w-10 h-10 rounded-full border cursor-pointer border-2 border-red-400"
                   onClick={() => setOpenDropdown(!openDropdown)}
                 />
+
                 {/* Dropdown */}
                 {openDropdown && (
-                  <div className="absolute top-12 right-0 bg-white shadow-md rounded-md w-80 p-3 space-y-1">
-                    <p className="font-semibold text-gray-800">
-                      {user.displayName || "No Name"}
-                    </p>
-                    <p className="text-sm text-gray-600">{user.email}</p>
+                  <div className="absolute top-12 right-0 bg-gray-600 shadow-md rounded-md w-80 p-4 space-y-3 border border-gray-200 dark:border-gray-700">
+                    {/* User Info */}
+                    <div>
+                      <p className="font-semibold text-gray-800 dark:text-gray-200">
+                        {user.displayName || "No Name"}
+                      </p>
+                      <p className=" text-black dark:bg-white p-2">
+                        {user.email}
+                      </p>
+                    </div>
 
+                    {/* Logout Button */}
                     <button
                       onClick={handleLogOut}
-                      className="w-full text-red-500 font-semibold hover:bg-red-50 rounded-md p-2 mt-2"
+                      className="w-full btn btn-sm border border-indigo-600 text-indigo-600 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-700 transition"
                     >
                       Logout
                     </button>
+
+                    {/* Theme Toggle */}
+                    <div className="flex items-center gap-2 mt-2">
+                      <label className="text-sm text-gray-700 dark:text-gray-300">
+                        Dark Mode
+                      </label>
+                      <input
+                        type="checkbox"
+                        defaultChecked={
+                          localStorage.getItem("theme") === "dark"
+                        }
+                        className="toggle"
+                        onChange={(e) => handleTheme(e.target.checked)}
+                      />
+                    </div>
                   </div>
                 )}
               </div>
@@ -109,13 +144,12 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-gray-900 dark:text-white"
+              className="md:hidden text-gray-900"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
-        <span className="text-3xl text-black dark:text-white">
-  <IoReorderThree />
-</span>
-
+              <span className="text-3xl text-black dark:text-white ">
+                <IoReorderThree />
+              </span>
             </button>
           </div>
         </div>
@@ -143,6 +177,19 @@ const Navbar = () => {
                   icon={FaUser}
                 />
                 <NavItem to="/my-ratings" label="My Ratings" icon={FaStar} />
+
+                {/* theme  */}
+                <div className="flex items-center gap-2 mt-2">
+                  <label className="text-sm text-gray-700 dark:text-gray-300">
+                    Dark Mode
+                  </label>
+                  <input
+                    type="checkbox"
+                    defaultChecked={localStorage.getItem("theme") === "dark"}
+                    className="toggle"
+                    onChange={(e) => handleTheme(e.target.checked)}
+                  />
+                </div>
 
                 {/*  Mobile Logout Button */}
                 <button
