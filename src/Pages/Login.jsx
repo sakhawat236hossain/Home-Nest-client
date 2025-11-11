@@ -1,15 +1,17 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { useContext } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+
+import { AuthContext} from "../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
+import { useContext } from "react";
+
 
 const Login = () => {
   const { logInUser,logInWithGoogle } = useContext(AuthContext);
   const location = useLocation()
   const navigate=useNavigate()
   console.log(location);
-
+ 
   const handleLogIn = (e) => {
     e.preventDefault();
 
@@ -38,6 +40,13 @@ const handleGoogleLogin = () => {
       toast.error(error.message || "Google Login Failed!");
     });
 };
+
+const handleForgotPassword = () => {
+  window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
+};
+
+
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-50 via-white to-indigo-50 p-4">
@@ -69,18 +78,16 @@ const handleGoogleLogin = () => {
             className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 text-sm sm:text-base"
           />
         </div>
-        <div className="text-left mb-3">
-  <Link
-    to=""
-    className="text-indigo-600 hover:underline text-sm font-medium"
-  >
-    Forgot Password?
-  </Link>
-</div>
+            {/* Forgot Password */}
+              <div className="text-left mb-3">
+                <button onClick={handleForgotPassword} type="button" className="link text-green-600 link-hover text-sm">
+                  Forgot password?
+                </button>
+              </div>
 
         <button
           type="submit"
-          className="w-full bg-indigo-500 text-white py-2 sm:py-2.5 rounded-lg hover:bg-indigo-600 transition mb-4 font-medium text-sm sm:text-base"
+          className="w-full bg-indigo-500 cursor-pointer text-white py-2 sm:py-2.5 rounded-lg hover:bg-indigo-600 transition mb-4 font-medium text-sm sm:text-base"
         >
           Login
         </button>
@@ -96,7 +103,7 @@ const handleGoogleLogin = () => {
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="flex items-center justify-center w-full border border-gray-300 py-2 sm:py-2.5 rounded-lg hover:bg-gray-100 transition font-medium text-sm sm:text-base"
+          className="flex cursor-pointer items-center justify-center w-full border border-gray-300 py-2 sm:py-2.5 rounded-lg hover:bg-gray-100 transition font-medium text-sm sm:text-base"
         >
           <FcGoogle className="mr-2 text-lg sm:text-xl" />
           Sign in with Google
