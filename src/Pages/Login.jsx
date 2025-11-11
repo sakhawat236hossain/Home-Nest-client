@@ -3,13 +3,16 @@ import { FcGoogle } from "react-icons/fc";
 
 import { AuthContext} from "../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
 
 
 const Login = () => {
   const { logInUser,logInWithGoogle } = useContext(AuthContext);
   const location = useLocation()
   const navigate=useNavigate()
+      const [showPassword, setShowPassword] = useState(false);
   console.log(location);
  
   const handleLogIn = (e) => {
@@ -67,17 +70,21 @@ const handleForgotPassword = () => {
           />
         </div>
 
-        <div className="mb-5">
-          <label className="block mb-1 font-medium text-gray-700 text-sm sm:text-base">
-            Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 text-sm sm:text-base"
-          />
-        </div>
+             <div className="relative">
+         <input
+           type={showPassword ? "text" : "password"}
+           name="password"
+           placeholder="Enter your password"
+           className="input-style pr-16"
+         />
+         <button
+           type="button"
+           onClick={() => setShowPassword(!showPassword)}
+           className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-indigo-600"
+         >
+           {showPassword ? <FaEye /> :<IoEyeOff />}
+         </button>
+       </div>
             {/* Forgot Password */}
               <div className="text-left mb-3">
                 <button onClick={handleForgotPassword} type="button" className="link text-green-600 link-hover text-sm">

@@ -15,7 +15,7 @@ const PropertyDetailsCart = ({ detailsData }) => {
     createdAt,
   } =detailsData
 
-  // Formatted Date
+
 
   return (
     <motion.div

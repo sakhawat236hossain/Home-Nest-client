@@ -1,44 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
 
 const Register = () => {
   const { createUser, setUser, logInWithGoogle, updateUserProfile } =
     useContext(AuthContext);
+    const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+const handleRegister = (e) => {
+  e.preventDefault();
 
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const photo = e.target.photoURL.value;
-    const password = e.target.password.value;
+  const name = e.target.name.value;
+  const email = e.target.email.value;
+  const photo = e.target.photoURL.value;
+  const password = e.target.password.value;
 
-    if (!name || !email || !password) {
-      toast.error("Please fill in all required fields!");
-      return;
-    }
+  if (!name || !email || !password) {
+    toast.error("Please fill in all required fields!");
+    return;
+  }
 
-    createUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
-          setUser({ ...user, displayName: name, photoURL: photo });
-        });
-        
+  // Password Validation
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+  if (!passwordRegex.test(password)) {
+    toast.error(
+      "Password must have at least 6 characters, including uppercase and lowercase letters."
+    );
+    return;
+  }
 
-        toast.success("Registration successful!");
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        toast.error(`Registration failed: ${errorMessage}`);
-        console.error("Registration error:", error);
+  createUser(email, password)
+    .then((result) => {
+      const user = result.user;
+      updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
+        setUser({ ...user, displayName: name, photoURL: photo });
       });
-  };
+
+      toast.success("Registration successful!");
+    })
+    .catch((error) => {
+      const errorMessage = error.message;
+      toast.error(`Registration failed: ${errorMessage}`);
+      console.error("Registration error:", error);
+    });
+};
+
 
   const handleGoogleLogin = () => {
     logInWithGoogle()
@@ -105,23 +118,27 @@ const Register = () => {
         </div>
 
         {/* Password */}
-        <div className="mb-5 sm:mb-6">
-          <label className="block mb-1 font-medium text-gray-700 text-sm sm:text-base">
-            Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            required
-            className="w-full border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
-          />
-        </div>
+        <div className="relative">
+  <input
+    type={showPassword ? "text" : "password"}
+    name="password"
+    placeholder="Enter your password"
+    className="input-style pr-16"
+  />
+  <button
+    type="button"
+    onClick={() => setShowPassword(!showPassword)}
+    className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-indigo-600"
+  >
+    {showPassword ? <FaEye /> :<IoEyeOff />}
+  </button>
+</div>
+
 
         {/* Register Button */}
         <button
           type="submit"
-          className="w-full bg-indigo-600 text-white py-2 sm:py-2.5 rounded-lg hover:bg-indigo-700 transition mb-4 font-medium text-sm sm:text-base"
+          className="w-full mt-5 bg-indigo-600 text-white py-2 sm:py-2.5 rounded-lg hover:bg-indigo-700 transition mb-4 font-medium text-sm sm:text-base"
         >
           Register
         </button>

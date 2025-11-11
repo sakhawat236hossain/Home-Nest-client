@@ -43,7 +43,7 @@ const LatestCart = ({ Property }) => {
         </h2>
 
         <p className="text-green-600 font-semibold dark:text-green-400 text-base">
-          ৳ {price}
+          💲 {price}
         </p>
 
         <p className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-sm">
