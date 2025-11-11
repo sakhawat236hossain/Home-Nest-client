@@ -60,10 +60,10 @@ const PropertyDetailsCart = ({ detailsData }) => {
 
           {/* Description */}
           <div>
-            <p className="text-gray-500 font-semibold text-xs uppercase dark:text-gray-400 tracking-wide mb-1">
+            <p className="text-gray-500 font-bold text-xs uppercase dark:text-gray-400 tracking-wide mb-1">
               Description:
             </p>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700  dark:text-gray-300 leading-relaxed">
               {description}
             </p>
           </div>
