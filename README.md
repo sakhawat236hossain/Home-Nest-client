@@ -1,16 +1,132 @@
-# React + Vite
+# 🧑‍💻 Developer Info
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Developer:** Md Sakhawat Hossain  
+**GitHub (Client):** [github.com/sakhawat-homenest-client](https://github.com/sakhawat-homenest-client)  
+**GitHub (Server):** [github.com/sakhawat-homenest-server](https://github.com/sakhawat-homenest-server)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+# ⚙️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🖥️ Frontend
+- React.js (Vite)
+- React Router DOM
+- Tailwind CSS + DaisyUI
+- React Icons
+- React Hot Toast / SweetAlert2
+- Framer Motion (animation)
 
-## Expanding the ESLint configuration
+## 💾 Backend
+- Node.js + Express.js
+- MongoDB (Mongoose)
+- dotenv & cors
+- Hosted on Vercel
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+---
+
+#  Key Features
+
+### 🔐 User Authentication
+- Email/Password login  
+- Google login  
+- Dynamic Navbar based on login status  
+- Private/protected routes for Add, My Properties, and My Ratings pages  
+
+### 🏡 Property Management (CRUD)
+- Add new property listings  
+- Update and delete owned properties  
+- View property details with reviews and ratings  
+
+### 💬 Ratings & Reviews
+- Logged-in users can rate and review listed properties (1–5 stars)
+
+### 🌙 Dark/Light Mode
+- Toggle theme with persistent state (stored in localStorage)
+
+### 🔍 Smart Filters
+- Search by property name  
+- Sort properties by price or posted date (sorted on backend)
+
+### 📱 Responsive UI
+- Fully optimized for mobile, tablet, and desktop  
+- Sticky Navbar and clean layout for smooth navigation  
+
+
+---
+
+# 🧩 CRUD Functionalities
+
+### ➕ Add Property
+- Form fields: name, description, category, price, location, image, user info  
+- Stores in MongoDB  
+- Success toast on completion  
+
+### ✏️ Update Property
+- Pre-filled editable form  
+- Updates instantly in database  
+- Auto-navigates to details page  
+
+### ❌ Delete Property
+- Confirmation via SweetAlert2  
+- Updates UI instantly after deletion  
+
+
+---
+
+# 🎨 UI Highlights
+- Modern header with profile dropdown  
+- Animated loading spinners  
+- SweetAlert / toast-based notifications  
+- Clean card layouts and balanced spacing  
+- Consistent color, font, and button design  
+- 404 page for invalid routes  
+
+
+---
+
+# 🏠 Home Page Sections
+- Carousel / Banner (3+ slides)  
+- Featured Real Estates (latest 8 listings)  
+- Why Choose Us (static section)  
+- Two extra meaningful sections (e.g., “Our Agents”, “Customer Reviews”)  
+
+
+---
+
+# 💥 Bonus Implementations
+- Framer Motion animations for smoother interactions  
+- Theme persistence across reloads  
+- Auto-close dropdown on outside click  
+- Instant property list update after CRUD operations  
+
+
+---
+
+# ⚠️ Important Notes
+- Page does not throw reload errors on any route  
+- Logged-in users stay logged in on page reload  
+- Domain authorized in Firebase settings  
+
+
+---
+
+# ✅ Project Requirements Checklist
+-  Header + Footer on all pages (except 404)  
+-  Firebase Auth (Email & Google)  
+-  Protected Routes  
+-  CRUD Operations (MongoDB)  
+-  Sort + Search Functionality  
+-  Dark/Light Mode  
+-  Toast / SweetAlert2  
+-  Responsive Layout  
+-  Minimum Commit Rules Met  
+
+
+---
+
+# 🚧 Challenges Faced
+- Implementing theme persistence and dropdown auto-close  
+- Managing protected route reloading without Firebase redirect  
+- Keeping real-time UI sync after MongoDB CRUD operations  

@@ -18,7 +18,11 @@ const Footer = () => {
         {/* Logo & Website */}
         <div className="flex flex-col items-start">
           <div className="flex items-center gap-2 text-2xl font-bold text-indigo-600 mb-2">
-            <FaBuilding /> PropertyHub
+              <img
+              className="w-[40px] hidden sm:block"
+              src="https://img.icons8.com/?size=48&id=FkIuPao6TWWG&format=png"
+              alt="logo"
+            /> PropertyHub
           </div>
           <p className="text-sm text-gray-600">
             Your trusted platform for buying, selling, and managing properties.
