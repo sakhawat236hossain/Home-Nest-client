@@ -1,37 +1,33 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { BsTwitterX } from "react-icons/bs";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaBuilding,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Footer = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <footer className="bg-gray-100 text-gray-700 mt-10">
+    <footer className="bg-gray-100 text-gray-700 mt-10 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Logo & Website */}
         <div className="flex flex-col items-start">
           <div className="flex items-center gap-2 text-2xl font-bold text-indigo-600 mb-2">
-              <img
+            <img
               className="w-[40px] hidden sm:block"
               src="https://img.icons8.com/?size=48&id=FkIuPao6TWWG&format=png"
               alt="logo"
-            /> PropertyHub
+            />
+            PropertyHub
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 leading-relaxed">
             Your trusted platform for buying, selling, and managing properties.
           </p>
         </div>
 
         {/* Page Links */}
         <div>
-          <h3 className="font-semibold mb-2">Pages</h3>
+          <h3 className="font-semibold mb-2 text-gray-800">Pages</h3>
           <ul className="space-y-1 text-sm">
             <li>
               <Link className="hover:text-indigo-600 transition-colors" to="/">
@@ -46,7 +42,7 @@ const Footer = () => {
                 All Properties
               </Link>
             </li>
-            {user && (
+            {user ? (
               <>
                 <li>
                   <Link
@@ -73,8 +69,7 @@ const Footer = () => {
                   </Link>
                 </li>
               </>
-            )}
-            {!user && (
+            ) : (
               <>
                 <li>
                   <Link
@@ -99,7 +94,7 @@ const Footer = () => {
 
         {/* Contact Details */}
         <div>
-          <h3 className="font-semibold mb-2">Contact Us</h3>
+          <h3 className="font-semibold mb-2 text-gray-800">Contact Us</h3>
           <ul className="space-y-1 text-sm">
             <li>Email: hmdsakhawat236@gmail.com</li>
             <li>Phone: +880 1851121472</li>
@@ -109,10 +104,12 @@ const Footer = () => {
 
         {/* Social Media */}
         <div>
-          <h3 className="font-semibold mb-2">Follow Us</h3>
-          <div className="flex gap-3 mt-2">
+          <h3 className="font-semibold mb-2 text-gray-800">Follow Us</h3>
+          <div className="flex gap-3 mt-2 text-lg">
             <a
               href="https://www.facebook.com/md.sakhawth.hosain"
+              target="_blank"
+              rel="noreferrer"
               className="hover:text-indigo-600 transition-colors"
             >
               <FaFacebookF />
@@ -122,12 +119,16 @@ const Footer = () => {
             </a>
             <a
               href="https://www.instagram.com/mhmdshwthsyn/?hl=en"
+              target="_blank"
+              rel="noreferrer"
               className="hover:text-indigo-600 transition-colors"
             >
               <FaInstagram />
             </a>
             <a
               href="https://www.linkedin.com/in/md-sakhawat-hossain-622728373/"
+              target="_blank"
+              rel="noreferrer"
               className="hover:text-indigo-600 transition-colors"
             >
               <FaLinkedinIn />
@@ -137,8 +138,15 @@ const Footer = () => {
       </div>
 
       {/* Bottom */}
-      <div className="bg-gray-200 text-center py-4 text-sm text-gray-600">
-        PropertyHub. All rights reserved.
+      <div className="bg-gray-200 text-center py-4 text-sm text-gray-600 flex flex-col sm:flex-row justify-center items-center gap-2">
+        <p>© 2025 PropertyHub. All rights reserved.</p>
+        <span className="hidden sm:inline-block text-gray-400">|</span>
+        <Link
+          to="/terms"
+          className="hover:text-indigo-600 transition-colors underline-offset-2 hover:underline"
+        >
+          Terms & Conditions
+        </Link>
       </div>
     </footer>
   );

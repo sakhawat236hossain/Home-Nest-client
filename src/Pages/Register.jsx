@@ -13,7 +13,6 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
-
 const handleRegister = (e) => {
   e.preventDefault();
 
@@ -27,7 +26,6 @@ const handleRegister = (e) => {
     return;
   }
 
-  // Password Validation
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
   if (!passwordRegex.test(password)) {
     toast.error(
@@ -44,6 +42,8 @@ const handleRegister = (e) => {
       });
 
       toast.success("Registration successful!");
+      e.target.reset(); // ✅ এই লাইনেই reset হবে
+      navigate("/");
     })
     .catch((error) => {
       const errorMessage = error.message;

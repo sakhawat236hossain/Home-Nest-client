@@ -11,6 +11,7 @@ import NotFound from "../Pages/NotFound";
 import PrivateRoute from "./PrivateRoute";
 import PropertyDetails from "../Components/PropertyDetails";
 import UpdateProperty from "../Pages/UpdateProperty";
+import Terms from "../Components/Terms";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,11 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+  path: "/terms",
+  element: <Terms />,
+},
+
       {
         path: "/my-ratings",
         element: (

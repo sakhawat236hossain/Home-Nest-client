@@ -1,8 +1,8 @@
 # 🧑‍💻 Developer Info
 
 **Developer:** Md Sakhawat Hossain  
-**GitHub (Client):** [github.com/sakhawat-homenest-client](https://github.com/sakhawat-homenest-client)  
-**GitHub (Server):** [github.com/sakhawat-homenest-server](https://github.com/sakhawat-homenest-server)
+**GitHub (Client):** [github.com/sakhawat-homenest-client](https://github.com/sakhawat236hossain/Home-Nest-client.git)  
+**GitHub (Server):** [github.com/sakhawat-homenest-server](https://github.com/sakhawat236hossain/Home-Nest-server.git)
 
 
 ---

@@ -1,12 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import LoadingSpinner from "../Components/LoadingSpinner";
+
 import MyPropertiesCard from "../Components/MyPropertiesCard.";
+import LoadingData from "../Components/LoadingData";
 
 const MyProperties = () => {
   const { user } = useContext(AuthContext);
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (!user?.email) return;
@@ -20,7 +29,7 @@ const MyProperties = () => {
   }, [user]);
 
   if (loading) {
-    return <LoadingSpinner />;
+    return <LoadingData></LoadingData>
   }
 
   return (

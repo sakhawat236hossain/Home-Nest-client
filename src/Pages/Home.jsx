@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BannerSlider from "../Components/BannerSlider";
 import WhyChooseUs from "../Components/WhyChooseUs";
 import ExtraSections from "../Components/ExtraSections";
 
 import { useLoaderData } from "react-router-dom";
 import LatestCart from "../Components/LatestCart";
+import LoadingData from "../Components/LoadingData";
 
 const Home = () => {
   const latestPropertyData = useLoaderData() || [];
+const [loading,setLoading]=useState(true)
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setLoading(false);
+  }, 1500);
 
+  return () => clearTimeout(timer);
+}, []);
+
+if (loading) {
+  return <LoadingData />;
+}
   return (
     <div>
       <BannerSlider />
