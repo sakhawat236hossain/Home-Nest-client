@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
-const RatingCart = ({ rating, handleDelete }) => {
-  if (!rating) return null;
+const RatingCart = ({ rating }) => {
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const {
     _id,
@@ -16,90 +18,89 @@ const RatingCart = ({ rating, handleDelete }) => {
     propertyThumbnail,
   } = rating;
 
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:8000/deletePropertyRating/${_id}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your property has been removed.",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+            setIsDeleted(true); // hide from UI
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          });
+      }
+    });
+  };
+
+  // 🧹 যদি ডিলিট হয়, তাহলে কার্ডটা রেন্ডার হবে না
+  if (isDeleted) return null;
+
   return (
-    <div
-      className="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl
-      border border-blue-100 overflow-hidden transform hover:-translate-y-[2px]
-      transition-all duration-300 p-2"
-    >
-{/* 🏠 Image Section */}
-<div className="relative h-36 overflow-hidden rounded-t-2xl shadow-inner">
-  <img
-    src={propertyThumbnail}
-    alt={propertyName}
-    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105 hover:brightness-90"
-  />
+    <div className="max-w-xs mx-auto bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border border-indigo-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
+      {/* Thumbnail */}
+      <img
+        src={propertyThumbnail}
+        alt={propertyName}
+        className="w-full h-48 object-cover"
+      />
 
-  {/* 🔴 Delete Button */}
-  <button
-    onClick={() => handleDelete && handleDelete(_id)}
-    className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white text-xs 
-    px-3 py-1.5 rounded-full shadow-md transition-all duration-200 z-10"
-  >
-    ❌ Delete
-  </button>
+      {/* Content */}
+      <div className="p-3 space-y-1.5">
+        <label className="text-xs font-semibold text-indigo-700">
+          Property Name:
+        </label>
+        <h2 className="text-base font-bold text-gray-800 leading-tight">
+          {propertyName}
+        </h2>
 
-  {/* Dark Overlay on hover */}
-  <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300 rounded-t-2xl"></div>
-</div>
+        <label className="text-xs font-semibold text-indigo-700">Rating:</label>
+        <div className="flex items-center gap-1">
+          <Rating style={{ maxWidth: 80 }} value={ratingValue} readOnly />
+          <span className="text-xs text-gray-600">{ratingValue}/5</span>
+        </div>
 
-      
-   {/* Property Info */}
-<div>
-  <label className="inline-block text-[10px] text-blue-500 uppercase tracking-wide 
-    bg-blue-50 px-1.5 py-[1px] rounded-md mb-1">
-    Property
-  </label>
-  <h3 className="text-sm font-semibold text-blue-700">{propertyName}</h3>
-</div>
+        <label className="text-xs font-semibold text-indigo-700">Review:</label>
+        <p className="text-gray-700 text-xs">
+          “{reviewText || "No review"}”
+        </p>
 
-{/* Reviewer Info */}
-<div>
-  <label className="inline-block text-[10px] text-green-500 uppercase tracking-wide 
-    bg-green-50 px-1.5 py-[1px] rounded-md mb-1">
-    Reviewer
-  </label>
-  <p className="text-xs text-gray-800 font-medium">{reviewerName}</p>
-  <p className="text-[9px] text-gray-500">{reviewerEmail}</p>
-</div>
+        <label className="text-xs font-semibold text-indigo-700">
+          Reviewer:
+        </label>
+        <p className="text-xs text-gray-600">
+          {reviewerName} ({reviewerEmail})
+        </p>
 
-{/* Rating */}
-<div>
-  <label className="inline-block text-[10px] text-yellow-600 uppercase tracking-wide 
-    bg-yellow-50 px-1.5 py-[1px] rounded-md mb-1">
-    Rating
-  </label>
-  <div className="flex items-center gap-1 mt-[1px]">
-    <Rating style={{ maxWidth: 90 }} value={ratingValue} readOnly />
-    <span className="text-xs text-gray-700">{ratingValue}/5</span>
-  </div>
-</div>
+        <p className="text-[10px] text-gray-400">
+          {new Date(reviewDate).toLocaleDateString()}
+        </p>
 
-{/* Review Text */}
-<div>
-  <label className="inline-block text-[10px] text-purple-600 uppercase tracking-wide 
-    bg-purple-50 px-1.5 py-[1px] rounded-md mb-1">
-    Review
-  </label>
-  <p
-    className="text-xs text-gray-700 italic leading-snug bg-gradient-to-r 
-    from-blue-50 to-blue-100 rounded-md px-3 py-2 border border-blue-100 shadow-sm"
-  >
-    “{reviewText || "No review text provided"}”
-  </p>
-</div>
-
-{/* Date */}
-<div className="flex justify-between items-center border-t pt-2 mt-1 text-[10px] text-gray-500">
-  <span>
-    <label className="text-gray-400 mr-1 inline-block bg-gray-100 px-1 rounded">
-      Date:
-    </label>
-    {new Date(reviewDate).toLocaleDateString()}
-  </span>
-  <span className="text-blue-600 font-semibold">✅ Verified</span>
-</div>
-
+        <button
+          onClick={handleDelete}
+          className="w-full mt-2 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white py-1 rounded-lg text-xs font-medium shadow-sm transition-all duration-200"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };
