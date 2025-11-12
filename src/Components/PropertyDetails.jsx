@@ -52,6 +52,7 @@ const PropertyDetails = () => {
 
   return (
     <div className="px-3 flex justify-center bg-gradient-to-b from-blue-50 to-blue-100 min-h-screen py-6">
+      <title>Details Ratings & Reviews</title>
       <div className="w-full max-w-2xl space-y-8">
         <PropertyDetailsCart detailsData={detailsData} />
 

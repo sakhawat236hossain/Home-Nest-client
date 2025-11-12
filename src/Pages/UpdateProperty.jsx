@@ -64,7 +64,7 @@ const UpdateProperty = () => {
     <div className="max-w-3xl mx-auto p-8 bg-gradient-to-br from-blue-50 via-purple-50 to-blue-100 
     dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 
     rounded-2xl shadow-xl border border-blue-200 dark:border-gray-700 my-12">
-
+<title>Update Property Page</title>
       <div className="mb-8 text-center">
         <h2 className="text-3xl font-extrabold bg-clip-text text-transparent 
         bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">

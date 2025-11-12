@@ -13,6 +13,7 @@ const MyRatings = () => {
 
   return (
     <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-5 p-5">
+      <title>My Ratings</title>
       {ratingsData.map((rating) => (
         <RatingCart key={rating._id} rating={rating} />
       ))}

@@ -57,6 +57,7 @@ const handleAddProperty = (e) => {
 
   return (
     <div className="max-w-sm mx-auto my-6 p-4 bg-white shadow-md rounded-xl border border-gray-200">
+      <title>Add Property page</title>
       <h2 className="text-xl font-semibold text-center mb-4 text-blue-600">
         Add New Property
       </h2>

@@ -15,6 +15,7 @@ const Home = () => {
 
       {/* Latest Properties Section */}
       <div className="my-12 max-w-7xl mx-auto px-4">
+        <title>Home Page</title>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-800 dark:text-white">
           Latest Properties
         </h1>

@@ -35,7 +35,7 @@ if (loading) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-
+<title>All Property page</title>
       {/*  Page Title */}
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-5">
         <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
