@@ -1,5 +1,6 @@
 import React from 'react';
 import toast from 'react-hot-toast/headless';
+import { FaDollarSign } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -68,9 +69,12 @@ const handleDelete = () => {
             <span className="font-semibold text-indigo-800">Category:</span> {property.category}
           </p>
 
-          <p className="text-sm text-gray-700">
-            <span className="font-semibold text-indigo-800">Price:</span> {property.price} ৳
-          </p>
+          <p className="text-sm text-gray-700 flex items-center gap-1">
+  <span className="font-semibold text-indigo-800">Price:</span> 
+  {property.price} 
+  <FaDollarSign className="text-indigo-800" />
+</p>
+
 
           <p className="text-sm text-gray-700">
             <span className="font-semibold text-indigo-800">Location:</span> {property.location}
