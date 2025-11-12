@@ -74,6 +74,7 @@ const router = createBrowserRouter([
             <MyRatings />
           </PrivateRoute>
         ),
+        loader: () => fetch("http://localhost:8000/allPropertyRatings"),
       },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },

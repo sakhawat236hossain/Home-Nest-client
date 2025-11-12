@@ -23,7 +23,7 @@ fetch(`http://localhost:8000/searchProperty?search=${search_text}`)
 useEffect(() => {
   const timer = setTimeout(() => {
     setLoading(false);
-  }, 3000);
+  }, 1500);
 
   return () => clearTimeout(timer);
 }, []);
