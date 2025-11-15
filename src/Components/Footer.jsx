@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { BsTwitterX } from "react-icons/bs";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const { user } = useContext(AuthContext);
@@ -10,6 +11,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-100 text-gray-700 mt-10 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+        
         {/* Logo & Website */}
         <div className="flex flex-col items-start">
           <div className="flex items-center gap-2 text-2xl font-bold text-indigo-600 mb-2">
@@ -25,72 +27,50 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Page Links */}
-        <div>
-          <h3 className="font-semibold mb-2 text-gray-800">Pages</h3>
-          <ul className="space-y-1 text-sm">
-            <li>
-              <Link className="hover:text-indigo-600 transition-colors" to="/">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="hover:text-indigo-600 transition-colors"
-                to="/properties"
-              >
-                All Properties
-              </Link>
-            </li>
-            {user ? (
-              <>
-                <li>
-                  <Link
-                    className="hover:text-indigo-600 transition-colors"
-                    to="/add-property"
-                  >
-                    Add Property
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-indigo-600 transition-colors"
-                    to="/my-properties"
-                  >
-                    My Properties
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-indigo-600 transition-colors"
-                    to="/my-ratings"
-                  >
-                    My Ratings
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link
-                    className="hover:text-indigo-600 transition-colors"
-                    to="/login"
-                  >
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-indigo-600 transition-colors"
-                    to="/register"
-                  >
-                    Register
-                  </Link>
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
+    
+      {/* Page Links */}
+<div className="w-full md:w-auto">
+  <h3 className="font-semibold mb-3 text-gray-800 text-center md:text-left">
+    Pages
+  </h3>
+
+  <ul className="space-y-2 text-sm flex flex-col items-center md:items-start">
+
+    {/* Reusable motion settings */}
+    {[
+      { to: "/", label: "Home" },
+      { to: "/properties", label: "All Properties" },
+      ...(user
+        ? [
+            { to: "/add-property", label: "Add Property" },
+            { to: "/my-properties", label: "My Properties" },
+            { to: "/my-ratings", label: "My Ratings" },
+          ]
+        : [
+            { to: "/login", label: "Login" },
+            { to: "/register", label: "Register" },
+          ]),
+    ].map((item, index) => (
+      <motion.li
+        key={index}
+        whileHover={{
+          scale: 1.15,
+          x: 6,
+          rotate: 2,
+          color: "#4F46E5",
+        }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ type: "spring", stiffness: 220 }}
+      >
+        <Link className="transition-colors" to={item.to}>
+          {item.label}
+        </Link>
+      </motion.li>
+    ))}
+
+  </ul>
+</div>
+
 
         {/* Contact Details */}
         <div>
@@ -102,37 +82,90 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Social Media */}
+        {/* Social Media + Subscribe */}
         <div>
           <h3 className="font-semibold mb-2 text-gray-800">Follow Us</h3>
-          <div className="flex gap-3 mt-2 text-lg">
-            <a
+
+          {/* Motion Animated Social Icons */}
+          <div className="flex gap-3 mt-2 text-lg mb-4">
+            <motion.a
+              whileHover={{
+                scale: 1.3,
+                rotate: 5,
+                boxShadow: "0px 0px 12px rgba(59,89,152,0.6)",
+                color: "#3b5998",
+              }}
+              whileTap={{ scale: 0.9 }}
               href="https://www.facebook.com/md.sakhawth.hosain"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-indigo-600 transition-colors"
+              className="transition-colors"
             >
               <FaFacebookF />
-            </a>
-            <a href="#" className="hover:text-indigo-600 transition-colors">
+            </motion.a>
+
+            <motion.a
+              whileHover={{
+                scale: 1.3,
+                rotate: -5,
+                boxShadow: "0px 0px 12px rgba(0,0,0,0.6)",
+                color: "#000",
+              }}
+              whileTap={{ scale: 0.9 }}
+              href="#"
+              className="transition-colors"
+            >
               <BsTwitterX />
-            </a>
-            <a
+            </motion.a>
+
+            <motion.a
+              whileHover={{
+                scale: 1.3,
+                rotate: 5,
+                boxShadow: "0px 0px 12px rgba(225,48,108,0.6)",
+                color: "#E1306C",
+              }}
+              whileTap={{ scale: 0.9 }}
               href="https://www.instagram.com/mhmdshwthsyn/?hl=en"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-indigo-600 transition-colors"
+              className="transition-colors"
             >
               <FaInstagram />
-            </a>
-            <a
+            </motion.a>
+
+            <motion.a
+              whileHover={{
+                scale: 1.3,
+                rotate: -5,
+                boxShadow: "0px 0px 12px rgba(14,118,168,0.6)",
+                color: "#0E76A8",
+              }}
+              whileTap={{ scale: 0.9 }}
               href="https://www.linkedin.com/in/md-sakhawat-hossain-622728373/"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-indigo-600 transition-colors"
+              className="transition-colors"
             >
               <FaLinkedinIn />
-            </a>
+            </motion.a>
+          </div>
+
+          {/* Subscribe Box */}
+          <h3 className="font-semibold mb-2 text-gray-800">Subscribe</h3>
+          <p className="text-sm text-gray-600 mb-3">
+            Get the latest updates and offers.
+          </p>
+
+          <div className="flex items-center gap-2">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="px-3 py-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:ring focus:ring-indigo-300"
+            />
+            <button className="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
