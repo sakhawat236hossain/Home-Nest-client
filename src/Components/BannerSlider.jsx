@@ -1,23 +1,72 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FaArrowRight } from "react-icons/fa"; // <-- icon import
+import { FaArrowRight } from "react-icons/fa";
 
 import flat from "../assets/flat.jpg";
 import apartment from "../assets/car.jpg";
 import house from "../assets/house.jpg";
 
-const images = [flat, apartment, house];
+const images = [
+  {
+    src: flat,
+    title: "Find Your Dream Home",
+    subtitle: "Browse the best properties in your city",
+  },
+  {
+    src: apartment,
+    title: "Best Deals on Properties",
+    subtitle: "Affordable homes for your perfect life",
+  },
+  {
+    src: house,
+    title: "Trusted Real Estate Platform",
+    subtitle: "We provide verified and reliable listings",
+  },
+];
 
 const Banner = () => {
   const [current, setCurrent] = useState(0);
+  const [typedTitle, setTypedTitle] = useState("");
+  const [typedSubtitle, setTypedSubtitle] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
-    }, 3000);
+    }, 5000); // slide change every 5 sec
     return () => clearInterval(interval);
   }, []);
+
+  // Typewriter effect for current slide
+  useEffect(() => {
+    const title = images[current].title;
+    const subtitle = images[current].subtitle;
+
+    setTypedTitle("");
+    setTypedSubtitle("");
+
+    let titleIndex = 0;
+    let subtitleIndex = 0;
+
+    const titleInterval = setInterval(() => {
+      setTypedTitle((prev) => prev + title[titleIndex]);
+      titleIndex++;
+      if (titleIndex === title.length) clearInterval(titleInterval);
+    }, 100);
+
+    const subtitleInterval = setTimeout(() => {
+      const subInterval = setInterval(() => {
+        setTypedSubtitle((prev) => prev + subtitle[subtitleIndex]);
+        subtitleIndex++;
+        if (subtitleIndex === subtitle.length) clearInterval(subInterval);
+      }, 50);
+    }, title.length * 100 + 300); // subtitle starts after title typed
+
+    return () => {
+      clearInterval(titleInterval);
+      clearTimeout(subtitleInterval);
+    };
+  }, [current]);
 
   const prevSlide = () =>
     setCurrent((current - 1 + images.length) % images.length);
@@ -33,97 +82,42 @@ const Banner = () => {
             className="flex transition-transform duration-700 ease-in-out"
             style={{ transform: `translateX(-${current * 100}%)` }}
           >
-            {images.map((src, i) => (
+            {images.map((img, i) => (
               <div key={i} className="w-full shrink-0 relative">
                 <img
-                  src={src}
+                  src={img.src}
                   alt="Property"
                   className="w-full h-[40vh] md:h-[55vh] lg:h-[65vh] object-cover brightness-75"
                 />
 
                 {/* Text Overlay + Explore More Button */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white px-4">
+                {i === current && (
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white px-4">
+                    <h2 className="text-2xl md:text-4xl font-bold mb-2">
+                      {typedTitle}
+                    </h2>
+                    <p className="mb-4 text-sm md:text-lg">{typedSubtitle}</p>
 
-                  {i === 0 && (
-                    <>
-                      <h2 className="text-2xl md:text-4xl font-bold mb-2">
-                        Find Your Dream Home
-                      </h2>
-                      <p className="mb-4 text-sm md:text-lg">
-                        Browse the best properties in your city
-                      </p>
-
-                      <motion.a
-                        href="/properties"
-                        whileHover={{
-                          scale: 1.1,
-                          boxShadow: "0 0 15px rgba(255,255,255,0.6)",
-                          backgroundColor: "rgba(255,255,255,0.2)",
-                        }}
-                        whileTap={{ scale: 0.95 }}
-                        className="px-4 py-2 md:px-6 md:py-2 bg-white/30 text-white backdrop-blur-md 
-                        rounded-full text-sm md:text-base font-semibold border border-white/40 flex items-center justify-center gap-2"
-                      >
-                        Explore More <FaArrowRight />
-                      </motion.a>
-                    </>
-                  )}
-
-                  {i === 1 && (
-                    <>
-                      <h2 className="text-2xl md:text-4xl font-bold mb-2">
-                        Best Deals on Properties
-                      </h2>
-                      <p className="mb-4 text-sm md:text-lg">
-                        Affordable homes for your perfect life
-                      </p>
-
-                      <motion.a
-                        href="/properties"
-                        whileHover={{
-                          scale: 1.1,
-                          boxShadow: "0 0 15px rgba(255,255,255,0.6)",
-                          backgroundColor: "rgba(255,255,255,0.2)",
-                        }}
-                        whileTap={{ scale: 0.95 }}
-                        className="px-4 py-2 md:px-6 md:py-2 bg-white/30 text-white backdrop-blur-md 
+                    <motion.a
+                      href="/properties"
+                      whileHover={{
+                        scale: 1.1,
+                        boxShadow: "0 0 15px rgba(255,255,255,0.6)",
+                        backgroundColor: "rgba(255,255,255,0.2)",
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-4 py-2 md:px-6 md:py-2 bg-white/30 text-white backdrop-blur-md 
                         rounded-full text-sm md:text-base font-semibold flex items-center justify-center gap-2 border border-white/40"
-                      >
-                        Explore More <FaArrowRight />
-                      </motion.a>
-                    </>
-                  )}
-
-                  {i === 2 && (
-                    <>
-                      <h2 className="text-2xl md:text-4xl font-bold mb-2">
-                        Trusted Real Estate Platform
-                      </h2>
-                      <p className="mb-4 text-sm md:text-lg">
-                        We provide verified and reliable listings
-                      </p>
-
-                      <motion.a
-                        href="/properties"
-                        whileHover={{
-                          scale: 1.1,
-                          boxShadow: "0 0 15px rgba(255,255,255,0.6)",
-                          backgroundColor: "rgba(255,255,255,0.2)",
-                        }}
-                        whileTap={{ scale: 0.95 }}
-                        className="px-4 py-2 md:px-6 md:py-2 bg-white/30 text-white backdrop-blur-md 
-                        rounded-full text-sm md:text-base font-semibold flex items-center justify-center gap-2 border border-white/40"
-                      >
-                        Explore More <FaArrowRight />
-                      </motion.a>
-                    </>
-                  )}
-                </div>
+                    >
+                      Explore More <FaArrowRight />
+                    </motion.a>
+                  </div>
+                )}
               </div>
             ))}
           </div>
 
-          {/* Motion Navigation Buttons */}
+          {/* Navigation Buttons */}
           <motion.button
             onClick={prevSlide}
             whileHover={{
