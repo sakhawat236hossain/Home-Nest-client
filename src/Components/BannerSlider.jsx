@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { FaArrowRight } from "react-icons/fa"; // <-- icon import
 
 import flat from "../assets/flat.jpg";
 import apartment from "../assets/car.jpg";
@@ -43,7 +44,6 @@ const Banner = () => {
                 {/* Text Overlay + Explore More Button */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white px-4">
 
-                  {/* Slide 1 */}
                   {i === 0 && (
                     <>
                       <h2 className="text-2xl md:text-4xl font-bold mb-2">
@@ -62,14 +62,13 @@ const Banner = () => {
                         }}
                         whileTap={{ scale: 0.95 }}
                         className="px-4 py-2 md:px-6 md:py-2 bg-white/30 text-white backdrop-blur-md 
-                        rounded-full text-sm md:text-base font-semibold border border-white/40"
+                        rounded-full text-sm md:text-base font-semibold border border-white/40 flex items-center justify-center gap-2"
                       >
-                        Explore More
+                        Explore More <FaArrowRight />
                       </motion.a>
                     </>
                   )}
 
-                  {/* Slide 2 */}
                   {i === 1 && (
                     <>
                       <h2 className="text-2xl md:text-4xl font-bold mb-2">
@@ -88,14 +87,13 @@ const Banner = () => {
                         }}
                         whileTap={{ scale: 0.95 }}
                         className="px-4 py-2 md:px-6 md:py-2 bg-white/30 text-white backdrop-blur-md 
-                        rounded-full text-sm md:text-base font-semibold border border-white/40"
+                        rounded-full text-sm md:text-base font-semibold flex items-center justify-center gap-2 border border-white/40"
                       >
-                        Explore More
+                        Explore More <FaArrowRight />
                       </motion.a>
                     </>
                   )}
 
-                  {/* Slide 3 */}
                   {i === 2 && (
                     <>
                       <h2 className="text-2xl md:text-4xl font-bold mb-2">
@@ -114,9 +112,9 @@ const Banner = () => {
                         }}
                         whileTap={{ scale: 0.95 }}
                         className="px-4 py-2 md:px-6 md:py-2 bg-white/30 text-white backdrop-blur-md 
-                        rounded-full text-sm md:text-base font-semibold border border-white/40"
+                        rounded-full text-sm md:text-base font-semibold flex items-center justify-center gap-2 border border-white/40"
                       >
-                        Explore More
+                        Explore More <FaArrowRight />
                       </motion.a>
                     </>
                   )}
