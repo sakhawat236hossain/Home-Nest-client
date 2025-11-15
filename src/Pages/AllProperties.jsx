@@ -9,6 +9,14 @@ const AllProperties = () => {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("default");
 
+  // Typewriter state
+  const fullTitle = "All Properties";
+  const fullSubtitle =
+    "Discover a variety of properties for rent, sale & investment. Find your perfect place today!";
+
+  const [typedTitle, setTypedTitle] = useState("");
+  const [typedSubtitle, setTypedSubtitle] = useState("");
+
   // Search Handler
   const handleSearch = (e) => {
     e.preventDefault();
@@ -32,29 +40,52 @@ const AllProperties = () => {
     return () => clearTimeout(timer);
   }, []);
 
-// Sort Effect
-useEffect(() => {
-  let sorted = [...propertiesData];
+  // Sort Effect
+  useEffect(() => {
+    let sorted = [...propertiesData];
 
-  if (sortBy === "low-to-high") {
-    sorted.sort((a, b) => a.price - b.price);
-  } else if (sortBy === "high-to-low") {
-    sorted.sort((a, b) => b.price - a.price);
-  } else if (sortBy === "newest") {
-    sorted.sort(
-      (a, b) => new Date(b.postedDate) - new Date(a.postedDate)
-    );
-  } else if (sortBy === "oldest") {
-    sorted.sort(
-      (a, b) => new Date(a.postedDate) - new Date(b.postedDate)
-    );
-  } else {
-    sorted = propertiesData;
-  }   // <-- এই ব্র্যাকেটটা missing ছিল 🔥
+    if (sortBy === "low-to-high") {
+      sorted.sort((a, b) => a.price - b.price);
+    } else if (sortBy === "high-to-low") {
+      sorted.sort((a, b) => b.price - a.price);
+    } else if (sortBy === "newest") {
+      sorted.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+    } else if (sortBy === "oldest") {
+      sorted.sort((a, b) => new Date(a.postedDate) - new Date(b.postedDate));
+    } else {
+      sorted = propertiesData;
+    }
 
-  setProperties(sorted);
-}, [sortBy, propertiesData]);
+    setProperties(sorted);
+  }, [sortBy, propertiesData]);
 
+  // Typewriter effect
+  useEffect(() => {
+    setTypedTitle("");
+    setTypedSubtitle("");
+
+    let titleIndex = 0;
+    let subtitleIndex = 0;
+
+    const titleInterval = setInterval(() => {
+      setTypedTitle((prev) => prev + fullTitle[titleIndex]);
+      titleIndex++;
+      if (titleIndex === fullTitle.length) clearInterval(titleInterval);
+    }, 100);
+
+    const subtitleInterval = setTimeout(() => {
+      const subInterval = setInterval(() => {
+        setTypedSubtitle((prev) => prev + fullSubtitle[subtitleIndex]);
+        subtitleIndex++;
+        if (subtitleIndex === fullSubtitle.length) clearInterval(subInterval);
+      }, 30);
+    }, fullTitle.length * 100 + 300); // subtitle starts after title typed
+
+    return () => {
+      clearInterval(titleInterval);
+      clearTimeout(subtitleInterval);
+    };
+  }, []);
 
   if (loading) {
     return <LoadingData />;
@@ -67,26 +98,35 @@ useEffect(() => {
       {/* Title */}
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-5">
         <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
-          All Properties
+          {typedTitle}
         </span>
       </h1>
 
       {/* Subtitle */}
       <p className="text-center max-w-2xl mx-auto mb-10 text-gray-700 dark:text-gray-300">
-        <span className="text-blue-600 dark:text-blue-400 font-semibold">Discover</span>{" "}
-        a variety of properties for{" "}
-        <span className="text-green-600 dark:text-green-400 font-semibold">
-          rent, sale & investment
-        </span>
-        . Find your perfect place today!
+        {typedSubtitle.split(" ").map((word, index) => (
+          <span
+            key={index}
+            className={`${
+              word.includes("Discover")
+                ? "text-blue-600 dark:text-blue-400 font-semibold"
+                : word.includes("rent,") || word.includes("sale") || word.includes("investment")
+                ? "text-green-600 dark:text-green-400 font-semibold"
+                : ""
+            } `}
+          >
+            {word}{" "}
+          </span>
+        ))}
       </p>
 
       {/* Search + Sort */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
-        
         {/* Search */}
         <form onSubmit={handleSearch} className="w-full md:w-1/2">
-          <label htmlFor="search" className="sr-only">Search</label>
+          <label htmlFor="search" className="sr-only">
+            Search
+          </label>
           <div className="relative">
             <input
               type="text"
@@ -143,7 +183,6 @@ useEffect(() => {
             <option value="oldest">Oldest First</option>
           </select>
         </div>
-
       </div>
 
       {/* Properties Grid */}
@@ -152,7 +191,6 @@ useEffect(() => {
           <PropertiesCard key={property._id} property={property} />
         ))}
       </div>
-
     </div>
   );
 };
