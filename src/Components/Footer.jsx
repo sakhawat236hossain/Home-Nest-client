@@ -27,50 +27,45 @@ const Footer = () => {
           </p>
         </div>
 
-    
-      {/* Page Links */}
-<div className="w-full md:w-auto">
-  <h3 className="font-semibold mb-3 text-gray-800 text-center md:text-left">
-    Pages
-  </h3>
+        {/* Page Links */}
+        <div className="w-full md:w-auto text-start">
+          <h3 className="font-semibold mb-3 text-gray-800">
+            Pages
+          </h3>
 
-  <ul className="space-y-2 text-sm flex flex-col items-center md:items-start">
-
-    {/* Reusable motion settings */}
-    {[
-      { to: "/", label: "Home" },
-      { to: "/properties", label: "All Properties" },
-      ...(user
-        ? [
-            { to: "/add-property", label: "Add Property" },
-            { to: "/my-properties", label: "My Properties" },
-            { to: "/my-ratings", label: "My Ratings" },
-          ]
-        : [
-            { to: "/login", label: "Login" },
-            { to: "/register", label: "Register" },
-          ]),
-    ].map((item, index) => (
-      <motion.li
-        key={index}
-        whileHover={{
-          scale: 1.15,
-          x: 6,
-          rotate: 2,
-          color: "#4F46E5",
-        }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 220 }}
-      >
-        <Link className="transition-colors" to={item.to}>
-          {item.label}
-        </Link>
-      </motion.li>
-    ))}
-
-  </ul>
-</div>
-
+          <ul className="space-y-2 text-sm flex flex-col items-start">
+            {[ 
+              { to: "/", label: "Home" },
+              { to: "/properties", label: "All Properties" },
+              ...(user
+                ? [
+                    { to: "/add-property", label: "Add Property" },
+                    { to: "/my-properties", label: "My Properties" },
+                    { to: "/my-ratings", label: "My Ratings" },
+                  ]
+                : [
+                    { to: "/login", label: "Login" },
+                    { to: "/register", label: "Register" },
+                  ]),
+            ].map((item, index) => (
+              <motion.li
+                key={index}
+                whileHover={{
+                  scale: 1.15,
+                  x: 6,
+                  rotate: 2,
+                  color: "#4F46E5",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 220 }}
+              >
+                <Link className="transition-colors" to={item.to}>
+                  {item.label}
+                </Link>
+              </motion.li>
+            ))}
+          </ul>
+        </div>
 
         {/* Contact Details */}
         <div>
@@ -85,8 +80,6 @@ const Footer = () => {
         {/* Social Media + Subscribe */}
         <div>
           <h3 className="font-semibold mb-2 text-gray-800">Follow Us</h3>
-
-          {/* Motion Animated Social Icons */}
           <div className="flex gap-3 mt-2 text-lg mb-4">
             <motion.a
               whileHover={{
@@ -109,7 +102,7 @@ const Footer = () => {
                 scale: 1.3,
                 rotate: -5,
                 boxShadow: "0px 0px 12px rgba(0,0,0,0.6)",
-                color: "#000",
+                color: "#1DA1F2",
               }}
               whileTap={{ scale: 0.9 }}
               href="#"
@@ -151,7 +144,6 @@ const Footer = () => {
             </motion.a>
           </div>
 
-          {/* Subscribe Box */}
           <h3 className="font-semibold mb-2 text-gray-800">Subscribe</h3>
           <p className="text-sm text-gray-600 mb-3">
             Get the latest updates and offers.

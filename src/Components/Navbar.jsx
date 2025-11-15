@@ -40,11 +40,6 @@ const Navbar = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // toggle them
-  const handleTheme = (checked) => {
-    setTheme(checked ? "dark" : "light");
-  };
-
   return (
     <header className="shadow-md sticky top-0 z-50 bg-gray-300 rounded-2xl">
       <div className="max-w-[1400px] mx-auto px-4">
@@ -65,11 +60,7 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <nav className="hidden md:flex gap-4">
             <NavItem to="/" label="Home" icon={GoHomeFill} />
-            <NavItem
-              to="/properties"
-              label="All Properties"
-              icon={FaBuilding}
-            />
+            <NavItem to="/properties" label="All Properties" icon={FaBuilding} />
             <NavItem to="/add-property" label="Add Property" icon={ImBoxAdd} />
             <NavItem to="/my-properties" label="My Properties" icon={FaUser} />
             <NavItem to="/my-ratings" label="My Ratings" icon={FaStar} />
@@ -93,7 +84,17 @@ const Navbar = () => {
                 </Link>
               </>
             ) : (
-              <div className="relative">
+              <div className="relative flex items-center gap-2">
+                {/* Dark Mode Toggle */}
+                <button
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className={`w-12 h-6 flex items-center rounded-full p-1 duration-300 ${
+                    theme === "dark" ? "bg-gray-600 justify-end" : "bg-gray-300"
+                  }`}
+                >
+                  <div className="w-4 h-4 bg-white rounded-full shadow-md"></div>
+                </button>
+
                 {/* Profile Image */}
                 <img
                   src={user?.photoURL}
@@ -105,38 +106,19 @@ const Navbar = () => {
                 {/* Dropdown */}
                 {openDropdown && (
                   <div className="absolute top-12 right-0 bg-gray-600 shadow-md rounded-md w-80 p-4 space-y-3 border border-gray-200 dark:border-gray-700">
-                    {/* User Info */}
                     <div>
                       <p className="font-semibold text-gray-800 dark:text-gray-200">
                         {user.displayName || "No Name"}
                       </p>
-                      <p className=" text-black dark:bg-white p-2">
-                        {user.email}
-                      </p>
+                      <p className=" text-black dark:bg-white p-2">{user.email}</p>
                     </div>
 
-                    {/* Logout Button */}
                     <button
                       onClick={handleLogOut}
                       className="w-full btn btn-sm border border-indigo-600 text-indigo-600 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-700 transition"
                     >
                       Logout
                     </button>
-
-                    {/* Theme Toggle */}
-                    <div className="flex items-center gap-2 mt-2">
-                      <label className="text-sm text-gray-700 dark:text-gray-300">
-                        Dark Mode
-                      </label>
-                      <input
-                        type="checkbox"
-                        defaultChecked={
-                          localStorage.getItem("theme") === "dark"
-                        }
-                        className="toggle"
-                        onChange={(e) => handleTheme(e.target.checked)}
-                      />
-                    </div>
                   </div>
                 )}
               </div>
@@ -147,51 +129,40 @@ const Navbar = () => {
               className="md:hidden text-gray-900"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
-              <span className="text-3xl text-black dark:text-white ">
+              <span className="text-3xl text-black dark:text-white">
                 <IoReorderThree />
               </span>
             </button>
           </div>
         </div>
 
-        {/*  Mobile Navigation */}
+        {/* Mobile Navigation */}
         {mobileOpen && (
           <div className="md:hidden bg-white border-t mt-2 p-3 space-y-2">
             <NavItem to="/" label="Home" icon={GoHomeFill} />
-            <NavItem
-              to="/properties"
-              label="All Properties"
-              icon={FaBuilding}
-            />
+            <NavItem to="/properties" label="All Properties" icon={FaBuilding} />
 
             {user && (
               <>
-                <NavItem
-                  to="/add-property"
-                  label="Add Property"
-                  icon={ImBoxAdd}
-                />
-                <NavItem
-                  to="/my-properties"
-                  label="My Properties"
-                  icon={FaUser}
-                />
+                <NavItem to="/add-property" label="Add Property" icon={ImBoxAdd} />
+                <NavItem to="/my-properties" label="My Properties" icon={FaUser} />
                 <NavItem to="/my-ratings" label="My Ratings" icon={FaStar} />
 
-                {/* theme  */}
+                {/* Mobile Theme Toggle */}
                 <div className="flex items-center gap-2 mt-2">
-                  <label className="text-sm text-gray-700 dark:text-gray-300">
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
                     Dark Mode
-                  </label>
-                  <input
-                    type="checkbox"
-                    defaultChecked={localStorage.getItem("theme") === "dark"}
-                    className="toggle"
-                    onChange={(e) => handleTheme(e.target.checked)}
-                  />
+                  </span>
+                  <button
+                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                    className={`w-12 h-6 flex items-center rounded-full p-1 duration-300 ${
+                      theme === "dark" ? "bg-gray-600 justify-end" : "bg-gray-300"
+                    }`}
+                  >
+                    <div className="w-4 h-4 bg-white rounded-full shadow-md"></div>
+                  </button>
                 </div>
 
-                {/*  Mobile Logout Button */}
                 <button
                   onClick={handleLogOut}
                   className="w-full mt-2 rounded-full p-2 bg-red-500 text-white hover:bg-red-600"
