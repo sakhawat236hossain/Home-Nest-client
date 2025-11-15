@@ -85,15 +85,15 @@ const Navbar = () => {
               </>
             ) : (
               <div className="relative flex items-center gap-2">
-                {/* Dark Mode Toggle */}
-                <button
-                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className={`w-12 h-6 flex items-center rounded-full p-1 duration-300 ${
-                    theme === "dark" ? "bg-gray-600 justify-end" : "bg-gray-300"
-                  }`}
-                >
-                  <div className="w-4 h-4 bg-white rounded-full shadow-md"></div>
-                </button>
+                {/* Dark Mode Toggle - Only XL */}
+                <input
+                  type="checkbox"
+                  className="toggle toggle-xl"
+                  checked={theme === "dark"}
+                  onChange={() =>
+                    setTheme(theme === "dark" ? "light" : "dark")
+                  }
+                />
 
                 {/* Profile Image */}
                 <img
@@ -148,20 +148,15 @@ const Navbar = () => {
                 <NavItem to="/my-properties" label="My Properties" icon={FaUser} />
                 <NavItem to="/my-ratings" label="My Ratings" icon={FaStar} />
 
-                {/* Mobile Theme Toggle */}
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    Dark Mode
-                  </span>
-                  <button
-                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                    className={`w-12 h-6 flex items-center rounded-full p-1 duration-300 ${
-                      theme === "dark" ? "bg-gray-600 justify-end" : "bg-gray-300"
-                    }`}
-                  >
-                    <div className="w-4 h-4 bg-white rounded-full shadow-md"></div>
-                  </button>
-                </div>
+                {/* Mobile Theme Toggle - Only XL */}
+                <input
+                  type="checkbox"
+                  className="toggle toggle-xl"
+                  checked={theme === "dark"}
+                  onChange={() =>
+                    setTheme(theme === "dark" ? "light" : "dark")
+                  }
+                />
 
                 <button
                   onClick={handleLogOut}
