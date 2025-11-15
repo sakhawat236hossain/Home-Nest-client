@@ -5,55 +5,53 @@ import Swal from "sweetalert2";
 const AddProperty = () => {
   const { user } = useContext(AuthContext);
 
+  const handleAddProperty = (e) => {
+    e.preventDefault();
+    const form = e.target;
 
-const handleAddProperty = (e) => {
-  e.preventDefault();
-  const form = e.target;
+    const newProperty = {
+      propertyName: form.propertyName.value,
+      description: form.description.value,
+      category: form.category.value,
+      price: Number(form.price.value),
+      location: form.location.value,
+      imageLink: form.imageLink.value,
+      userEmail: user?.email,
+      userName: user?.displayName,
+      createdAt: new Date(),
+    };
 
-  const newProperty = {
-    propertyName: form.propertyName.value,
-    description: form.description.value,
-    category: form.category.value,
-    price: Number(form.price.value),
-    location: form.location.value,
-    imageLink: form.imageLink.value,
-    userEmail: user?.email,
-    userName: user?.displayName,
-    createdAt: new Date(),
+    fetch("https://home-nest-server-rho.vercel.app/addProperty", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProperty),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: " Property Added Successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        form.reset();
+      })
+      .catch((err) => {
+        console.log(err);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: " Failed to Add Property!",
+        });
+      });
   };
-
- fetch("http://localhost:8000/addProperty", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(newProperty),
-})
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data);
-
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: " Property Added Successfully!",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-
-    form.reset(); 
-  })
-  .catch((err) => {
-    console.log(err);
-
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: " Failed to Add Property!",
-    });
-  });
-
-};
 
   return (
     <div className="max-w-sm mx-auto my-6 p-4 bg-white shadow-md rounded-xl border border-gray-200">
@@ -63,9 +61,10 @@ const handleAddProperty = (e) => {
       </h2>
 
       <form onSubmit={handleAddProperty} className="space-y-2">
-
         <div>
-          <label className="text-sm font-medium text-blue-700">Property Name</label>
+          <label className="text-sm font-medium text-blue-700">
+            Property Name
+          </label>
           <input
             type="text"
             name="propertyName"
@@ -82,7 +81,9 @@ const handleAddProperty = (e) => {
             defaultValue=""
             className="w-full px-2 py-1 border border-gray-300 rounded-md text-sm focus:ring focus:ring-blue-300"
           >
-            <option value="" disabled>Select</option>
+            <option value="" disabled>
+              Select
+            </option>
             <option value="Rent">Rent</option>
             <option value="Sale">Sale</option>
             <option value="Commercial">Commercial</option>
@@ -91,7 +92,9 @@ const handleAddProperty = (e) => {
         </div>
 
         <div>
-          <label className="text-sm font-medium text-blue-700">Description</label>
+          <label className="text-sm font-medium text-blue-700">
+            Description
+          </label>
           <textarea
             name="description"
             rows="2"
@@ -121,7 +124,9 @@ const handleAddProperty = (e) => {
         </div>
 
         <div>
-          <label className="text-sm font-medium text-blue-700">Image Link</label>
+          <label className="text-sm font-medium text-blue-700">
+            Image Link
+          </label>
           <input
             type="url"
             name="imageLink"
@@ -131,7 +136,9 @@ const handleAddProperty = (e) => {
         </div>
 
         <div>
-          <label className="text-sm font-medium text-blue-700">Your Email</label>
+          <label className="text-sm font-medium text-blue-700">
+            Your Email
+          </label>
           <input
             type="email"
             value={user?.email}
@@ -156,7 +163,6 @@ const handleAddProperty = (e) => {
         >
           Submit
         </button>
-
       </form>
     </div>
   );

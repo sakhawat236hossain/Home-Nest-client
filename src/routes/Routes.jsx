@@ -22,15 +22,16 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
         loader: () =>
-          fetch("http://localhost:8000/latestProperty").then((res) =>
-            res.json()
+          fetch("https://home-nest-server-rho.vercel.app/latestProperty").then(
+            (res) => res.json()
           ),
       },
 
       {
         path: "/properties",
         element: <AllProperties />,
-        loader: () => fetch("http://localhost:8000/allProperties"),
+        loader: () =>
+          fetch("https://home-nest-server-rho.vercel.app/allProperties"),
       },
       {
         path: "/PropertyDetails/:id",
@@ -40,7 +41,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:8000/singleProperty/${params.id}`),
+          fetch(
+            `https://home-nest-server-rho.vercel.app/singleProperty/${params.id}`
+          ),
       },
       {
         path: "/update-property/:id",
@@ -50,7 +53,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:8000/singleProperty/${params.id}`),
+          fetch(
+            `https://home-nest-server-rho.vercel.app/singleProperty/${params.id}`
+          ),
       },
       {
         path: "/add-property",
@@ -69,9 +74,9 @@ const router = createBrowserRouter([
         ),
       },
       {
-  path: "/terms",
-  element: <Terms />,
-},
+        path: "/terms",
+        element: <Terms />,
+      },
 
       {
         path: "/my-ratings",
@@ -80,7 +85,8 @@ const router = createBrowserRouter([
             <MyRatings />
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:8000/allPropertyRatings"),
+        loader: () =>
+          fetch("https://home-nest-server-rho.vercel.app/allPropertyRatings"),
       },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },

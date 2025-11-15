@@ -32,7 +32,7 @@ const UpdateProperty = () => {
       userEmail,
     };
 
-    fetch(`http://localhost:8000/updateProperty/${_id}`, {
+    fetch(`https://home-nest-server-rho.vercel.app/updateProperty/${_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -61,13 +61,17 @@ const UpdateProperty = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-8 bg-gradient-to-br from-blue-50 via-purple-50 to-blue-100 
+    <div
+      className="max-w-3xl mx-auto p-8 bg-gradient-to-br from-blue-50 via-purple-50 to-blue-100 
     dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 
-    rounded-2xl shadow-xl border border-blue-200 dark:border-gray-700 my-12">
-<title>Update Property Page</title>
+    rounded-2xl shadow-xl border border-blue-200 dark:border-gray-700 my-12"
+    >
+      <title>Update Property Page</title>
       <div className="mb-8 text-center">
-        <h2 className="text-3xl font-extrabold bg-clip-text text-transparent 
-        bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+        <h2
+          className="text-3xl font-extrabold bg-clip-text text-transparent 
+        bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400"
+        >
           Update Property 🏡
         </h2>
         <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
@@ -75,11 +79,15 @@ const UpdateProperty = () => {
         </p>
       </div>
 
-      <form onSubmit={handleUpdateProperty} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
+      <form
+        onSubmit={handleUpdateProperty}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
         {/* Property Name */}
         <div>
-          <label className="text-sm font-medium text-blue-700 mb-1 block">Property Name</label>
+          <label className="text-sm font-medium text-blue-700 mb-1 block">
+            Property Name
+          </label>
           <input
             name="propertyName"
             type="text"
@@ -91,7 +99,9 @@ const UpdateProperty = () => {
 
         {/* Category */}
         <div>
-          <label className="text-sm font-medium text-blue-700 mb-1 block">Category</label>
+          <label className="text-sm font-medium text-blue-700 mb-1 block">
+            Category
+          </label>
           <select
             name="category"
             required
@@ -107,7 +117,9 @@ const UpdateProperty = () => {
 
         {/* Price */}
         <div>
-          <label className="text-sm font-medium text-blue-700 mb-1 block">Price</label>
+          <label className="text-sm font-medium text-blue-700 mb-1 block">
+            Price
+          </label>
           <input
             name="price"
             type="number"
@@ -119,7 +131,9 @@ const UpdateProperty = () => {
 
         {/* Location */}
         <div>
-          <label className="text-sm font-medium text-blue-700 mb-1 block">Location</label>
+          <label className="text-sm font-medium text-blue-700 mb-1 block">
+            Location
+          </label>
           <input
             name="location"
             type="text"
@@ -131,7 +145,9 @@ const UpdateProperty = () => {
 
         {/* Image URL */}
         <div className="md:col-span-2">
-          <label className="text-sm font-medium text-blue-700 mb-1 block">Image URL</label>
+          <label className="text-sm font-medium text-blue-700 mb-1 block">
+            Image URL
+          </label>
           <input
             name="imageLink"
             type="text"
@@ -143,7 +159,9 @@ const UpdateProperty = () => {
 
         {/* Description */}
         <div className="md:col-span-2">
-          <label className="text-sm font-medium text-blue-700 mb-1 block">Description</label>
+          <label className="text-sm font-medium text-blue-700 mb-1 block">
+            Description
+          </label>
           <textarea
             name="description"
             defaultValue={description}
@@ -154,7 +172,9 @@ const UpdateProperty = () => {
 
         {/* User Name */}
         <div>
-          <label className="text-sm font-medium text-blue-700 mb-1 block">User Name</label>
+          <label className="text-sm font-medium text-blue-700 mb-1 block">
+            User Name
+          </label>
           <input
             type="text"
             readOnly
@@ -165,7 +185,9 @@ const UpdateProperty = () => {
 
         {/* User Email */}
         <div>
-          <label className="text-sm font-medium text-blue-700 mb-1 block">User Email</label>
+          <label className="text-sm font-medium text-blue-700 mb-1 block">
+            User Email
+          </label>
           <input
             type="email"
             readOnly
@@ -182,7 +204,7 @@ const UpdateProperty = () => {
           hover:shadow-indigo-400/50 hover:scale-[1.02] 
           active:scale-95 transition-all duration-300"
         >
-           Update Property
+          Update Property
         </button>
       </form>
     </div>

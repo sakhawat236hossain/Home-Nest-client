@@ -24,7 +24,7 @@ const PropertyDetails = () => {
       propertyThumbnail: detailsData.imageLink,
       reviewerEmail: user?.email,
     };
-     fetch("http://localhost:8000/addPropertyRating", {
+    fetch("https://home-nest-server-rho.vercel.app/addPropertyRating", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const PropertyDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-    
+
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -42,12 +42,12 @@ const PropertyDetails = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-      e.target.reset();
-           setRating(0);
+        e.target.reset();
+        setRating(0);
       })
-      .catch(err=>{
+      .catch((err) => {
         console.log(err);
-      })
+      });
   };
 
   return (

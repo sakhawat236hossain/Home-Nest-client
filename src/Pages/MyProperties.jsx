@@ -20,7 +20,9 @@ const MyProperties = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:8000/myProperties?email=${user.email}`)
+    fetch(
+      `https://home-nest-server-rho.vercel.app/myProperties?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setProperties(data);
@@ -29,7 +31,7 @@ const MyProperties = () => {
   }, [user]);
 
   if (loading) {
-    return <LoadingData></LoadingData>
+    return <LoadingData></LoadingData>;
   }
 
   return (

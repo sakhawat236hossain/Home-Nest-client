@@ -29,10 +29,13 @@ const RatingCart = ({ rating }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:8000/deletePropertyRating/${_id}`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        })
+        fetch(
+          `https://home-nest-server-rho.vercel.app/deletePropertyRating/${_id}`,
+          {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             Swal.fire({
@@ -79,9 +82,7 @@ const RatingCart = ({ rating }) => {
         </div>
 
         <label className="text-xs font-semibold text-indigo-700">Review:</label>
-        <p className="text-gray-700 text-xs">
-          “{reviewText || "No review"}”
-        </p>
+        <p className="text-gray-700 text-xs">“{reviewText || "No review"}”</p>
 
         <label className="text-xs font-semibold text-indigo-700">
           Reviewer:
