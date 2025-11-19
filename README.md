@@ -126,7 +126,4 @@
 
 ---
 
-# 🚧 Challenges Faced
-- Implementing theme persistence and dropdown auto-close  
-- Managing protected route reloading without Firebase redirect  
-- Keeping real-time UI sync after MongoDB CRUD operations  
+
