@@ -1,3 +1,6 @@
+<img width="1437" height="658" alt="image" src="https://github.com/user-attachments/assets/c0a85cdd-1cfb-489f-8c23-90da82f1ef47" />
+
+
 # 🧑‍💻 Developer Info
 
 **Developer:** Md Sakhawat Hossain  
@@ -125,5 +128,37 @@
 
 
 ---
+#  project dependencies List 
+"dependencies": {
+    "@smastrom/react-rating": "^1.5.0",
+    "@tailwindcss/vite": "^4.1.17",
+    "firebase": "^12.5.0",
+    "framer-motion": "^12.23.24",
+    "lucide-react": "^0.553.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-hot-toast": "^2.6.0",
+    "react-icons": "^5.5.0",
+    "react-rating": "^2.0.5",
+    "react-rating-stars-component": "^2.2.0",
+    "react-router-dom": "^7.9.5",
+    "react-stars": "^2.2.5",
+    "react-tsparticles": "^2.12.2",
+    "sweetalert2": "^11.26.3",
+    "tailwindcss": "^4.1.17",
+    "tsparticles": "^3.9.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "daisyui": "^5.4.7",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.22",
+    "globals": "^16.4.0",
+    "vite": "^7.1.7"
+  }
 
 
