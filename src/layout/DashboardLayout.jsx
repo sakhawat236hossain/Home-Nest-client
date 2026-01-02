@@ -120,7 +120,7 @@ const DashboardLayout = () => {
             <div className="flex-1 flex flex-col min-w-0 h-full">
                 
                 {/* Desktop Header */}
-                <header className="hidden md:flex p-6 justify-between items-center border-b border-gray-800 shrink-0">
+                <header className="hidden md:flex p-4 justify-between items-center border-b border-gray-800 shrink-0">
                     <div>
                         <h2 className="text-xl font-bold tracking-tight">Dashboard Panel</h2>
                         <p className="text-xs mt-0.5 uppercase tracking-widest font-medium opacity-60">Welcome back, {user?.displayName?.split(' ')[0] || "User"}</p>

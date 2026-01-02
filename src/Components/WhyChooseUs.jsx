@@ -19,41 +19,41 @@ const WhyChooseUs = () => {
           transition={{ duration: 0.6 }}
         >
           {/* Card 1 */}
-          <div className="p-6 bg-white rounded-xl shadow-lg border hover:shadow-2xl transition">
+          <div className="p-6 rounded-xl shadow-lg border hover:shadow-2xl transition">
             <h3 className="text-lg font-bold text-blue-600 mb-2">
               Verified Homes
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm">
               Every property listed is carefully verified for full reliability.
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="p-6 bg-white rounded-xl shadow-lg border hover:shadow-2xl transition">
+          <div className="p-6 rounded-xl shadow-lg border hover:shadow-2xl transition">
             <h3 className="text-lg font-bold text-blue-600 mb-2">
               Affordable Pricing
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm ">
               Get the best homes at prices that match your budget perfectly.
             </p>
           </div>
 
           {/* Card 3 */}
-          <div className="p-6 bg-white rounded-xl shadow-lg border hover:shadow-2xl transition">
+          <div className="p-6 rounded-xl shadow-lg border hover:shadow-2xl transition">
             <h3 className="text-lg font-bold text-blue-600 mb-2">
               Secure Payment
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm ">
               Payment is protected with top-level encrypted security systems.
             </p>
           </div>
 
           {/* Card 4 */}
-          <div className="p-6 bg-white rounded-xl shadow-lg border hover:shadow-2xl transition">
+          <div className="p-6 rounded-xl shadow-lg border hover:shadow-2xl transition">
             <h3 className="text-lg font-bold text-blue-600 mb-2">
               24/7 Support
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm ">
               Our team is always ready to help you — any time, any day.
             </p>
           </div>

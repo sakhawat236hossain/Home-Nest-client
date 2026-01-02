@@ -81,17 +81,17 @@ const ExtraSections = () => {
             {steps.map((item, idx) => (
               <motion.div
                 key={idx}
-                className="min-w-[260px] sm:min-w-[280px] lg:min-w-[300px] p-6 bg-gradient-to-tr from-blue-50 to-indigo-50 rounded-xl shadow-md border hover:shadow-2xl transition flex-shrink-0"
+                className="min-w-[260px] sm:min-w-[280px] lg:min-w-[300px] p-6 rounded-xl shadow-md border hover:shadow-2xl transition flex-shrink-0"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
-                <div className="w-12 h-12 flex items-center justify-center text-2xl mb-3 bg-blue-100 rounded-full">
+                <div className="w-12 h-12 flex items-center justify-center text-2xl mb-3 rounded-full">
                   {item.icon}
                 </div>
-                <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
-                <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
+                <h3 className="text-lg font-bold ">{item.title}</h3>
+                <p className="text-sm  mt-1">{item.desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -112,18 +112,18 @@ const ExtraSections = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-6 bg-white rounded-xl shadow-md border hover:shadow-2xl transition flex flex-col items-center text-center"
+              className="p-6 rounded-xl shadow-md border hover:shadow-2xl transition flex flex-col items-center text-center"
             >
               <img
                 src={client.avatar}
                 alt={client.name}
                 className="w-16 h-16 rounded-full mb-4"
               />
-              <p className="text-gray-700 italic">“{client.review}”</p>
+              <p className="italic">“{client.review}”</p>
               <div className="mt-4 text-yellow-500 text-lg">
                 {"⭐".repeat(client.stars)}
               </div>
-              <h4 className="mt-2 font-semibold text-gray-900">
+              <h4 className="mt-2 font-semibold ">
                 {client.name}
               </h4>
             </motion.div>
