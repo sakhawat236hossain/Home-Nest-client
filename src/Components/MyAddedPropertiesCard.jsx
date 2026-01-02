@@ -4,7 +4,7 @@ import { FaDollarSign } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const MyPropertiesCard = ({ property }) => {
+const MyAddedPropertiesCard = ({ property }) => {
   const navigate = useNavigate();
 
   const handleDelete = () => {
@@ -111,4 +111,4 @@ const MyPropertiesCard = ({ property }) => {
   );
 };
 
-export default MyPropertiesCard;
+export default MyAddedPropertiesCard;

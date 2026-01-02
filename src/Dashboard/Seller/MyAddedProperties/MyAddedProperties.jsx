@@ -1,10 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
 
-import MyPropertiesCard from "../Components/MyPropertiesCard.";
-import LoadingData from "../Components/LoadingData";
+    import React, { useContext, useEffect, useState } from "react";
 
-const MyProperties = () => {
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import MyAddedPropertiesCard from "../../../Components/MyAddedPropertiesCard";
+import LoadingData from "../../../Components/LoadingData";
+const MyAddedProperties = () => {
+
+
+
   const { user } = useContext(AuthContext);
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,7 +51,7 @@ const MyProperties = () => {
       ) : (
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {properties.map((property) => (
-            <MyPropertiesCard key={property._id} property={property} />
+            <MyAddedPropertiesCard key={property._id} property={property} ></MyAddedPropertiesCard>
           ))}
         </div>
       )}
@@ -56,4 +59,8 @@ const MyProperties = () => {
   );
 };
 
-export default MyProperties;
+
+
+
+
+export default MyAddedProperties;

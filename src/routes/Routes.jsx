@@ -2,9 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../Pages/Home";
 import AllProperties from "../Pages/AllProperties";
-import AddProperty from "../Pages/AddProperty";
-import MyProperties from "../Pages/MyProperties";
-import MyRatings from "../Pages/MyRatings";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import NotFound from "../Pages/NotFound";
@@ -12,6 +9,11 @@ import PrivateRoute from "./PrivateRoute";
 import PropertyDetails from "../Components/PropertyDetails";
 import UpdateProperty from "../Pages/UpdateProperty";
 import Terms from "../Components/Terms";
+import AddProperty from "../Dashboard/Seller/AddProperty/AddProperty";
+import DashboardLayout from "../layout/DashboardLayout";
+import Profiles from "../Dashboard/Profiles/Profiles";
+import MyAddedProperties from "../Dashboard/Seller/MyAddedProperties/MyAddedProperties";
+import MyRatings from "../Dashboard/Users/MyRatings/MyRatings";
 
 const router = createBrowserRouter([
   {
@@ -57,29 +59,45 @@ const router = createBrowserRouter([
             `https://home-nest-server-rho.vercel.app/singleProperty/${params.id}`
           ),
       },
-      {
-        path: "/add-property",
-        element: (
-          <PrivateRoute>
-            <AddProperty />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/my-properties",
-        element: (
-          <PrivateRoute>
-            <MyProperties />
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "/terms",
         element: <Terms />,
       },
 
+     
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+    ],
+  },
+
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
       {
-        path: "/my-ratings",
+        path: "profile",
+        element: <Profiles />,
+      },
+      {
+        path: "add-property",
+        element: <AddProperty />,
+      },
+
+      {
+        path: "my-addedProperties",
+        element: (
+          <PrivateRoute>
+            <MyAddedProperties />
+          </PrivateRoute>
+        ),
+      },
+       {
+        path: "my-ratings",
         element: (
           <PrivateRoute>
             <MyRatings />
@@ -88,8 +106,6 @@ const router = createBrowserRouter([
         loader: () =>
           fetch("https://home-nest-server-rho.vercel.app/allPropertyRatings"),
       },
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Register /> },
     ],
   },
   { path: "*", element: <NotFound /> },

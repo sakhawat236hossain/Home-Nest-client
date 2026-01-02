@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { motion } from "framer-motion";
-import RatingCart from "../Components/RatingCart";
-import LoadingData from "../Components/LoadingData";
+import RatingCart from "../../../Components/RatingCart";
+import LoadingData from "../../../Components/LoadingData";
 
 const MyRatings = () => {
   const ratingsData = useLoaderData();
@@ -22,9 +22,7 @@ const MyRatings = () => {
 
   if (!ratingsData || ratingsData.length === 0) {
     return (
-      <p className="text-center mt-10 text-gray-500">
-        No Ratings Found 😔
-      </p>
+      <p className="text-center mt-10 text-gray-500">No Ratings Found 😔</p>
     );
   }
 
