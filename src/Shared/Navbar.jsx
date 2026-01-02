@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
-import { FaBuilding, FaUser, FaStar, FaTableCellsLarge } from "react-icons/fa6";
+import { FaBuilding, FaUser,  FaTableCellsLarge } from "react-icons/fa6";
 import { IoReorderThree } from "react-icons/io5";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
@@ -53,8 +53,8 @@ const Navbar = () => {
   );
 
   return (
-    <header className="shadow-md sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b dark:border-gray-800">
-      <div className="max-w-[1440px] mx-auto px-4">
+    <header className="shadow-md sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b dark:border-gray-800 max-w-7xl mx-auto px-4 rounded-b-2xl">
+      <div className="">
         <div className="flex justify-between h-20 items-center">
           
           {/* Logo */}

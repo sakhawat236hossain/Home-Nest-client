@@ -9,11 +9,11 @@ const Footer = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <footer className="text-gray-700 mt-10 border-t border-gray-200">
+    <footer className=" mt-10 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
         
         {/* Logo & Website */}
-        <div className="flex flex-col items-start">
+        <Link to='/' className="flex flex-col items-start">
           <div className="flex items-center gap-2 text-2xl font-bold text-indigo-600 mb-2">
             <img
               className="w-[40px] hidden sm:block"
@@ -22,14 +22,14 @@ const Footer = () => {
             />
             PropertyHub
           </div>
-          <p className="text-sm text-gray-600 leading-relaxed">
+          <p className="text-sm leading-relaxed">
             Your trusted platform for buying, selling, and managing properties.
           </p>
-        </div>
+        </Link>
 
         {/* Page Links */}
         <div className="w-full md:w-auto text-start">
-          <h3 className="font-semibold mb-3 text-gray-800">
+          <h3 className="font-semibold mb-3">
             Pages
           </h3>
 
@@ -69,7 +69,7 @@ const Footer = () => {
 
         {/* Contact Details */}
         <div>
-          <h3 className="font-semibold mb-2 text-gray-800">Contact Us</h3>
+          <h3 className="font-semibold mb-2 ">Contact Us</h3>
           <ul className="space-y-1 text-sm">
             <li>Email: hmdsakhawat236@gmail.com</li>
             <li>Phone: +880 1851121472</li>
@@ -144,8 +144,8 @@ const Footer = () => {
             </motion.a>
           </div>
 
-          <h3 className="font-semibold mb-2 text-gray-800">Subscribe</h3>
-          <p className="text-sm text-gray-600 mb-3">
+          <h3 className="font-semibold mb-2 ">Subscribe</h3>
+          <p className="text-sm  mb-3">
             Get the latest updates and offers.
           </p>
 
@@ -155,7 +155,7 @@ const Footer = () => {
               placeholder="Enter your email"
               className="px-3 py-2 border border-gray-300 rounded-lg text-sm w-full focus:outline-none focus:ring focus:ring-indigo-300"
             />
-            <button className="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition">
+            <button className="px-4 py-2 bg-indigo-600  text-sm rounded-lg hover:bg-indigo-700 transition">
               Subscribe
             </button>
           </div>
@@ -163,9 +163,9 @@ const Footer = () => {
       </div>
 
       {/* Bottom */}
-      <div className="bg-gray-200 text-center py-4 text-sm text-gray-600 flex flex-col sm:flex-row justify-center items-center gap-2">
+      <div className="text-center py-4 text-sm  flex flex-col sm:flex-row justify-center items-center gap-2">
         <p>© 2025 PropertyHub. All rights reserved.</p>
-        <span className="hidden sm:inline-block text-gray-400">|</span>
+        <span className="hidden sm:inline-block ">|</span>
         <Link
           to="/terms"
           className="hover:text-indigo-600 transition-colors underline-offset-2 hover:underline"
