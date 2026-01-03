@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import BannerSlider from "../Components/BannerSlider";
+import BannerSlider from "../HomeComponents/BannerSlider/BannerSlider";
 import WhyChooseUs from "../Components/WhyChooseUs";
 import ExtraSections from "../Components/ExtraSections";
 
 import { useLoaderData } from "react-router-dom";
 import LatestCart from "../Components/LatestCart";
 import LoadingData from "../Components/LoadingData";
+import FeaturedCategories from "../HomeComponents/FeaturedCategories/FeaturedCategories";
+import Testimonials from "../HomeComponents/Testimonials/Testimonials";
 
 const Home = () => {
   const latestPropertyData = useLoaderData() || [];
@@ -41,6 +43,8 @@ if (loading) {
 
       <WhyChooseUs />
       <ExtraSections />
+      <FeaturedCategories></FeaturedCategories>
+      <Testimonials></Testimonials>
     </div>
   );
 };

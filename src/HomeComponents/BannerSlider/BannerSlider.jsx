@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 
-import flat from "../assets/flat.jpg";
-import apartment from "../assets/car.jpg";
-import house from "../assets/house.jpg";
+import flat from "../../assets/flat.jpg";
+import apartment from "../../assets/car.jpg";
+import house from "../../assets/house.jpg";
 
 const images = [
   {
