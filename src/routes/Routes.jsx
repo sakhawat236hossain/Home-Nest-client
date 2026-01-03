@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../Pages/Home";
 import AllProperties from "../Pages/AllProperties";
-import Login from "../Pages/Login";
-import Register from "../Pages/Register";
+import Login from "../Pages/AuthenticationbPges/Login/Login";
+import Register from "../Pages/AuthenticationbPges/Register/Register";
 import NotFound from "../Pages/NotFound";
 import PrivateRoute from "./PrivateRoute";
 import PropertyDetails from "../Components/PropertyDetails";
@@ -65,7 +65,6 @@ const router = createBrowserRouter([
         element: <Terms />,
       },
 
-     
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
     ],
@@ -96,7 +95,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-       {
+      {
         path: "my-ratings",
         element: (
           <PrivateRoute>

@@ -41,9 +41,17 @@ const AuthProvider = ({ children }) => {
   };
 
   // updateUserProfile
-  const updateUserProfile=(updateData)=>{
-return updateProfile(auth.createUser,updateData)
+// AuthProvider.jsx
+const updateUserProfile = (name, photo) => {
+  if (!auth.currentUser) {
+    return Promise.reject("No user is currently logged in.");
   }
+  
+  return updateProfile(auth.currentUser, {
+    displayName: name,
+    photoURL: photo,
+  });
+};
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {

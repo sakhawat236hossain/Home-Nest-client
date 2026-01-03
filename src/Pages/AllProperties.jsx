@@ -2,195 +2,172 @@ import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import PropertiesCard from "../Components/PropertiesCard";
 import LoadingData from "../Components/LoadingData";
+import { FaSearch, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const AllProperties = () => {
   const propertiesData = useLoaderData();
   const [properties, setProperties] = useState(propertiesData);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("default");
+  const [searchText, setSearchText] = useState("");
+
+  // Pagination State
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8; 
 
   // Typewriter state
   const fullTitle = "All Properties";
-  const fullSubtitle =
-    "Discover a variety of properties for rent, sale & investment. Find your perfect place today!";
-
+  const fullSubtitle = "Discover a variety of properties for rent, sale & investment. Find your perfect place today!";
   const [typedTitle, setTypedTitle] = useState("");
   const [typedSubtitle, setTypedSubtitle] = useState("");
 
-  // Search Handler
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const search_text = e.target.search.value;
-
+  // Search & Filter Logic
+  useEffect(() => {
     setLoading(true);
+    
+    const delayDebounceFn = setTimeout(() => {
+      fetch(`https://home-nest-server-rho.vercel.app/searchProperty?search=${searchText}`)
+        .then((res) => res.json())
+        .then((data) => {
+          let sorted = [...data];
+          if (sortBy === "low-to-high") sorted.sort((a, b) => a.price - b.price);
+          else if (sortBy === "high-to-low") sorted.sort((a, b) => b.price - a.price);
+          else if (sortBy === "newest") sorted.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+          else if (sortBy === "oldest") sorted.sort((a, b) => new Date(a.postedDate) - new Date(b.postedDate));
+          
+          setProperties(sorted);
+          setCurrentPage(1); 
+          setLoading(false);
+        });
+    }, 1000); 
 
-    fetch(
-      `https://home-nest-server-rho.vercel.app/searchProperty?search=${search_text}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setProperties(data);
-        setLoading(false);
-      });
-  };
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchText, sortBy]);
 
-  // Initial loading delay
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Sort Effect
-  useEffect(() => {
-    let sorted = [...propertiesData];
-
-    if (sortBy === "low-to-high") {
-      sorted.sort((a, b) => a.price - b.price);
-    } else if (sortBy === "high-to-low") {
-      sorted.sort((a, b) => b.price - a.price);
-    } else if (sortBy === "newest") {
-      sorted.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
-    } else if (sortBy === "oldest") {
-      sorted.sort((a, b) => new Date(a.postedDate) - new Date(b.postedDate));
-    } else {
-      sorted = propertiesData;
-    }
-
-    setProperties(sorted);
-  }, [sortBy, propertiesData]);
+  // Pagination Calculation
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = properties.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(properties.length / itemsPerPage);
 
   // Typewriter effect
   useEffect(() => {
-    setTypedTitle("");
-    setTypedSubtitle("");
-
     let titleIndex = 0;
-    let subtitleIndex = 0;
-
     const titleInterval = setInterval(() => {
-      setTypedTitle((prev) => prev + fullTitle[titleIndex]);
+      setTypedTitle(fullTitle.slice(0, titleIndex + 1));
       titleIndex++;
       if (titleIndex === fullTitle.length) clearInterval(titleInterval);
     }, 100);
 
-    const subtitleInterval = setTimeout(() => {
+    const subtitleTimeout = setTimeout(() => {
+      let subIndex = 0;
       const subInterval = setInterval(() => {
-        setTypedSubtitle((prev) => prev + fullSubtitle[subtitleIndex]);
-        subtitleIndex++;
-        if (subtitleIndex === fullSubtitle.length) clearInterval(subInterval);
+        setTypedSubtitle(fullSubtitle.slice(0, subIndex + 1));
+        subIndex++;
+        if (subIndex === fullSubtitle.length) clearInterval(subInterval);
       }, 30);
-    }, fullTitle.length * 100 + 300); // subtitle starts after title typed
+    }, 1500);
 
     return () => {
       clearInterval(titleInterval);
-      clearTimeout(subtitleInterval);
+      clearTimeout(subtitleTimeout);
     };
   }, []);
 
-  if (loading) {
-    return <LoadingData />;
-  }
+  if (loading && properties.length === 0) return <LoadingData />;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
-      <title>All Property page</title>
-
-      {/* Title */}
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-5">
-        <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
-          {typedTitle}
-        </span>
-      </h1>
-
-      {/* Subtitle */}
-      <p className="text-center max-w-2xl mx-auto mb-10 text-gray-700 dark:text-gray-300">
-        {typedSubtitle.split(" ").map((word, index) => (
-          <span
-            key={index}
-            className={`${
-              word.includes("Discover")
-                ? "text-blue-600 dark:text-blue-400 font-semibold"
-                : word.includes("rent,") || word.includes("sale") || word.includes("investment")
-                ? "text-green-600 dark:text-green-400 font-semibold"
-                : ""
-            } `}
-          >
-            {word}{" "}
+    <div className="max-w-7xl mx-auto px-4 py-10 min-h-screen">
+      {/* Title & Subtitle */}
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-black mb-4">
+          <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
+            {typedTitle}
           </span>
-        ))}
-      </p>
+        </h1>
+        <p className="max-w-2xl mx-auto text-gray-500 dark:text-gray-400 font-medium leading-relaxed">
+          {typedSubtitle}
+        </p>
+      </div>
 
-      {/* Search + Sort */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
-        {/* Search */}
-        <form onSubmit={handleSearch} className="w-full md:w-1/2">
-          <label htmlFor="search" className="sr-only">
-            Search
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              name="search"
-              className="block w-full p-3 ps-10 text-sm border rounded-lg 
-                text-gray-900 bg-gray-50 border-gray-300 
-                focus:ring-indigo-500 focus:border-indigo-500 
-                dark:bg-gray-700 dark:border-gray-600 
-                dark:placeholder-gray-400 dark:text-white"
-              placeholder="Search property..."
-            />
-
-            {/* Icon */}
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <svg
-                className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                />
-              </svg>
-            </div>
-
-            {/* Button */}
-            <button
-              type="submit"
-              className="absolute end-1.5 top-1/2 -translate-y-1/2 
-                px-4 py-2 text-sm font-semibold rounded-md
-                bg-indigo-600 hover:bg-indigo-700 text-white"
-            >
-              Search
-            </button>
-          </div>
-        </form>
-
-        {/* Sort */}
-        <div className="w-full md:w-1/2">
-          <select
-            onChange={(e) => setSortBy(e.target.value)}
-            className="w-full p-3 border rounded-lg 
-              bg-gray-100 dark:bg-gray-800 dark:text-white
-              border-gray-300 dark:border-gray-600"
-          >
-            <option value="default">Sort by (Default)</option>
-            <option value="low-to-high">Price: Low to High</option>
-            <option value="high-to-low">Price: High to Low</option>
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
-          </select>
+      {/* Search + Sort Bar */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-10">
+        <div className="relative w-full md:w-2/3">
+          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search by property name or location..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-gray-900 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 dark:text-white"
+          />
         </div>
+
+        <select
+          onChange={(e) => setSortBy(e.target.value)}
+          className="w-full md:w-1/3 p-3 bg-gray-50 dark:bg-gray-900 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 dark:text-white font-medium"
+        >
+          <option value="default">Sort: Default</option>
+          <option value="low-to-high">Price: Low to High</option>
+          <option value="high-to-low">Price: High to Low</option>
+          <option value="newest">Newest Listed</option>
+        </select>
       </div>
 
-      {/* Properties Grid */}
-      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {properties?.map((property) => (
-          <PropertiesCard key={property._id} property={property} />
-        ))}
-      </div>
+      {/* Grid */}
+      {loading ? (
+        <div className="flex justify-center py-20"><LoadingData /></div>
+      ) : (
+        <>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {currentItems.map((property) => (
+              <PropertiesCard key={property._id} property={property} />
+            ))}
+          </div>
+
+          {/* No Data State */}
+          {properties.length === 0 && (
+            <div className="text-center py-20">
+              <h3 className="text-2xl font-bold text-gray-400">No properties found!</h3>
+            </div>
+          )}
+
+          {/* Pagination UI */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 mt-16">
+              <button
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(prev => prev - 1)}
+                className="p-3 rounded-lg bg-white dark:bg-gray-800 border hover:bg-indigo-600 hover:text-white disabled:opacity-50 transition-all shadow-sm"
+              >
+                <FaChevronLeft />
+              </button>
+              
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index + 1)}
+                  className={`w-12 h-12 rounded-lg font-bold transition-all ${
+                    currentPage === index + 1
+                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
+                      : "bg-white dark:bg-gray-800 border hover:border-indigo-600"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+
+              <button
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(prev => prev + 1)}
+                className="p-3 rounded-lg bg-white dark:bg-gray-800 border hover:bg-indigo-600 hover:text-white disabled:opacity-50 transition-all shadow-sm"
+              >
+                <FaChevronRight />
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };
