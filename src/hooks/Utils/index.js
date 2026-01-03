@@ -38,7 +38,6 @@ export const uploadImageToCloudinary = async (imgFile) => {
       formData
     );
 
-    // ক্লাউডিনারি সরাসরি secure_url এ ইমেজের লিংক দেয়
     return response.data.secure_url; 
   } catch (error) {
     console.error("Image upload failed:", error);

@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../Pages/Home";
-import AllProperties from "../Pages/AllProperties";
 import Login from "../Pages/AuthenticationbPges/Login/Login";
 import Register from "../Pages/AuthenticationbPges/Register/Register";
 import NotFound from "../Pages/NotFound";
@@ -14,6 +13,10 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Profiles from "../Dashboard/Profiles/Profiles";
 import MyAddedProperties from "../Dashboard/Seller/MyAddedProperties/MyAddedProperties";
 import MyRatings from "../Dashboard/Users/MyRatings/MyRatings";
+import AllProperties from "../Pages/publicPages/AllProperties/AllProperties";
+import MyBookingProperty from "../Dashboard/Users/MyBookingProperty/MyBookingProperty";
+import ManageProperties from "../Dashboard/Admin/ManageProperties/ManageProperties";
+import ManageUsers from "../Dashboard/Admin/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +108,18 @@ const router = createBrowserRouter([
         loader: () =>
           fetch("https://home-nest-server-rho.vercel.app/allPropertyRatings"),
       },
+      {
+        path:"my-booking",
+        element: (
+          <PrivateRoute>
+            <MyBookingProperty />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manageUsers",
+        element: <ManageUsers></ManageUsers>
+      }
     ],
   },
   { path: "*", element: <NotFound /> },

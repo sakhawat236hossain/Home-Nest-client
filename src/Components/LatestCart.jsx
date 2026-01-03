@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
-import { IoMdClock } from "react-icons/io";
+import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined, FaCarSide, FaChevronRight } from "react-icons/fa";
+import { FiHeart } from "react-icons/fi";
 
 const LatestCart = ({ Property }) => {
   const {
@@ -11,75 +11,83 @@ const LatestCart = ({ Property }) => {
     category,
     price,
     location,
-    imageLink,
-    userName,
-    userEmail,
- 
-    createdAt,
+    image,
+    agentName,
+    agentImage,
+    specs,
   } = Property;
 
-  // Description short form
- 
   return (
     <motion.div
-      whileHover={{ scale: 1.03 }}
-      transition={{ duration: 0.3 }}
-      className="rounded-2xl overflow-hidden shadow-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 group"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="group relative bg-white dark:bg-[#1a1d24] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-800"
     >
-      <div className="overflow-hidden relative">
+      
+      <div className="relative h-52 w-full overflow-hidden">
         <img
-          src={imageLink}
+          src={image}
           alt={propertyName}
-          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <span className="absolute top-3 right-3 bg-blue-600 text-white text-xs px-3 py-1 rounded-full shadow">
+        <div className="absolute top-3 left-3 bg-indigo-600/90 backdrop-blur-sm text-white text-xs font-bold uppercase px-3 py-1 rounded-md">
           {category}
-        </span>
+        </div>
+        <button className="absolute top-3 right-3 p-2.5 bg-white/80 dark:bg-black/50 backdrop-blur-sm rounded-full text-gray-700 dark:text-white hover:text-red-500 transition-colors">
+          <FiHeart size={18} />
+        </button>
       </div>
 
-      <div className="p-4 space-y-2">
-        <h2 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition">
+      <div className="p-5">
+        <div className="flex justify-between items-center mb-2">
+          
+          <h2 className="text-2xl font-black text-indigo-600 dark:text-indigo-400">
+            ${price?.toLocaleString()}
+          </h2>
+        
+          <p className="flex items-center gap-1 text-gray-500 dark:text-gray-400 text-sm font-medium">
+            <FaMapMarkerAlt size={14} /> {location?.split(',')[0]}
+          </p>
+        </div>
+
+      
+        <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 truncate mb-4">
           {propertyName}
-        </h2>
+        </h3>
 
-        <p className="text-green-600 font-semibold dark:text-green-400 text-base">
-          💲 {price}
-        </p>
+        <div className="flex items-center justify-between py-3 border-t border-gray-100 dark:border-gray-800">
+          <div className="flex gap-4 text-gray-600 dark:text-gray-300 text-[15px] font-bold">
+            {category === "Car" ? (
+              <div className="flex items-center gap-2">
+                <FaCarSide className="text-indigo-500" size={18} /> Model: {specs?.carModel || "N/A"}
+              </div>
+            ) : (
+              <>
+                <span className="flex items-center gap-1.5"><FaBed className="text-indigo-500" size={18} /> {specs?.beds || 0}</span>
+                <span className="flex items-center gap-1.5"><FaBath className="text-indigo-500" size={18} /> {specs?.baths || 0}</span>
+                <span className="flex items-center gap-1.5"><FaRulerCombined className="text-indigo-500" size={16} /> {specs?.area || 0}</span>
+              </>
+            )}
+          </div>
+        </div>
 
-        <p className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-sm">
-          <FaMapMarkerAlt className="opacity-70" /> {location}
-        </p>
+      
+        <div className="flex items-center justify-between mt-3 pt-4 border-t border-gray-100 dark:border-gray-800">
+          <div className="flex items-center gap-3">
+            <img src={agentImage} className="w-9 h-9 rounded-full object-cover border-2 border-indigo-100 dark:border-gray-700" alt={agentName} />
+            <span className="text-sm font-bold text-gray-800 dark:text-gray-200">{agentName}</span>
+          </div>
 
-     
-
-        <p className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-sm">
-          <FaEnvelope className="opacity-70" /> {userEmail}
-        </p>
-
-        <p className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-sm">
-          <IoMdClock className="opacity-70" />
-          {new Date(createdAt).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })}
-        </p>
-
-        <p className="text-xs text-gray-500 dark:text-gray-400">
-          Posted by:{" "}
-          <span className="font-medium text-gray-700 dark:text-gray-200">
-            {userName}
-          </span>
-        </p>
-
-        <motion.div whileTap={{ scale: 0.95 }}>
-          <Link
-            to={`/PropertyDetails/${_id}`}
-            className="mt-2 w-full inline-block text-center py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition shadow hover:shadow-xl text-sm"
-          >
-            See Details
+          <Link to={`/PropertyDetails/${_id}`}>
+            <motion.button
+              whileHover={{ x: 3 }}
+              className="bg-indigo-600 text-white p-3 rounded-xl shadow-lg hover:bg-indigo-700 transition-all cursor-pointer"
+            >
+              <FaChevronRight size={14} />
+            </motion.button>
           </Link>
-        </motion.div>
+        </div>
       </div>
     </motion.div>
   );

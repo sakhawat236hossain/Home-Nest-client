@@ -8,6 +8,8 @@ import LatestCart from "../Components/LatestCart";
 import LoadingData from "../Components/LoadingData";
 import Testimonials from "../HomeComponents/Testimonials/Testimonials";
 import MeetOurAgents from "../HomeComponents/MeetOurAgents/MeetOurAgents";
+import SuccessCounter from "../HomeComponents/SuccessCounter/SuccessCounter";
+import FAQSection from "../HomeComponents/FAQSection/FAQSection";
 
 const Home = () => {
   const latestPropertyData = useLoaderData() || [];
@@ -45,6 +47,8 @@ if (loading) {
       <ExtraSections />
       <Testimonials></Testimonials>
       <MeetOurAgents></MeetOurAgents>
+      <SuccessCounter></SuccessCounter>
+      <FAQSection></FAQSection>
     </div>
   );
 };

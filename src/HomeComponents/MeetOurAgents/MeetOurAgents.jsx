@@ -43,7 +43,7 @@ const MeetOurAgents = () => {
     ];
 
     return (
-        <section className="py-24 bg-gray-50 dark:bg-[#0B0D10] transition-colors duration-500">
+        <section className="py-24 transition-colors duration-500">
             <div className="max-w-7xl mx-auto px-4">
                 
                 {/* Header */}

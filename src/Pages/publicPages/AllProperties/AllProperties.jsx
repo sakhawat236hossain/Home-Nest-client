@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import PropertiesCard from "../Components/PropertiesCard";
-import LoadingData from "../Components/LoadingData";
+import LoadingData from "../../../Components/LoadingData";
 import { FaSearch, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import LatestCart from "../../../Components/LatestCart";
 
 const AllProperties = () => {
   const propertiesData = useLoaderData();
@@ -120,8 +120,8 @@ const AllProperties = () => {
       ) : (
         <>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {currentItems.map((property) => (
-              <PropertiesCard key={property._id} property={property} />
+            {currentItems.map((Property) => (
+              <LatestCart key={Property._id} Property={Property} />
             ))}
           </div>
 
