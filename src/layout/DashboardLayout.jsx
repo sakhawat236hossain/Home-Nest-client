@@ -32,6 +32,7 @@ const DashboardLayout = () => {
         { to: "/dashboard/my-addedProperties", label: "My Properties", icon: <FaList /> },
         { to: "/dashboard/my-booking", label: "My Bookings", icon: <FaBell /> },
         {to: "/dashboard/manageUsers", label: "Manage Users", icon: <FaStar /> },
+        {to: "/dashboard/manageProperties", label: "Manage Properties", icon: <FaList /> }
     ];
 
     return (
