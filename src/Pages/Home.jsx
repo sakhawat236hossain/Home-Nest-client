@@ -6,8 +6,8 @@ import ExtraSections from "../Components/ExtraSections";
 import { useLoaderData } from "react-router-dom";
 import LatestCart from "../Components/LatestCart";
 import LoadingData from "../Components/LoadingData";
-import FeaturedCategories from "../HomeComponents/FeaturedCategories/FeaturedCategories";
 import Testimonials from "../HomeComponents/Testimonials/Testimonials";
+import MeetOurAgents from "../HomeComponents/MeetOurAgents/MeetOurAgents";
 
 const Home = () => {
   const latestPropertyData = useLoaderData() || [];
@@ -43,8 +43,8 @@ if (loading) {
 
       <WhyChooseUs />
       <ExtraSections />
-      <FeaturedCategories></FeaturedCategories>
       <Testimonials></Testimonials>
+      <MeetOurAgents></MeetOurAgents>
     </div>
   );
 };
