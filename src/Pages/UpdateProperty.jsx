@@ -32,7 +32,7 @@ const UpdateProperty = () => {
       userEmail,
     };
 
-    fetch(`https://home-nest-server-rho.vercel.appupdateProperty/${_id}`, {
+    fetch(`https://home-nest-server-rho.vercel.app/updateProperty/${_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

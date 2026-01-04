@@ -27,7 +27,7 @@ const MyAddedPropertiesCard = ({ property, onDelete, refetch }) => {
       const res = await axiosSecure.patch(`/updateProperty/${_id}`, updatedData);
       if (res.data.modifiedCount > 0) {
         Swal.fire("Success", "Property updated successfully", "success");
-        setIsModalOpen(false); // মডাল বন্ধ করা
+        setIsModalOpen(false); 
         refetch(); 
       }
     } catch (err) {

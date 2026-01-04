@@ -67,6 +67,9 @@ const Navbar = () => {
           <nav className="hidden md:flex items-center gap-2">
             <NavItem to="/" label="Home" icon={GoHomeFill} />
             <NavItem to="/properties" label="All Property" icon={FaBuilding} />
+            <NavItem to="/about-us" label="About Us" />
+            <NavItem to="/contact-us" label="Contact Us" />
+            <NavItem to="/services" label="Services" />
             {user && (
                <NavItem to="/dashboard" label="Dashboard" icon={FaTableCellsLarge} />
             )}

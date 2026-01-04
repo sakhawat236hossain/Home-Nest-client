@@ -20,6 +20,10 @@ import ManageUsers from "../Dashboard/Admin/ManageUsers/ManageUsers";
 import ManageReviews from "../Dashboard/Admin/ManageReviews/ManageReviews";
 import AdminDashboardOverview from "../Dashboard/Admin/AdminDashboardOverview/AdminDashboardOverview";
 import DashboardOverview from "../Dashboard/DashboardOverview/DashboardOverview";
+import AboutUs from "../HomeComponents/NvbarRoutes/AboutUs/AboutUs";
+import ContactUs from "../HomeComponents/NvbarRoutes/ContactUs/ContactUs";
+import AdminMessages from "../Dashboard/Admin/AdminMessages/AdminMessages";
+import Services from "../HomeComponents/NvbarRoutes/Services/Services";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +34,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
         loader: () =>
-          fetch("https://home-nest-server-rho.vercel.applatestProperty").then(
+          fetch("https://home-nest-server-rho.vercel.app/latestProperty").then(
             (res) => res.json()
           ),
       },
@@ -39,7 +43,7 @@ const router = createBrowserRouter([
         path: "/properties",
         element: <AllProperties />,
         loader: () =>
-          fetch("https://home-nest-server-rho.vercel.appallProperties"),
+          fetch("https://home-nest-server-rho.vercel.app/allProperties"),
       },
       {
         path: "/PropertyDetails/:id",
@@ -50,7 +54,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://home-nest-server-rho.vercel.appsingleProperty/${params.id}`
+            `https://home-nest-server-rho.vercel.app/singleProperty/${params.id}`
           ),
       },
       {
@@ -62,13 +66,25 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://home-nest-server-rho.vercel.appsingleProperty/${params.id}`
+            `https://home-nest-server-rho.vercel.app/singleProperty/${params.id}`
           ),
       },
 
       {
         path: "/terms",
         element: <Terms />,
+      },
+      {
+path: "/about-us",
+element:<AboutUs></AboutUs>
+      },
+      {
+        path: "/services",
+        element: <Services></Services>
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs></ContactUs>
       },
 
       { path: "/login", element: <Login /> },
@@ -113,7 +129,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () =>
-          fetch("https://home-nest-server-rho.vercel.appallPropertyRatings"),
+          fetch("https://home-nest-server-rho.vercel.app/allPropertyRatings"),
       },
       {
         path: "my-booking",
@@ -134,6 +150,10 @@ const router = createBrowserRouter([
       {
         path: "manageReviews",
         element: <ManageReviews></ManageReviews>,
+      },
+      {
+        path: "manageMessages",
+        element: <AdminMessages></AdminMessages>,
       },
 
       {

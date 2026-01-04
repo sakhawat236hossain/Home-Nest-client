@@ -31,7 +31,7 @@ const RatingCart = ({ rating }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `https://home-nest-server-rho.vercel.appdeletePropertyRating/${_id}`,
+          `https://home-nest-server-rho.vercel.app/deletePropertyRating/${_id}`,
           {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
@@ -89,14 +89,20 @@ const RatingCart = ({ rating }) => {
               {propertyName}
             </h2>
 
-            <label className="text-xs font-semibold text-indigo-700">Rating:</label>
+            <label className="text-xs font-semibold text-indigo-700">
+              Rating:
+            </label>
             <div className="flex items-center gap-1">
               <Rating style={{ maxWidth: 80 }} value={ratingValue} readOnly />
               <span className="text-xs text-gray-600">{ratingValue}/5</span>
             </div>
 
-            <label className="text-xs font-semibold text-indigo-700">Review:</label>
-            <p className="text-gray-700 text-xs">“{reviewText || "No review"}”</p>
+            <label className="text-xs font-semibold text-indigo-700">
+              Review:
+            </label>
+            <p className="text-gray-700 text-xs">
+              “{reviewText || "No review"}”
+            </p>
 
             <label className="text-xs font-semibold text-indigo-700">
               Reviewer:

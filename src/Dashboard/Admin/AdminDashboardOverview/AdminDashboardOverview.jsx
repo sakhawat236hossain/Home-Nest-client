@@ -11,7 +11,7 @@ const AdminDashboardOverview = () => {
 
   useEffect(() => {
     axios
-      .get("https://home-nest-server-rho.vercel.appadmin/overview-stats")
+      .get("https://home-nest-server-rho.vercel.app/admin/overview-stats")
       .then((res) => {
         setAllStats(res.data);
         setLoading(false);

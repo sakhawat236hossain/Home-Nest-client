@@ -15,7 +15,7 @@ const Testimonials = () => {
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    fetch("https://home-nest-server-rho.vercel.appallPropertyRatings")
+    fetch("https://home-nest-server-rho.vercel.app/allPropertyRatings")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);

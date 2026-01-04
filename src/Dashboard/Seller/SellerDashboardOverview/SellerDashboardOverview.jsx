@@ -12,7 +12,7 @@ const SellerDashboardOverview = () => {
     if (user?.email) {
       axios
         .get(
-          `https://home-nest-server-rho.vercel.appseller/overview-stats/${user?.email}`
+          `https://home-nest-server-rho.vercel.app/seller/overview-stats/${user?.email}`
         )
         .then((res) => {
           setStats(res.data);

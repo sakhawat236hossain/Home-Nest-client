@@ -42,6 +42,7 @@ const DashboardLayout = () => {
                 { to: "/dashboard/manageProperties", label: "Manage Properties", icon: <FaTasks /> },
                 { to: "/dashboard/manageReviews", label: "Manage Reviews", icon: <FaStar /> },
                 { to: "/dashboard/manageAllOverview", label: "Admin Overview", icon: <FaUsers /> },
+                { to: "/dashboard/manageMessages", label: "User Messages", icon: <FaBell /> }
             );
         }
 

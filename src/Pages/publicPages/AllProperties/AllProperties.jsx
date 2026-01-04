@@ -28,7 +28,7 @@ const AllProperties = () => {
 
     const delayDebounceFn = setTimeout(() => {
       fetch(
-        `https://home-nest-server-rho.vercel.appsearchProperty?search=${searchText}`
+        `https://home-nest-server-rho.vercel.app/searchProperty?search=${searchText}`
       )
         .then((res) => res.json())
         .then((data) => {
