@@ -17,6 +17,8 @@ import AllProperties from "../Pages/publicPages/AllProperties/AllProperties";
 import MyBookingProperty from "../Dashboard/Users/MyBookingProperty/MyBookingProperty";
 import ManageProperties from "../Dashboard/Admin/ManageProperties/ManageProperties";
 import ManageUsers from "../Dashboard/Admin/ManageUsers/ManageUsers";
+import ManageReviews from "../Dashboard/Admin/ManageReviews/ManageReviews";
+import AdminDashboardOverview from "../Dashboard/Admin/AdminDashboardOverview/AdminDashboardOverview";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +84,14 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        index: true, 
+        element: <AdminDashboardOverview />
+      },
+      {
+        path: "manageAllOverview", 
+        element: <AdminDashboardOverview />
+      },
+      {
         path: "profile",
         element: <Profiles />,
       },
@@ -123,6 +133,15 @@ const router = createBrowserRouter([
       {
         path: "manageProperties",
         element: <ManageProperties></ManageProperties>
+      },
+      {
+        path: "manageReviews",
+        element: <ManageReviews></ManageReviews>
+      },
+
+      {
+        path: "manageAllOverview",
+        element:<AdminDashboardOverview></AdminDashboardOverview>
       }
     ],
   },

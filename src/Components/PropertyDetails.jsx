@@ -4,13 +4,13 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
-import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined, FaTag, FaUserShield, FaPhoneAlt, FaEnvelope, FaClock } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined,  FaPhoneAlt, FaEnvelope, FaClock } from "react-icons/fa";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const PropertyDetails = () => {
   const detailsData = useLoaderData();
   const [rating, setRating] = useState(0);
-  const [reviewText, setReviewText] = useState(""); // টেক্সট এরিয়া হ্যান্ডেল করার জন্য
+  const [reviewText, setReviewText] = useState(""); 
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
@@ -30,7 +30,6 @@ const PropertyDetails = () => {
     createdAt,
   } = detailsData;
 
-  // --- ১. রিভিউ সাবমিট ফাংশন (Functional Rating) ---
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,17 +37,17 @@ const PropertyDetails = () => {
     if (rating === 0) return Swal.fire("Rating Required", "Please select a star rating", "info");
     if (!reviewText) return Swal.fire("Review Required", "Please write something about the property", "info");
 
-    const reviewData = {
-      propertyId: _id,
-      propertyName,
-      image,
-      reviewerName: user?.displayName,
-      reviewerEmail: user?.email,
-      reviewerImage: user?.photoURL,
-      rating,
-      reviewText,
-      reviewDate: new Date(),
-    };
+const reviewData = {
+    propertyId: _id,
+    propertyName,
+    image,
+    reviewerName: user?.displayName,
+    reviewerEmail: user?.email,
+    reviewerImage: user?.photoURL,
+    rating,
+    reviewDescription:reviewText ,
+    reviewDate: new Date(),
+};
 
     try {
       const res = await axiosSecure.post("/addPropertyRating", reviewData);
@@ -60,7 +59,6 @@ const PropertyDetails = () => {
           timer: 2000,
           showConfirmButton: false
         });
-        // সাবমিট হওয়ার পর ফরম ক্লিয়ার করা
         setRating(0);
         setReviewText("");
       }
@@ -69,7 +67,6 @@ const PropertyDetails = () => {
     }
   };
 
-  // --- ২. বুকিং ফাংশন ---
   const handleBookProperty = async () => {
     if (!user) return Swal.fire("Login Required", "Please login to book", "warning");
 
@@ -98,7 +95,7 @@ const PropertyDetails = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#0a0c10] min-h-screen">
+    <div className=" min-h-screen">
       <div className="max-w-[1400px] mx-auto px-4 py-10">
         
         {/* Header Section */}
@@ -179,14 +176,14 @@ const PropertyDetails = () => {
                   </div>
                   <button 
                     onClick={handleBookProperty}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-black text-lg transition-all active:scale-95 shadow-lg shadow-blue-600/30"
+                    className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-black text-lg transition-all active:scale-95 shadow-lg shadow-blue-600/30"
                   >
                     Request to Book
                   </button>
               </div>
 
               {/* Functional Review Section */}
-              <div className="bg-white dark:bg-[#15181e] p-8 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm">
+              <div className="p-8 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm">
                 <h4 className="text-xl font-black mb-4 dark:text-white uppercase tracking-tight">Write a Review</h4>
                 <div className="mb-4">
                   <Rating 
@@ -197,7 +194,7 @@ const PropertyDetails = () => {
                   />
                 </div>
                 <textarea 
-                  className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-[#0a0c10] border border-gray-200 dark:border-gray-800 outline-none focus:ring-2 focus:ring-blue-500 transition-all dark:text-white text-sm"
+                  className="w-full p-4 rounded-2xl border border-gray-200 dark:border-gray-800 outline-none focus:ring-2 focus:ring-blue-500 transition-all dark:text-white text-sm"
                   placeholder="Share your thoughts about this property..."
                   rows="4"
                   value={reviewText}
@@ -205,9 +202,9 @@ const PropertyDetails = () => {
                 ></textarea>
                 <button 
                   onClick={handleReviewSubmit}
-                  className="w-full mt-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white py-3 rounded-xl font-bold hover:bg-blue-600 hover:text-white transition-all active:scale-95"
+                  className="w-full mt-4 py-3 rounded-xl font-bold bg-blue-600 transition-all active:scale-95 cursor-pointer"
                 >
-                  Post Review
+                  Submit Review
                 </button>
               </div>
 

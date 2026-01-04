@@ -1,150 +1,222 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
-import { FaEnvelope, FaUserTag, FaCalendarAlt, FaEdit, FaMapMarkerAlt, FaPhoneAlt, FaCheckCircle, FaBuilding, FaStar } from 'react-icons/fa';
+import { 
+    FaEnvelope, FaUserTag, FaCalendarAlt, FaEdit, 
+    FaMapMarkerAlt, FaCheckCircle, FaBuilding, FaStar, FaShieldAlt, FaCamera, FaUserCircle 
+} from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import useRole from '../../hooks/useRole';
+import Swal from 'sweetalert2';
 
 const Profiles = () => {
-    const { user } = useContext(AuthContext);
+    const { user, updateUserProfile } = useContext(AuthContext); // updateUserProfile context থেকে নিচ্ছি
+    const { role, isLoading } = useRole();
+    const [loading, setLoading] = useState(false);
 
-    // This role can be dynamic later from your database
-    const userRole = "Buyer"; 
+    // আপডেট হ্যান্ডলার ফাংশন
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const photo = form.photo.value;
+
+        setLoading(true);
+        try {
+            await updateUserProfile(name, photo);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Profile updated successfully!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            document.getElementById('profile_modal').close();
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error.message,
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (isLoading) {
+        return <div className="min-h-screen flex justify-center items-center font-bold uppercase tracking-widest text-indigo-500">Loading Profile...</div>;
+    }
 
     return (
-        <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 bg-transparent">
+        <div className="min-h-screen py-6 md:py-10 px-4 bg-transparent">
             <div className="max-w-5xl mx-auto">
                 
-                {/* Main Profile Card */}
-                <div className="bg-white dark:bg-[#16191E] rounded-[2rem] shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-800 transition-all duration-500">
+                <div className="bg-white dark:bg-[#111418] rounded-[2.5rem] shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-800 transition-all duration-500">
                     
                     {/* Header Banner */}
-                    <div className="h-40 md:h-60 bg-gradient-to-r from-[#4F46E5] via-[#7C3AED] to-[#C026D3] relative">
+                    <div className={`h-40 md:h-60 relative transition-colors duration-700 ${
+                        role === 'admin' ? 'bg-gradient-to-r from-red-600 to-rose-500' : 
+                        role === 'seller' ? 'bg-gradient-to-r from-orange-500 to-amber-400' : 
+                        'bg-gradient-to-r from-indigo-600 to-violet-500'
+                    }`}>
                         <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                        
+                        {/* Edit Badge - ক্লিক করলে মডাল খুলবে */}
                         <motion.button 
+                            onClick={() => document.getElementById('profile_modal').showModal()}
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
-                            className="absolute top-6 right-6 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 p-3 rounded-2xl text-white transition-all shadow-xl"
+                            className="absolute top-6 right-6 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/30 p-3 rounded-2xl text-white transition-all shadow-xl"
                         >
                             <FaEdit className="text-xl" />
                         </motion.button>
                     </div>
 
-                    {/* Profile Content Section */}
                     <div className="relative px-6 md:px-12 pb-12">
-                        
-                        {/* Profile Image & Essential Info */}
+                        {/* Profile Image */}
                         <div className="flex flex-col md:flex-row items-end -mt-20 md:-mt-24 mb-10 gap-6">
-                            <motion.div 
-                                initial={{ y: 20, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="relative group"
-                            >
+                            <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="relative group">
                                 <img 
                                     src={user?.photoURL || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} 
+                                    className="w-40 h-40 md:w-52 md:h-52 rounded-[3rem] object-cover border-8 border-white dark:border-[#111418] shadow-2xl transition-transform duration-500 group-hover:rotate-2"
                                     alt="Profile" 
-                                    className="w-36 h-36 md:w-48 md:h-48 rounded-[2.5rem] object-cover border-8 border-white dark:border-[#16191E] shadow-2xl transition-transform duration-500 group-hover:scale-105"
                                 />
-                                <div className="absolute bottom-4 right-4 bg-green-500 p-2 rounded-full border-4 border-white dark:border-[#16191E]">
-                                    <FaCheckCircle className="text-white text-sm" />
+                                <div className="absolute bottom-4 right-4 bg-green-500 p-2.5 rounded-full border-4 border-white dark:border-[#111418]">
+                                    <FaCheckCircle className="text-white text-base" />
                                 </div>
                             </motion.div>
 
                             <div className="flex-1 pb-2">
                                 <div className="flex flex-wrap items-center gap-3">
-                                    <h1 className="text-3xl md:text-4xl font-black text-gray-800 dark:text-white tracking-tight">
-                                        {user?.displayName || "Anonymous User"}
+                                    <h1 className="text-3xl md:text-5xl font-black text-gray-800 dark:text-white tracking-tighter uppercase italic">
+                                        {user?.displayName}
                                     </h1>
-                                    <span className="px-4 py-1.5 bg-indigo-500/10 text-indigo-500 text-xs font-black uppercase tracking-widest rounded-full border border-indigo-500/20">
-                                        {userRole}
+                                    <span className={`px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border shadow-sm ${
+                                        role === 'admin' ? 'bg-red-500/10 text-red-500 border-red-500/20' : 
+                                        role === 'seller' ? 'bg-orange-500/10 text-orange-500 border-orange-500/20' : 
+                                        'bg-indigo-500/10 text-indigo-500 border-indigo-500/20'
+                                    }`}>
+                                        {role || 'User'}
                                     </span>
                                 </div>
-                                <div className="flex flex-wrap gap-4 mt-3 text-gray-500 dark:text-gray-400 font-medium">
-                                    <span className="flex items-center gap-2"><FaEnvelope className="text-indigo-500" /> {user?.email}</span>
-                                    <span className="flex items-center gap-2"><FaMapMarkerAlt className="text-rose-500" /> Dhaka, Bangladesh</span>
+                                <div className="flex flex-wrap gap-5 mt-4 text-gray-500 dark:text-gray-400 font-bold text-sm">
+                                    <span className="flex items-center gap-2 hover:text-indigo-500 transition-colors"><FaEnvelope /> {user?.email}</span>
+                                    <span className="flex items-center gap-2"><FaMapMarkerAlt className="text-rose-500" /> Bangladesh</span>
+                                    <span className="flex items-center gap-2 text-green-500"><FaShieldAlt /> Verified Profile</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Stats Grid */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-                            {[
-                                { label: 'Properties', count: '12', icon: <FaBuilding className="text-blue-500" /> },
-                                { label: 'Reviews', count: '48', icon: <FaStar className="text-yellow-500" /> },
-                                { label: 'Role', count: userRole, icon: <FaUserTag className="text-purple-500" /> },
-                                { label: 'Experience', count: '2 Years', icon: <FaCalendarAlt className="text-green-500" /> },
-                            ].map((stat, i) => (
-                                <div key={i} className="p-4 rounded-[1.5rem] bg-gray-50 dark:bg-gray-800/40 border border-gray-100 dark:border-gray-800 text-center hover:border-indigo-500/50 transition-all cursor-default">
-                                    <div className="flex justify-center mb-2 text-xl">{stat.icon}</div>
-                                    <div className="text-xl font-black text-gray-800 dark:text-white">{stat.count}</div>
-                                    <div className="text-[10px] uppercase font-bold tracking-tighter opacity-50">{stat.label}</div>
-                                </div>
-                            ))}
+                            {/* ... (আপনার আগের ম্যাপ করা স্ট্যাটস কোড এখানে থাকবে) ... */}
                         </div>
 
-                        {/* Detailed Info Sections */}
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            
-                            {/* Left Col: Info List */}
+                        {/* Detailed Sections */}
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                            {/* Account Info */}
                             <div className="lg:col-span-1 space-y-6">
-                                <h3 className="text-xl font-black text-gray-800 dark:text-white flex items-center gap-3">
-                                    Personal Details
-                                    <div className="h-1 flex-1 bg-gray-100 dark:bg-gray-800 rounded-full"></div>
+                                <h3 className="text-lg font-black text-gray-800 dark:text-white flex items-center gap-3 uppercase tracking-tighter">
+                                    Account Info
+                                    <div className="h-[2px] flex-1 bg-gray-100 dark:bg-gray-800"></div>
                                 </h3>
-                                <div className="space-y-4">
+                                <div className="space-y-5 bg-gray-50 dark:bg-gray-800/20 p-6 rounded-3xl border border-gray-100 dark:border-gray-800">
                                     <div className="flex flex-col">
-                                        <span className="text-xs font-bold text-gray-400 uppercase">Phone Number</span>
-                                        <span className="font-bold text-gray-700 dark:text-gray-200">+880 1851 121 472</span>
+                                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Unique ID</span>
+                                        <span className="font-bold text-gray-700 dark:text-gray-200 truncate">{user?.uid?.slice(0, 15)}...</span>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="text-xs font-bold text-gray-400 uppercase">Member Since</span>
-                                        <span className="font-bold text-gray-700 dark:text-gray-200">January 02, 2026</span>
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-xs font-bold text-gray-400 uppercase">Verification</span>
-                                        <span className="text-green-500 font-black text-sm">LEVEL 2 VERIFIED</span>
+                                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Last Login</span>
+                                        <span className="font-bold text-gray-700 dark:text-gray-200">{new Date().toLocaleDateString()}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Right Col: About/Bio */}
+                            {/* Bio & Actions */}
                             <div className="lg:col-span-2 space-y-6">
-                                <h3 className="text-xl font-black text-gray-800 dark:text-white flex items-center gap-3">
-                                    About Me
-                                    <div className="h-1 flex-1 bg-gray-100 dark:bg-gray-800 rounded-full"></div>
+                                <h3 className="text-lg font-black text-gray-800 dark:text-white flex items-center gap-3 uppercase tracking-tighter">
+                                    Professional Bio
+                                    <div className="h-[2px] flex-1 bg-gray-100 dark:bg-gray-800"></div>
                                 </h3>
-                                <div className="p-6 rounded-3xl bg-indigo-500/5 border border-indigo-500/10 relative">
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed italic font-medium">
-                                        "Hello, I'm {user?.displayName}. I am passionate about finding the perfect homes and investments in the Property Hub market. My goal is to maintain a high-quality portfolio and provide honest feedback to the community."
+                                <div className="p-8 rounded-[2rem] bg-indigo-500/5 border border-indigo-500/10 relative overflow-hidden">
+                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed italic font-bold text-lg relative z-10">
+                                        Greetings, I am {user?.displayName}. Actively operating as a <span className="text-indigo-500">{role}</span> on Property Hub.
                                     </p>
-                                    <div className="absolute -bottom-3 -right-3 text-6xl opacity-10 font-serif text-indigo-500">"</div>
                                 </div>
 
-                                {/* Action Buttons */}
                                 <div className="flex flex-wrap gap-4 pt-4">
                                     <motion.button 
+                                        onClick={() => document.getElementById('profile_modal').showModal()}
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className="flex-1 min-w-max px-8 py-4 bg-indigo-600 text-white font-black rounded-2xl shadow-xl shadow-indigo-500/20 hover:bg-indigo-700 transition-all uppercase text-xs tracking-widest"
+                                        className={`flex-1 min-w-[160px] px-8 py-4 text-white font-black rounded-2xl shadow-xl transition-all uppercase text-[10px] tracking-[0.2em] ${
+                                            role === 'admin' ? 'bg-red-600 shadow-red-500/20' : 'bg-indigo-600 shadow-indigo-500/20'
+                                        }`}
                                     >
-                                        Edit Account
+                                        Update Profile
                                     </motion.button>
                                     <motion.button 
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className="flex-1 min-w-max px-8 py-4 border-2 border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-black rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all uppercase text-xs tracking-widest"
+                                        className="flex-1 min-w-[160px] px-8 py-4 border-2 border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-black rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all uppercase text-[10px] tracking-[0.2em]"
                                     >
-                                        Settings
+                                        View Activities
                                     </motion.button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
-                {/* Footer Tag */}
-                <p className="text-center mt-8 text-xs font-bold text-gray-400 uppercase tracking-[0.3em]">
-                    Property Hub Security Verified Account
-                </p>
+                {/* --- Update Modal --- */}
+                <dialog id="profile_modal" className="modal modal-bottom sm:modal-middle">
+                    <div className="modal-box dark:bg-[#1a1d23] dark:text-white rounded-3xl border border-gray-800">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="font-black text-2xl uppercase italic tracking-tighter">Edit Profile</h3>
+                            <form method="dialog">
+                                <button className="btn btn-sm btn-circle btn-ghost">✕</button>
+                            </form>
+                        </div>
+                        
+                        <form onSubmit={handleUpdate} className="space-y-5">
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold uppercase tracking-widest opacity-60 flex items-center gap-2">
+                                    <FaUserCircle /> New Display Name
+                                </label>
+                                <input 
+                                    name="name"
+                                    type="text" 
+                                    defaultValue={user?.displayName}
+                                    placeholder="Enter your name" 
+                                    className="w-full p-4 rounded-xl bg-gray-100 dark:bg-gray-800 border-none focus:ring-2 focus:ring-indigo-500 outline-none font-bold"
+                                    required
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold uppercase tracking-widest opacity-60 flex items-center gap-2">
+                                    <FaCamera /> New Photo URL
+                                </label>
+                                <input 
+                                    name="photo"
+                                    type="url" 
+                                    defaultValue={user?.photoURL}
+                                    placeholder="https://example.com/photo.jpg" 
+                                    className="w-full p-4 rounded-xl bg-gray-100 dark:bg-gray-800 border-none focus:ring-2 focus:ring-indigo-500 outline-none font-bold"
+                                    required
+                                />
+                            </div>
+
+                            <button 
+                                type="submit"
+                                disabled={loading}
+                                className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl uppercase tracking-widest shadow-lg shadow-indigo-500/20 transition-all disabled:opacity-50"
+                            >
+                                {loading ? "Updating..." : "Save Changes"}
+                            </button>
+                        </form>
+                    </div>
+                </dialog>
+
             </div>
         </div>
     );

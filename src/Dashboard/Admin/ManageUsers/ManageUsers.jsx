@@ -105,7 +105,7 @@ const ManageUsers = () => {
                     <td className="py-5 px-4 text-center">
                       <span className={`inline-block px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tighter ${
                         user.role === 'admin' ? ' text-indigo-700' :
-                        user.role === 'agent' ? ' text-sky-700' :
+                        user.role === 'seller' ? ' text-sky-700' :
                         user.role === 'fraud' ? ' text-rose-700' : 'bg-slate-100 text-slate-600'
                       }`}>
                         {user.role || 'Member'}
@@ -122,7 +122,7 @@ const ManageUsers = () => {
                             <button onClick={() => handleMakeRole(user, 'admin')} className="action-btn cursor-pointer bg-indigo-600 text-white hover:bg-indigo-700">Admin</button>
                           )}
                           {user.role !== 'agent' && (
-                            <button onClick={() => handleMakeRole(user, 'agent')} className="action-btn cursor-pointer bg-sky-500 text-white hover:bg-sky-600">Agent</button>
+                            <button onClick={() => handleMakeRole(user, 'seller')} className="action-btn cursor-pointer bg-sky-500 text-white hover:bg-sky-600">Seller</button>
                           )}
                           {user.role !== 'user' && user.role !== '' && (
                             <button onClick={() => handleMakeRole(user, 'user')} className="action-btn cursor-pointer bg-slate-200 text-slate-700 hover:bg-slate-800 hover:text-white">User</button>
