@@ -30,7 +30,6 @@ const DashboardLayout = () => {
         toast.success("LogOut successful!");
     };
 
-    // --- রোল অনুযায়ী মেনু ফিল্টারিং ---
     const getNavLinks = () => {
         const links = [
             { to: "/", label: "Home", icon: <FaHome /> },
@@ -53,7 +52,7 @@ const DashboardLayout = () => {
             );
         }
 
-        if (role === "user") {
+        if (role === "buyer") {
             links.push(
                 { to: "/dashboard/my-booking", label: "My Bookings", icon: <FaBell /> }
             );

@@ -19,6 +19,7 @@ import ManageProperties from "../Dashboard/Admin/ManageProperties/ManageProperti
 import ManageUsers from "../Dashboard/Admin/ManageUsers/ManageUsers";
 import ManageReviews from "../Dashboard/Admin/ManageReviews/ManageReviews";
 import AdminDashboardOverview from "../Dashboard/Admin/AdminDashboardOverview/AdminDashboardOverview";
+import DashboardOverview from "../Dashboard/DashboardOverview/DashboardOverview";
 
 const router = createBrowserRouter([
   {
@@ -83,14 +84,12 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      {
-        index: true, 
-        element: <AdminDashboardOverview />
-      },
-      {
-        path: "manageAllOverview", 
-        element: <AdminDashboardOverview />
-      },
+     
+     {
+index:true,
+element:<DashboardOverview>
+</DashboardOverview>
+     },
       {
         path: "profile",
         element: <Profiles />,

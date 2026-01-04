@@ -33,7 +33,7 @@ const ManageUsers = () => {
           const res = await axiosSecure.patch(`/users/role/${user._id}`, { role });
           if (res.data.modifiedCount > 0) {
             refetch();
-            Swal.fire("Success", "User role updated.", "success");
+            Swal.fire("Success", `User is now a ${role}.`, "success");
           }
         } catch (error) {
           Swal.fire("Failed", "Server error occurred.", "error");
@@ -57,26 +57,26 @@ const ManageUsers = () => {
             <p className=" text-sm sm:text-base font-medium">Configure access control and permissions</p>
           </div>
           <div className="px-4 py-2 rounded-2xl shadow-sm border border-slate-100 hidden sm:block">
-            <span className="text-sm">Total Members:</span>
-            <span className="ml-2 font-bold text-indigo-600">{users.length}</span>
+            <span className="text-sm font-bold">Total Platform Members:</span>
+            <span className="ml-2 font-black text-indigo-600">{users.length}</span>
           </div>
         </div>
 
         {/* Table Container */}
-        <div className="rounded-[2rem] shadow-2xl shadow-indigo-100/40 border border-slate-100 overflow-hidden">
+        <div className="rounded-[2rem] shadow-2xl shadow-indigo-100/40 border border-slate-100 overflow-hidden ">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr className=" border-b border-slate-100">
-                  <th className="py-6 px-4 sm:px-8 text-xs font-bold  uppercase tracking-widest">Member Identity</th>
-                  <th className="py-6 px-4 hidden lg:table-cell text-xs font-bold  uppercase tracking-widest">Email Address</th>
-                  <th className="py-6 px-4 text-xs font-bold  uppercase tracking-widest text-center">Status</th>
-                  <th className="py-6 px-4 text-xs font-bold  uppercase tracking-widest text-center">Administrative Actions</th>
+                <tr className=" border-b border-slate-100 ">
+                  <th className="py-6 px-4 sm:px-8 text-xs font-black uppercase tracking-widest">Member Identity</th>
+                  <th className="py-6 px-4 hidden lg:table-cell text-xs font-black uppercase tracking-widest">Email Address</th>
+                  <th className="py-6 px-4 text-xs font-black uppercase tracking-widest text-center">Current Role</th>
+                  <th className="py-6 px-4 text-xs font-black uppercase tracking-widest text-center">Administrative Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
                 {users.map((user) => (
-                  <tr key={user._id} className="hover:bg-indigo-50/20 transition-all duration-300">
+                  <tr key={user._id} className=" transition-all duration-300">
                     
                     {/* User Info */}
                     <td className="py-5 px-4 sm:px-8">
@@ -90,48 +90,55 @@ const ManageUsers = () => {
                           <div className={`absolute -top-1 -right-1 w-3 sm:w-4 h-3 sm:h-4 rounded-full border-2 border-white shadow-sm ${user.role === 'fraud' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
                         </div>
                         <div className="flex flex-col">
-                          <span className="font-bold text-sm sm:text-base leading-tight">{user.name}</span>
-                          <span className="text-[10px] sm:hidden  font-medium">{user.email}</span>
+                          <span className="font-black text-sm sm:text-base leading-tight">{user.name}</span>
+                          <span className="text-[10px] sm:hidden font-bold uppercase tracking-tighter">{user.role || 'buyer'}</span>
                         </div>
                       </div>
                     </td>
 
                     {/* Email (Desktop Only) */}
                     <td className="py-5 px-4 hidden lg:table-cell">
-                      <span className="text-slate-500 font-medium text-sm">{user.email}</span>
+                      <span className=" font-bold text-sm">{user.email}</span>
                     </td>
 
                     {/* Status Badge */}
                     <td className="py-5 px-4 text-center">
-                      <span className={`inline-block px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tighter ${
-                        user.role === 'admin' ? ' text-indigo-700' :
-                        user.role === 'seller' ? ' text-sky-700' :
-                        user.role === 'fraud' ? ' text-rose-700' : 'bg-slate-100 text-slate-600'
+                      <span className={`inline-block px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tighter shadow-sm border ${
+                        user.role === 'admin' ? ' border-indigo-100 text-indigo-700' :
+                        user.role === 'seller' ? ' border-sky-100 text-sky-700' :
+                        user.role === 'fraud' ? ' border-rose-100 text-rose-700' : 
+                        ' border-emerald-100 text-emerald-700'
                       }`}>
-                        {user.role || 'Member'}
+                        {user.role || 'buyer'}
                       </span>
                     </td>
 
-                    {/* Control Buttons */}
+                    {/* Action Buttons */}
                     <td className="py-5 px-4">
-                      <div className="flex justify-center items-center gap-2 flex-wrap max-w-[250px] mx-auto">
-                        
-                        {/* Action Buttons with Tooltip-like feel */}
-                        <div className="grid grid-cols-2 gap-2 w-full sm:w-auto cursor-pointer">
+                      <div className="flex justify-center items-center gap-2">
+                        <div className="grid grid-cols-2 gap-2 w-full sm:w-auto">
+                          
+                          {/* Admin Button */}
                           {user.role !== 'admin' && (
-                            <button onClick={() => handleMakeRole(user, 'admin')} className="action-btn cursor-pointer bg-indigo-600 text-white hover:bg-indigo-700">Admin</button>
+                            <button onClick={() => handleMakeRole(user, 'admin')} className="action-btn bg-indigo-600  hover:bg-indigo-700">Make Admin</button>
                           )}
-                          {user.role !== 'agent' && (
-                            <button onClick={() => handleMakeRole(user, 'seller')} className="action-btn cursor-pointer bg-sky-500 text-white hover:bg-sky-600">Seller</button>
+                          
+                          {/* Seller/Agent Button */}
+                          {user.role !== 'seller' && (
+                            <button onClick={() => handleMakeRole(user, 'seller')} className="action-btn  bg-sky-600">Make Seller</button>
                           )}
-                          {user.role !== 'user' && user.role !== '' && (
-                            <button onClick={() => handleMakeRole(user, 'user')} className="action-btn cursor-pointer bg-slate-200 text-slate-700 hover:bg-slate-800 hover:text-white">User</button>
+                          
+                          {/* Buyer Button */}
+                          {user.role !== 'buyer' && user.role !== undefined && (
+                            <button onClick={() => handleMakeRole(user, 'buyer')} className="action-btn bg-emerald-500  hover:bg-emerald-600">Make Buyer</button>
                           )}
+                          
+                          {/* Fraud Button */}
                           {user.role !== 'fraud' && (
-                            <button onClick={() => handleMakeRole(user, 'fraud')} className="action-btn cursor-pointer bg-rose-500 text-white hover:bg-rose-700 col-span-1">Fraud</button>
+                            <button onClick={() => handleMakeRole(user, 'fraud')} className="action-btn bg-rose-500  hover:bg-rose-700">Mark Fraud</button>
                           )}
+                          
                         </div>
-
                       </div>
                     </td>
                   </tr>
@@ -142,17 +149,20 @@ const ManageUsers = () => {
         </div>
       </div>
 
-      {/* Global CSS for buttons to keep JSX clean */}
       <style jsx>{`
         .action-btn {
-          padding: 6px 12px;
-          border-radius: 10px;
+          padding: 8px 14px;
+          border-radius: 12px;
           font-size: 10px;
-          font-weight: 800;
+          font-weight: 900;
           text-transform: uppercase;
-          transition: all 0.2s ease;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-          text-align: center;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+        }
+        .action-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
         .action-btn:active {
           transform: scale(0.95);

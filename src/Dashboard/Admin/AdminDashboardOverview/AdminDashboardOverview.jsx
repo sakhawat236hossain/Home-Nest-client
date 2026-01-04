@@ -10,7 +10,7 @@ const AdminDashboardOverview = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/admin/overview-stats')
+        axios.get('https://home-nest-server-rho.vercel.app/admin/overview-stats')
             .then(res => {
                 setAllStats(res.data);
                 setLoading(false);
