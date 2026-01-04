@@ -29,13 +29,12 @@ if (loading) {
     <div>
       <BannerSlider />
 
-      {/* Latest Properties Section */}
+      <SuccessCounter />
+
       <div className="my-12 max-w-7xl mx-auto px-4">
-        <title>Home Page</title>
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 ">
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">
           Latest Properties
         </h1>
-
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {latestPropertyData.map((Property) => (
             <LatestCart key={Property._id} Property={Property} />
@@ -44,11 +43,14 @@ if (loading) {
       </div>
 
       <WhyChooseUs />
+
+      <MeetOurAgents />
+
+      <Testimonials />
+
       <ExtraSections />
-      <Testimonials></Testimonials>
-      <MeetOurAgents></MeetOurAgents>
-      <SuccessCounter></SuccessCounter>
-      <FAQSection></FAQSection>
+
+      <FAQSection />
     </div>
   );
 };

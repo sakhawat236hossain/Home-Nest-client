@@ -5,7 +5,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 // Create axios instance
 const axiosSecure = axios.create({
-  baseURL: "https://home-nest-server-km3h4ie83-md-sakhawat-hossain.vercel.app",
+  baseURL: "https://home-nest-server-rho.vercel.app",
 });
 
 const useAxiosSecure = () => {

@@ -13,33 +13,44 @@ const AllProperties = () => {
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; 
+  const itemsPerPage = 8;
 
   // Typewriter state
   const fullTitle = "All Properties";
-  const fullSubtitle = "Discover a variety of properties for rent, sale & investment. Find your perfect place today!";
+  const fullSubtitle =
+    "Discover a variety of properties for rent, sale & investment. Find your perfect place today!";
   const [typedTitle, setTypedTitle] = useState("");
   const [typedSubtitle, setTypedSubtitle] = useState("");
 
   // Search & Filter Logic
   useEffect(() => {
     setLoading(true);
-    
+
     const delayDebounceFn = setTimeout(() => {
-      fetch(`https://home-nest-server-rho.vercel.app/searchProperty?search=${searchText}`)
+      fetch(
+        `https://home-nest-server-rho.vercel.appsearchProperty?search=${searchText}`
+      )
         .then((res) => res.json())
         .then((data) => {
           let sorted = [...data];
-          if (sortBy === "low-to-high") sorted.sort((a, b) => a.price - b.price);
-          else if (sortBy === "high-to-low") sorted.sort((a, b) => b.price - a.price);
-          else if (sortBy === "newest") sorted.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
-          else if (sortBy === "oldest") sorted.sort((a, b) => new Date(a.postedDate) - new Date(b.postedDate));
-          
+          if (sortBy === "low-to-high")
+            sorted.sort((a, b) => a.price - b.price);
+          else if (sortBy === "high-to-low")
+            sorted.sort((a, b) => b.price - a.price);
+          else if (sortBy === "newest")
+            sorted.sort(
+              (a, b) => new Date(b.postedDate) - new Date(a.postedDate)
+            );
+          else if (sortBy === "oldest")
+            sorted.sort(
+              (a, b) => new Date(a.postedDate) - new Date(b.postedDate)
+            );
+
           setProperties(sorted);
-          setCurrentPage(1); 
+          setCurrentPage(1);
           setLoading(false);
         });
-    }, 1000); 
+    }, 1000);
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchText, sortBy]);
@@ -116,7 +127,9 @@ const AllProperties = () => {
 
       {/* Grid */}
       {loading ? (
-        <div className="flex justify-center py-20"><LoadingData /></div>
+        <div className="flex justify-center py-20">
+          <LoadingData />
+        </div>
       ) : (
         <>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -128,7 +141,9 @@ const AllProperties = () => {
           {/* No Data State */}
           {properties.length === 0 && (
             <div className="text-center py-20">
-              <h3 className="text-2xl font-bold text-gray-400">No properties found!</h3>
+              <h3 className="text-2xl font-bold text-gray-400">
+                No properties found!
+              </h3>
             </div>
           )}
 
@@ -137,12 +152,12 @@ const AllProperties = () => {
             <div className="flex justify-center items-center gap-2 mt-16">
               <button
                 disabled={currentPage === 1}
-                onClick={() => setCurrentPage(prev => prev - 1)}
+                onClick={() => setCurrentPage((prev) => prev - 1)}
                 className="p-3 rounded-lg bg-white dark:bg-gray-800 border hover:bg-indigo-600 hover:text-white disabled:opacity-50 transition-all shadow-sm"
               >
                 <FaChevronLeft />
               </button>
-              
+
               {[...Array(totalPages)].map((_, index) => (
                 <button
                   key={index}
@@ -159,7 +174,7 @@ const AllProperties = () => {
 
               <button
                 disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage(prev => prev + 1)}
+                onClick={() => setCurrentPage((prev) => prev + 1)}
                 className="p-3 rounded-lg bg-white dark:bg-gray-800 border hover:bg-indigo-600 hover:text-white disabled:opacity-50 transition-all shadow-sm"
               >
                 <FaChevronRight />

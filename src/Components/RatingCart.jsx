@@ -31,7 +31,7 @@ const RatingCart = ({ rating }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `https://home-nest-server-rho.vercel.app/deletePropertyRating/${_id}`,
+          `https://home-nest-server-rho.vercel.appdeletePropertyRating/${_id}`,
           {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },

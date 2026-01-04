@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
         loader: () =>
-          fetch("https://home-nest-server-rho.vercel.app/latestProperty").then(
+          fetch("https://home-nest-server-rho.vercel.applatestProperty").then(
             (res) => res.json()
           ),
       },
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
         path: "/properties",
         element: <AllProperties />,
         loader: () =>
-          fetch("https://home-nest-server-rho.vercel.app/allProperties"),
+          fetch("https://home-nest-server-rho.vercel.appallProperties"),
       },
       {
         path: "/PropertyDetails/:id",
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://home-nest-server-rho.vercel.app/singleProperty/${params.id}`
+            `https://home-nest-server-rho.vercel.appsingleProperty/${params.id}`
           ),
       },
       {
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://home-nest-server-rho.vercel.app/singleProperty/${params.id}`
+            `https://home-nest-server-rho.vercel.appsingleProperty/${params.id}`
           ),
       },
 
@@ -84,12 +84,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-     
-     {
-index:true,
-element:<DashboardOverview>
-</DashboardOverview>
-     },
+      {
+        index: true,
+        element: <DashboardOverview></DashboardOverview>,
+      },
       {
         path: "profile",
         element: <Profiles />,
@@ -115,10 +113,10 @@ element:<DashboardOverview>
           </PrivateRoute>
         ),
         loader: () =>
-          fetch("https://home-nest-server-rho.vercel.app/allPropertyRatings"),
+          fetch("https://home-nest-server-rho.vercel.appallPropertyRatings"),
       },
       {
-        path:"my-booking",
+        path: "my-booking",
         element: (
           <PrivateRoute>
             <MyBookingProperty />
@@ -127,21 +125,21 @@ element:<DashboardOverview>
       },
       {
         path: "manageUsers",
-        element: <ManageUsers></ManageUsers>
+        element: <ManageUsers></ManageUsers>,
       },
       {
         path: "manageProperties",
-        element: <ManageProperties></ManageProperties>
+        element: <ManageProperties></ManageProperties>,
       },
       {
         path: "manageReviews",
-        element: <ManageReviews></ManageReviews>
+        element: <ManageReviews></ManageReviews>,
       },
 
       {
         path: "manageAllOverview",
-        element:<AdminDashboardOverview></AdminDashboardOverview>
-      }
+        element: <AdminDashboardOverview></AdminDashboardOverview>,
+      },
     ],
   },
   { path: "*", element: <NotFound /> },
