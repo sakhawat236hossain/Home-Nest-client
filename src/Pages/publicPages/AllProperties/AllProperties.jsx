@@ -88,35 +88,37 @@ const AllProperties = () => {
   if (loading && properties.length === 0) return <LoadingData />;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 min-h-screen">
+    <div className="max-w-7xl mx-auto px-4 py-10 min-h-screen bg-transparent">
+      
       {/* Title & Subtitle */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-black mb-4">
+      <div className="text-center mb-16 space-y-4">
+        <span className="text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-[0.4em]">Catalog Explorer</span>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight uppercase">
           <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
             {typedTitle}
           </span>
         </h1>
-        <p className="max-w-2xl mx-auto text-gray-500 dark:text-gray-400 font-medium leading-relaxed">
+        <p className="max-w-2xl mx-auto text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-[10px] leading-relaxed">
           {typedSubtitle}
         </p>
       </div>
 
       {/* Search + Sort Bar */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-10">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white dark:bg-slate-900 p-5 rounded-[2.2rem] shadow-sm border border-slate-100 dark:border-slate-800/80 mb-12 transition-all duration-300">
         <div className="relative w-full md:w-2/3">
-          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          <FaSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
             placeholder="Search by property name or location..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-gray-900 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 dark:text-white"
+            className="w-full pl-14 pr-4 py-3.5 bg-slate-50 dark:bg-slate-950 border-none rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white font-semibold text-sm transition-all duration-300"
           />
         </div>
 
         <select
           onChange={(e) => setSortBy(e.target.value)}
-          className="w-full md:w-1/3 p-3 bg-gray-50 dark:bg-gray-900 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 dark:text-white font-medium"
+          className="w-full md:w-1/3 p-3.5 bg-slate-50 dark:bg-slate-950 border-none rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white font-bold text-xs uppercase tracking-widest cursor-pointer transition-all duration-300"
         >
           <option value="default">Sort: Default</option>
           <option value="low-to-high">Price: Low to High</option>
@@ -141,7 +143,7 @@ const AllProperties = () => {
           {/* No Data State */}
           {properties.length === 0 && (
             <div className="text-center py-20">
-              <h3 className="text-2xl font-bold text-gray-400">
+              <h3 className="text-2xl font-black text-slate-400 dark:text-slate-550 uppercase tracking-widest">
                 No properties found!
               </h3>
             </div>
@@ -149,23 +151,23 @@ const AllProperties = () => {
 
           {/* Pagination UI */}
           {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-2 mt-16">
+            <div className="flex justify-center items-center gap-3 mt-16">
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((prev) => prev - 1)}
-                className="p-3 rounded-lg bg-white dark:bg-gray-800 border hover:bg-indigo-600 hover:text-white disabled:opacity-50 transition-all shadow-sm"
+                className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-indigo-600 hover:text-white disabled:opacity-50 transition-all duration-300 shadow-sm cursor-pointer"
               >
-                <FaChevronLeft />
+                <FaChevronLeft size={12} />
               </button>
 
               {[...Array(totalPages)].map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentPage(index + 1)}
-                  className={`w-12 h-12 rounded-lg font-bold transition-all ${
+                  className={`w-11 h-11 rounded-xl font-black text-xs transition-all duration-300 cursor-pointer ${
                     currentPage === index + 1
-                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
-                      : "bg-white dark:bg-gray-800 border hover:border-indigo-600"
+                      ? "bg-indigo-605 bg-indigo-600 text-white shadow-lg shadow-indigo-500/10"
+                      : "bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-800 text-slate-700 dark:text-slate-350 hover:border-indigo-650"
                   }`}
                 >
                   {index + 1}
@@ -175,9 +177,9 @@ const AllProperties = () => {
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage((prev) => prev + 1)}
-                className="p-3 rounded-lg bg-white dark:bg-gray-800 border hover:bg-indigo-600 hover:text-white disabled:opacity-50 transition-all shadow-sm"
+                className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-indigo-600 hover:text-white disabled:opacity-50 transition-all duration-300 shadow-sm cursor-pointer"
               >
-                <FaChevronRight />
+                <FaChevronRight size={12} />
               </button>
             </div>
           )}

@@ -4,8 +4,9 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
-import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined,  FaPhoneAlt, FaEnvelope, FaClock } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined,  FaPhoneAlt, FaEnvelope, FaClock, FaCarSide } from "react-icons/fa";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { motion } from "framer-motion";
 
 const PropertyDetails = () => {
   const detailsData = useLoaderData();
@@ -37,17 +38,17 @@ const PropertyDetails = () => {
     if (rating === 0) return Swal.fire("Rating Required", "Please select a star rating", "info");
     if (!reviewText) return Swal.fire("Review Required", "Please write something about the property", "info");
 
-const reviewData = {
-    propertyId: _id,
-    propertyName,
-    image,
-    reviewerName: user?.displayName,
-    reviewerEmail: user?.email,
-    reviewerImage: user?.photoURL,
-    rating,
-    reviewDescription:reviewText ,
-    reviewDate: new Date(),
-};
+    const reviewData = {
+        propertyId: _id,
+        propertyName,
+        image,
+        reviewerName: user?.displayName,
+        reviewerEmail: user?.email,
+        reviewerImage: user?.photoURL,
+        rating,
+        reviewDescription:reviewText ,
+        reviewDate: new Date(),
+    };
 
     try {
       const res = await axiosSecure.post("/addPropertyRating", reviewData);
@@ -95,25 +96,25 @@ const reviewData = {
   };
 
   return (
-    <div className=" min-h-screen">
-      <div className="max-w-[1400px] mx-auto px-4 py-10">
+    <div className="min-h-screen py-10 transition-colors duration-500 bg-slate-50 dark:bg-[#0F172A]">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
         
         {/* Header Section */}
-        <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div>
-            <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border border-blue-200 dark:border-blue-800">
+        <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-100 dark:border-slate-800/80">
+          <div className="space-y-4">
+            <span className="bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-4.5 py-1.5 rounded-xl text-xs font-black uppercase tracking-[0.2em] border border-indigo-100/50 dark:border-indigo-900/30">
               {category}
             </span>
-            <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mt-4 tracking-tight">
+            <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight uppercase">
               {propertyName}
             </h1>
-            <p className="flex items-center gap-2 text-gray-500 dark:text-gray-400 mt-3 text-lg">
-              <FaMapMarkerAlt className="text-red-500" /> {location}
+            <p className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-sm font-bold uppercase tracking-wider">
+              <FaMapMarkerAlt className="text-rose-500 shrink-0" size={14} /> {location}
             </p>
           </div>
           <div className="text-left md:text-right">
-            <p className="text-gray-400 text-sm font-bold uppercase">Estimated Price</p>
-            <h2 className="text-4xl md:text-5xl font-black text-blue-600">${price?.toLocaleString()}</h2>
+            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-2">Estimated Price</p>
+            <h2 className="text-3xl md:text-5xl font-black text-indigo-600 dark:text-indigo-400 tracking-tight">${price?.toLocaleString()}</h2>
           </div>
         </div>
 
@@ -121,80 +122,118 @@ const reviewData = {
           
           {/* Left Column */}
           <div className="lg:col-span-8 space-y-8">
-            <div className="rounded-[32px] overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800">
-              <img src={image} className="w-full h-[500px] object-cover" alt="" />
+            {/* Padded Premium Image Cover */}
+            <div className="rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 p-3 bg-white dark:bg-slate-900 transition-all duration-300">
+              <img src={image} className="w-full h-[320px] md:h-[500px] object-cover rounded-[2rem]" alt={propertyName} />
             </div>
 
             {/* Specs Bar */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 dark:bg-[#15181e] p-6 rounded-[24px]">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white dark:bg-slate-900 p-6 rounded-[2.2rem] border border-slate-100 dark:border-slate-800/80 shadow-sm transition-all duration-350">
+              {category === "Car" ? (
+                <div className="flex items-center gap-4 col-span-2">
+                  <div className="p-3 bg-slate-50 dark:bg-slate-850 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800/40 shrink-0">
+                    <FaCarSide className="text-indigo-500" size={20}/>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500 font-black uppercase tracking-widest">Model</p>
+                    <p className="font-bold text-sm text-slate-850 dark:text-white mt-0.5">{specs?.carModel || "N/A"}</p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-slate-50 dark:bg-slate-850 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800/40 shrink-0">
+                      <FaBed className="text-indigo-500" size={20}/>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500 font-black uppercase tracking-widest">Beds</p>
+                      <p className="font-bold text-sm text-slate-855 dark:text-white mt-0.5">{specs?.beds || 0}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-slate-50 dark:bg-slate-850 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800/40 shrink-0">
+                      <FaBath className="text-indigo-500" size={20}/>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500 font-black uppercase tracking-widest">Baths</p>
+                      <p className="font-bold text-sm text-slate-855 dark:text-white mt-0.5">{specs?.baths || 0}</p>
+                    </div>
+                  </div>
+                </>
+              )}
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm"><FaBed className="text-blue-500" size={20}/></div>
-                <div><p className="text-xs text-gray-400 font-bold uppercase">Beds</p><p className="font-bold dark:text-white">{specs?.beds || 0}</p></div>
+                <div className="p-3 bg-slate-50 dark:bg-slate-850 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800/40 shrink-0">
+                  <FaRulerCombined className="text-indigo-500" size={20}/>
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-black uppercase tracking-widest">Area</p>
+                  <p className="font-bold text-sm text-slate-855 dark:text-white mt-0.5">{specs?.area || 0} sqft</p>
+                </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm"><FaBath className="text-blue-500" size={20}/></div>
-                <div><p className="text-xs text-gray-400 font-bold uppercase">Baths</p><p className="font-bold dark:text-white">{specs?.baths || 0}</p></div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm"><FaRulerCombined className="text-blue-500" size={20}/></div>
-                <div><p className="text-xs text-gray-400 font-bold uppercase">Area</p><p className="font-bold dark:text-white">{specs?.area} sqft</p></div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm"><FaClock className="text-blue-500" size={20}/></div>
-                <div><p className="text-xs text-gray-400 font-bold uppercase">Posted</p><p className="font-bold dark:text-white">{new Date(createdAt).toLocaleDateString()}</p></div>
+                <div className="p-3 bg-slate-50 dark:bg-slate-850 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800/40 shrink-0">
+                  <FaClock className="text-indigo-500" size={20}/>
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-black uppercase tracking-widest">Posted</p>
+                  <p className="font-bold text-sm text-slate-855 dark:text-white mt-0.5">{new Date(createdAt).toLocaleDateString()}</p>
+                </div>
               </div>
             </div>
 
-            <div className="prose prose-lg dark:prose-invert max-w-none">
-              <h3 className="text-2xl font-black border-l-4 border-blue-600 pl-4 mb-6 uppercase">Property Description</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-lg italic">
+            <div className="space-y-6">
+              <h3 className="text-lg font-black border-l-4 border-indigo-600 dark:border-indigo-400 pl-4 mb-6 uppercase tracking-wider text-slate-800 dark:text-white">Property Description</h3>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm font-bold uppercase tracking-tight pl-5 border-l border-slate-100 dark:border-slate-800">
                 "{description}"
               </p>
             </div>
           </div>
 
-          {/* Right Column (Sticky Side) */}
+          {/* Right Column */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="sticky top-10 space-y-6">
+            <div className="sticky top-24 space-y-6">
               
-              {/* Agent & Book Card */}
-              <div className="bg-gray-900 text-white p-8 rounded-[32px] shadow-xl">
+              {/* Agent Box */}
+              <div className="bg-[#0F172A] text-white p-8 rounded-[2.2rem] border border-slate-800 shadow-xl relative overflow-hidden transition-all duration-300">
+                <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-8">
-                    <img src={agentImage} className="w-16 h-16 rounded-2xl object-cover ring-2 ring-blue-500 p-1" alt="" />
+                    <img src={agentImage} className="w-16 h-16 rounded-2xl object-cover border-2 border-indigo-500 shadow-sm p-0.5 bg-[#0F172A]" alt={agentName} />
                     <div>
-                      <h4 className="text-xl font-bold">{agentName}</h4>
-                      <p className="text-blue-400 text-sm font-bold">Verified Agent</p>
+                      <h4 className="text-lg font-black uppercase tracking-tight">{agentName}</h4>
+                      <p className="text-indigo-400 text-[10px] font-black uppercase tracking-widest mt-1">Verified Agent</p>
                     </div>
                   </div>
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
-                      <FaEnvelope className="text-blue-400" /> <span className="text-sm truncate">{agentEmail}</span>
+                  <div className="space-y-3.5 mb-8">
+                    <div className="flex items-center gap-3 bg-white/5 p-3.5 rounded-xl border border-white/10 font-bold text-xs uppercase tracking-tight">
+                      <FaEnvelope className="text-indigo-400 shrink-0" /> <span className="truncate">{agentEmail}</span>
                     </div>
-                    <div className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
-                      <FaPhoneAlt className="text-blue-400" /> <span className="text-sm">{agentContact}</span>
+                    <div className="flex items-center gap-3 bg-white/5 p-3.5 rounded-xl border border-white/10 font-bold text-xs uppercase tracking-tight">
+                      <FaPhoneAlt className="text-indigo-400 shrink-0" /> <span>{agentContact}</span>
                     </div>
                   </div>
                   <button 
                     onClick={handleBookProperty}
-                    className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-black text-lg transition-all active:scale-95 shadow-lg shadow-blue-600/30"
+                    className="w-full cursor-pointer bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-md hover:shadow-indigo-500/20 active:scale-98 transition-all duration-300"
                   >
                     Request to Book
                   </button>
+                </div>
               </div>
 
-              {/* Functional Review Section */}
-              <div className="p-8 rounded-[32px] border border-gray-100 dark:border-gray-800 shadow-sm">
-                <h4 className="text-xl font-black mb-4 dark:text-white uppercase tracking-tight">Write a Review</h4>
-                <div className="mb-4">
+              {/* Review Input */}
+              <div className="p-8 rounded-[2.2rem] bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 shadow-sm transition-all duration-300">
+                <h4 className="text-sm font-black mb-5 dark:text-white uppercase tracking-wider">Write a Review</h4>
+                <div className="mb-5 flex justify-start">
                   <Rating 
-                    style={{ maxWidth: 140 }} 
+                    style={{ maxWidth: 130 }} 
                     value={rating} 
                     onChange={setRating} 
                     isRequired 
                   />
                 </div>
                 <textarea 
-                  className="w-full p-4 rounded-2xl border border-gray-200 dark:border-gray-800 outline-none focus:ring-2 focus:ring-blue-500 transition-all dark:text-white text-sm"
+                  className="w-full p-4 rounded-2xl border border-slate-200 dark:border-slate-800 outline-none focus:ring-2 focus:ring-indigo-500 transition-all bg-slate-50 dark:bg-slate-950 dark:text-white text-xs font-bold uppercase tracking-tight"
                   placeholder="Share your thoughts about this property..."
                   rows="4"
                   value={reviewText}
@@ -202,7 +241,7 @@ const reviewData = {
                 ></textarea>
                 <button 
                   onClick={handleReviewSubmit}
-                  className="w-full mt-4 py-3 rounded-xl font-bold bg-blue-600 transition-all active:scale-95 cursor-pointer"
+                  className="w-full mt-4 py-4 rounded-2xl font-black uppercase text-xs tracking-widest bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white transition-all shadow-md active:scale-98 cursor-pointer border border-indigo-500/20"
                 >
                   Submit Review
                 </button>
