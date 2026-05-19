@@ -25,9 +25,12 @@ const RatingCart = ({ rating }) => {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#4F46E5",
+      cancelButtonColor: "#EF4444",
       confirmButtonText: "Yes, delete it!",
+      customClass: {
+        popup: 'rounded-[2rem]',
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
@@ -41,7 +44,7 @@ const RatingCart = ({ rating }) => {
           .then((data) => {
             Swal.fire({
               title: "Deleted!",
-              text: "Your property has been removed.",
+              text: "Your rating has been removed.",
               icon: "success",
               timer: 1500,
               showConfirmButton: false,
@@ -66,61 +69,79 @@ const RatingCart = ({ rating }) => {
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
           whileHover={{
-            scale: 1.05,
-            y: -5,
-            boxShadow: "0 15px 25px rgba(0,0,0,0.2)",
+            y: -4,
+            boxShadow: "0 10px 20px rgba(0,0,0,0.05)",
             transition: { duration: 0.3 },
           }}
-          className="max-w-xs mx-auto bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border border-indigo-200 rounded-xl shadow-md overflow-hidden"
+          className="max-w-xs mx-auto bg-white dark:bg-[#1E293B] border border-slate-100 dark:border-slate-800/80 rounded-[2.2rem] shadow-sm overflow-hidden p-3 flex flex-col justify-between"
         >
-          {/* Thumbnail */}
-          <img
-            src={propertyThumbnail}
-            alt={propertyName}
-            className="w-full h-48 object-cover"
-          />
-
-          {/* Content */}
-          <div className="p-3 space-y-1.5">
-            <label className="text-xs font-semibold text-indigo-700">
-              Property Name:
-            </label>
-            <h2 className="text-base font-bold text-gray-800 leading-tight">
-              {propertyName}
-            </h2>
-
-            <label className="text-xs font-semibold text-indigo-700">
-              Rating:
-            </label>
-            <div className="flex items-center gap-1">
-              <Rating style={{ maxWidth: 80 }} value={ratingValue} readOnly />
-              <span className="text-xs text-gray-600">{ratingValue}/5</span>
+          <div>
+            {/* Thumbnail */}
+            <div className="relative h-44 overflow-hidden rounded-[1.8rem] shrink-0">
+              <img
+                src={propertyThumbnail || "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600&q=80"}
+                alt={propertyName}
+                className="w-full h-full object-cover"
+              />
             </div>
 
-            <label className="text-xs font-semibold text-indigo-700">
-              Review:
-            </label>
-            <p className="text-gray-700 text-xs">
-              “{reviewText || "No review"}”
-            </p>
+            {/* Content */}
+            <div className="p-4 space-y-3.5">
+              <div>
+                <label className="text-[9px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest block">
+                  Property Name
+                </label>
+                <h2 className="text-sm font-black text-slate-850 dark:text-white leading-tight mt-1 truncate uppercase">
+                  {propertyName}
+                </h2>
+              </div>
 
-            <label className="text-xs font-semibold text-indigo-700">
-              Reviewer:
-            </label>
-            <p className="text-xs text-gray-600">
-              {reviewerName} ({reviewerEmail})
-            </p>
+              <div>
+                <label className="text-[9px] font-black text-indigo-650 dark:text-indigo-400 uppercase tracking-widest block">
+                  Rating Given
+                </label>
+                <div className="flex items-center gap-2 mt-1.5">
+                  <Rating style={{ maxWidth: 80 }} value={ratingValue} readOnly />
+                  <span className="text-xs font-black text-slate-500 dark:text-slate-400">{ratingValue}/5</span>
+                </div>
+              </div>
 
-            <p className="text-[10px] text-gray-400">
-              {new Date(reviewDate).toLocaleDateString()}
-            </p>
+              <div>
+                <label className="text-[9px] font-black text-indigo-655 dark:text-indigo-400 uppercase tracking-widest block">
+                  Your Review
+                </label>
+                <p className="text-slate-600 dark:text-slate-350 text-xs italic font-bold leading-normal mt-1 block">
+                  “{reviewText || "No review content provided."}”
+                </p>
+              </div>
 
-            <button
-              onClick={handleDelete}
-              className="w-full mt-2 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white py-1 rounded-lg text-xs font-medium shadow-sm transition-all duration-200"
-            >
-              Delete
-            </button>
+              <div>
+                <label className="text-[9px] font-black text-indigo-655 dark:text-indigo-400 uppercase tracking-widest block">
+                  Reviewer Info
+                </label>
+                <p className="text-[10px] font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mt-1 truncate">
+                  {reviewerName}
+                </p>
+                <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 tracking-wider truncate mt-0.5">
+                  {reviewerEmail}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="px-4 pb-4">
+            <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800/60">
+              <span className="text-[9px] font-black text-slate-400 dark:text-slate-550 uppercase tracking-wider">
+                {new Date(reviewDate).toLocaleDateString()}
+              </span>
+
+              <button
+                onClick={handleDelete}
+                className="bg-rose-550 bg-rose-50 dark:bg-rose-950/20 text-rose-500 dark:text-rose-400 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-500 dark:hover:bg-rose-600 hover:text-white cursor-pointer transition-all active:scale-98"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </motion.div>
       )}
