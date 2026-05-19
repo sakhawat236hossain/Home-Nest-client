@@ -34,18 +34,20 @@ const FAQSection = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   return (
-    <section className="py-24 px-6">
+    <section className="py-20 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
+          <span className="text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-[0.4em]">Help & Support</span>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight"
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight"
           >
-            Property <span className="text-blue-600">Guideline & FAQ</span>
+            Property <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">Guideline & FAQ</span>
           </motion.h2>
-          <p className="text-gray-500 dark:text-gray-400 text-lg font-medium max-w-2xl mx-auto">
+          <p className="text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest max-w-2xl mx-auto leading-relaxed">
             Everything you need to know about buying, selling, and property management on our platform.
           </p>
         </div>
@@ -57,24 +59,25 @@ const FAQSection = () => {
               key={index}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="group border border-gray-100 dark:border-gray-800 rounded-[24px] overflow-hidden bg-white dark:bg-[#1a1d24] shadow-sm hover:shadow-md transition-all"
+              transition={{ delay: index * 0.05 }}
+              viewport={{ once: true }}
+              className="group border border-slate-100 dark:border-slate-800/80 rounded-[2rem] overflow-hidden bg-white dark:bg-[#1E293B] shadow-sm hover:shadow-md transition-all duration-300"
             >
               <button
                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                className="w-full flex items-center justify-between p-7 text-left outline-none"
+                className="w-full flex items-center justify-between p-7 text-left outline-none cursor-pointer"
               >
                 <div className="flex items-start gap-4">
-                  <HiQuestionMarkCircle className="text-blue-600 mt-1 shrink-0" size={26} />
-                  <span className="text-xl font-bold text-gray-800 dark:text-gray-100 leading-snug">
+                  <HiQuestionMarkCircle className="text-indigo-600 dark:text-indigo-400 mt-0.5 shrink-0 group-hover:scale-110 transition-transform duration-300" size={24} />
+                  <span className="text-base font-black text-slate-800 dark:text-slate-100 leading-snug uppercase tracking-tight">
                     {item.question}
                   </span>
                 </div>
                 <motion.div
                   animate={{ rotate: activeIndex === index ? 180 : 0 }}
-                  className="text-gray-400 shrink-0 ml-4"
+                  className="text-slate-400 shrink-0 ml-4 p-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/30 transition-colors"
                 >
-                  <FaChevronDown size={20} />
+                  <FaChevronDown size={14} />
                 </motion.div>
               </button>
 
@@ -86,10 +89,10 @@ const FAQSection = () => {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
-                    <div className="px-8 pb-8 text-[17px] text-gray-600 dark:text-gray-400 leading-relaxed font-medium pl-16">
+                    <div className="px-8 pb-8 text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-bold uppercase tracking-tight pl-16">
                       <div className="flex gap-3">
-                         <FaCircle size={8} className="mt-2.5 text-blue-500 shrink-0" />
-                         <p>{item.answer}</p>
+                         <FaCircle size={6} className="mt-1.5 text-indigo-500 dark:text-indigo-400 shrink-0 animate-pulse" />
+                         <p className="normal-case font-medium text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{item.answer}</p>
                       </div>
                     </div>
                   </motion.div>

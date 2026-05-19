@@ -43,26 +43,16 @@ const MeetOurAgents = () => {
     ];
 
     return (
-        <section className="py-24 transition-colors duration-500">
-            <div className="max-w-7xl mx-auto px-4">
+        <section className="py-20 transition-colors duration-500">
+            <div className="max-w-7xl mx-auto px-4 md:px-6">
                 
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <motion.span 
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        className="text-indigo-600 font-bold text-xs uppercase tracking-[0.4em]"
-                    >
-                        Our Professionals
-                    </motion.span>
-                    <motion.h2 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mt-4"
-                    >
+                {/* Premium Header */}
+                <div className="text-center mb-16 space-y-4">
+                    <span className="text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-[0.4em]">Our Professionals</span>
+                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mt-4 tracking-tight">
                         Meet Our Expert Agents
-                    </motion.h2>
-                    <p className=" mt-6 max-w-2xl mx-auto text-lg">
+                    </h2>
+                    <p className="mt-6 max-w-2xl mx-auto text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-tight">
                        Our experienced team will provide you with professional assistance in finding the right property.
                     </p>
                 </div>
@@ -72,54 +62,55 @@ const MeetOurAgents = () => {
                     {agents.map((agent, index) => (
                         <motion.div
                             key={agent.id}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
-                            className="bg-white dark:bg-[#16191E] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl border border-gray-100 dark:border-gray-800 transition-all duration-500 group"
+                            viewport={{ once: true }}
+                            className="bg-white dark:bg-[#1E293B] rounded-[2.2rem] overflow-hidden shadow-sm hover:shadow-2xl border border-slate-100 dark:border-slate-800/80 hover:-translate-y-2 transition-all duration-500 group flex flex-col justify-between"
                         >
                             {/* Image Section */}
-                            <div className="relative h-72 overflow-hidden">
+                            <div className="relative h-72 p-3 overflow-hidden rounded-[2rem]">
                                 <img 
                                     src={agent.image} 
                                     alt={agent.name} 
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    className="w-full h-full object-cover rounded-[1.8rem] transition-transform duration-700 group-hover:scale-105 filter brightness-[0.95]"
                                 />
                                 {/* Rating Badge */}
-                                <div className="absolute top-4 left-4 bg-white/90 dark:bg-black/70 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                <div className="absolute top-6 left-6 bg-white/95 dark:bg-slate-950/60 backdrop-blur-md px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-sm border border-slate-100 dark:border-slate-800/20">
                                     <FaStar className="text-yellow-400 text-xs" />
-                                    <span className="text-xs font-black dark:text-white">{agent.rating}</span>
+                                    <span className="text-[10px] font-black dark:text-white tracking-widest leading-none">{agent.rating}</span>
                                 </div>
                                 {/* Social Floating */}
-                                <div className="absolute bottom-4 right-4 flex flex-col gap-2 translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
+                                <div className="absolute bottom-6 right-6 flex flex-col gap-2 translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
                                     <SocialLink icon={<FaFacebookF />} />
                                     <SocialLink icon={<FaLinkedinIn />} />
                                 </div>
                             </div>
 
                             {/* Info Section */}
-                            <div className="p-6">
-                                <h3 className="text-xl font-black text-gray-800 dark:text-white tracking-tight">
+                            <div className="px-6 pb-6 pt-2">
+                                <h3 className="text-base font-black text-slate-800 dark:text-white tracking-tight uppercase">
                                     {agent.name}
                                 </h3>
-                                <p className="text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-widest mt-1">
+                                <p className="text-indigo-600 dark:text-indigo-400 font-extrabold text-[10px] uppercase tracking-[0.2em] mt-1.5">
                                     {agent.role}
                                 </p>
 
-                                <div className="mt-6 space-y-3">
-                                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400 group/item">
-                                        <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg group-hover/item:bg-indigo-100 dark:group-hover/item:bg-indigo-900/30 transition-colors">
-                                            <FaEnvelope className="text-sm group-hover/item:text-indigo-600" />
+                                <div className="mt-6 space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800/80">
+                                    <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400 group/item">
+                                        <div className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl group-hover/item:bg-indigo-50 dark:group-hover/item:bg-indigo-900/30 transition-colors border border-slate-100 dark:border-slate-700/20">
+                                            <FaEnvelope className="text-xs group-hover/item:text-indigo-600" />
                                         </div>
-                                        <a href={`mailto:${agent.email}`} className="text-xs font-bold hover:text-indigo-600 transition-colors truncate">
+                                        <a href={`mailto:${agent.email}`} className="text-xs font-black uppercase tracking-tight hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors truncate">
                                             {agent.email}
                                         </a>
                                     </div>
 
-                                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400 group/item">
-                                        <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg group-hover/item:bg-green-100 dark:group-hover/item:bg-green-900/30 transition-colors">
-                                            <FaPhoneAlt className="text-sm group-hover/item:text-green-600" />
+                                    <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400 group/item">
+                                        <div className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl group-hover/item:bg-green-50 dark:group-hover/item:bg-green-900/30 transition-colors border border-slate-100 dark:border-slate-700/20">
+                                            <FaPhoneAlt className="text-xs group-hover/item:text-green-600" />
                                         </div>
-                                        <a href={`tel:${agent.phone}`} className="text-xs font-bold hover:text-green-600 transition-colors">
+                                        <a href={`tel:${agent.phone}`} className="text-xs font-black uppercase tracking-tight hover:text-green-600 dark:hover:text-green-400 transition-colors">
                                             {agent.phone}
                                         </a>
                                     </div>
@@ -134,7 +125,7 @@ const MeetOurAgents = () => {
 };
 
 const SocialLink = ({ icon }) => (
-    <button className="w-9 h-9 bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all shadow-xl">
+    <button className="w-9 h-9 bg-white/95 dark:bg-slate-900/90 text-slate-700 dark:text-white rounded-xl flex items-center justify-center hover:bg-indigo-600 dark:hover:bg-indigo-600 hover:text-white transition-all shadow-md border border-slate-100 dark:border-slate-800/40 cursor-pointer">
         {icon}
     </button>
 );

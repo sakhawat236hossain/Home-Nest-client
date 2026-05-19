@@ -50,9 +50,12 @@ const ExtraSections = () => {
     <div className="max-w-7xl mx-auto px-4 lg:px-8">
       {/* How It Works Section */}
       <section className="my-20">
-        <h2 className="text-3xl font-bold text-center mb-14">
-          How <span className="text-blue-600">It Works</span>
-        </h2>
+        <div className="text-center mb-16 space-y-4">
+          <span className="text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-[0.4em]">Simple Process</span>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+            How <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">It Works</span>
+          </h2>
+        </div>
 
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Left Image */}
@@ -66,13 +69,13 @@ const ExtraSections = () => {
             <img
               src={houseImg}
               alt="How It Works"
-              className="rounded-2xl shadow-2xl w-full lg:max-w-[480px] object-cover hover:scale-105 transition-transform duration-500"
+              className="rounded-[2.5rem] shadow-2xl w-full lg:max-w-[480px] object-cover hover:scale-102 transition-transform duration-500 border border-slate-200/50 dark:border-slate-800/40"
             />
           </motion.div>
 
           {/* Steps */}
           <motion.div
-            className="flex gap-6 overflow-x-auto py-2 w-full lg:w-1/2 cursor-grab active:cursor-grabbing"
+            className="flex gap-6 overflow-x-auto py-4 w-full lg:w-1/2 cursor-grab active:cursor-grabbing scrollbar-hide"
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -81,17 +84,19 @@ const ExtraSections = () => {
             {steps.map((item, idx) => (
               <motion.div
                 key={idx}
-                className="min-w-[260px] sm:min-w-[280px] lg:min-w-[300px] p-6 rounded-xl shadow-md border hover:shadow-2xl transition flex-shrink-0"
+                className="min-w-[270px] sm:min-w-[280px] lg:min-w-[300px] p-8 bg-white dark:bg-[#1E293B] rounded-[2rem] border border-slate-100 dark:border-slate-800/80 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex-shrink-0 group flex flex-col justify-between"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
-                <div className="w-12 h-12 flex items-center justify-center text-2xl mb-3 rounded-full">
-                  {item.icon}
+                <div>
+                  <div className="w-12 h-12 flex items-center justify-center text-2xl mb-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/20 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-lg font-black text-slate-800 dark:text-white uppercase tracking-tight mb-2">{item.title}</h3>
+                  <p className="text-xs text-slate-400 dark:text-slate-500 font-bold uppercase tracking-tight leading-relaxed">{item.desc}</p>
                 </div>
-                <h3 className="text-lg font-bold ">{item.title}</h3>
-                <p className="text-sm  mt-1">{item.desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -100,9 +105,12 @@ const ExtraSections = () => {
 
       {/* Testimonials Section */}
       <section className="my-24">
-        <h2 className="text-3xl font-bold text-center mb-14">
-          What Our <span className="text-blue-600">Clients Say</span>
-        </h2>
+        <div className="text-center mb-16 space-y-4">
+          <span className="text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-[0.4em]">Client Feed</span>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+            What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">Clients Say</span>
+          </h2>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((client, idx) => (
@@ -112,18 +120,20 @@ const ExtraSections = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-6 rounded-xl shadow-md border hover:shadow-2xl transition flex flex-col items-center text-center"
+              className="p-8 bg-white dark:bg-[#1E293B] rounded-[2.2rem] border border-slate-100 dark:border-slate-800/80 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center text-center group"
             >
-              <img
-                src={client.avatar}
-                alt={client.name}
-                className="w-16 h-16 rounded-full mb-4"
-              />
-              <p className="italic">“{client.review}”</p>
-              <div className="mt-4 text-yellow-500 text-lg">
+              <div className="relative mb-5">
+                <img
+                  src={client.avatar}
+                  alt={client.name}
+                  className="w-16 h-16 rounded-2xl object-cover border-2 border-indigo-100 dark:border-slate-700 shadow-sm group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <p className="italic text-slate-600 dark:text-slate-350 text-sm leading-relaxed mb-4">“{client.review}”</p>
+              <div className="text-amber-400 text-xs mb-3 select-none">
                 {"⭐".repeat(client.stars)}
               </div>
-              <h4 className="mt-2 font-semibold ">
+              <h4 className="font-black text-slate-800 dark:text-white text-xs uppercase tracking-wider leading-none mt-2">
                 {client.name}
               </h4>
             </motion.div>
