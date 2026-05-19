@@ -9,16 +9,15 @@ const MyAddedPropertiesCard = ({ property, onDelete, refetch }) => {
 
   if (!property) return null;
 
-  const { _id, propertyName, location, price, image,  category, description } = property;
+  const { _id, propertyName, location, price, image, category, description } = property;
 
- 
   const handleUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
     const updatedData = {
       propertyName: form.propertyName.value,
       location: form.location.value,
-      price: form.price.value,
+      price: Number(form.price.value),
       category: form.category.value,
       description: form.description.value,
     };
@@ -36,31 +35,37 @@ const MyAddedPropertiesCard = ({ property, onDelete, refetch }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all group">
-      {/* Image and Card UI... (Same as before) */}
-      <div className="relative h-48 overflow-hidden">
-        <img src={image} className="w-full h-full object-cover" alt="" />
-      </div>
-
-      <div className="p-5">
-        <h3 className="text-lg font-bold dark:text-white">{propertyName}</h3>
-        <p className="text-gray-400 text-xs mb-4 flex items-center gap-1"><FaMapMarkerAlt/> {location}</p>
-        
-        <div className="flex justify-between items-center mb-5">
-           <span className="text-blue-600 font-black text-xl">${price}</span>
-           <span className="badge badge-outline text-[10px]">{category}</span>
+    <div className="bg-white dark:bg-[#1E293B] rounded-[2.2rem] overflow-hidden border border-slate-100 dark:border-slate-800/80 shadow-sm hover:shadow-2xl transition-all duration-300 group p-3 flex flex-col justify-between">
+      
+      <div>
+        {/* Image wrapper */}
+        <div className="relative h-48 overflow-hidden rounded-[1.8rem] shrink-0">
+          <img src={image} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="" />
         </div>
 
+        {/* Text Body */}
+        <div className="p-4">
+          <h3 className="text-base font-black text-slate-800 dark:text-white truncate uppercase tracking-tight">{propertyName}</h3>
+          <p className="text-slate-400 dark:text-slate-500 text-[10px] mb-4 flex items-center gap-1 font-bold uppercase tracking-wider mt-1.5"><FaMapMarkerAlt className="text-rose-500 shrink-0" size={11} /> {location}</p>
+          
+          <div className="flex justify-between items-center mb-2">
+             <span className="text-indigo-650 dark:text-indigo-400 font-black text-lg">${price?.toLocaleString()}</span>
+             <span className="bg-indigo-50/80 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border border-indigo-100/50 dark:border-indigo-900/30">{category}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="px-4 pb-4">
         <div className="flex gap-2">
-          {/* Update Button (Modal trigger) */}
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded-xl text-sm font-bold hover:bg-blue-700"
+            className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white py-3 rounded-xl text-xs font-black uppercase tracking-widest cursor-pointer shadow-md hover:shadow-indigo-500/10 active:scale-98 transition-all"
           >
             <FaEdit /> Update
           </button>
           
-          <button onClick={() => onDelete(_id)} className="px-4 bg-red-50 text-red-500 py-2 rounded-xl hover:bg-red-500 hover:text-white">
+          <button onClick={() => onDelete(_id)} className="px-4.5 bg-rose-50 dark:bg-rose-950/20 text-rose-500 dark:text-rose-400 py-3 rounded-xl hover:bg-rose-500 dark:hover:bg-rose-600 hover:text-white cursor-pointer active:scale-98 transition-all duration-300">
             <FaTrashAlt />
           </button>
         </div>
@@ -68,42 +73,42 @@ const MyAddedPropertiesCard = ({ property, onDelete, refetch }) => {
 
       {/* --- Update Modal --- */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <div className="bg-white dark:bg-gray-800 w-full max-w-lg rounded-3xl p-8 shadow-2xl relative animate-in fade-in zoom-in duration-300">
-            <button onClick={() => setIsModalOpen(false)} className="absolute top-5 right-5 text-gray-400 hover:text-red-500 transition-colors">
-              <FaTimes size={20} />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4">
+          <div className="bg-white dark:bg-[#1E293B] w-full max-w-lg rounded-[2.5rem] p-8 sm:p-10 shadow-2xl border border-slate-100 dark:border-slate-800 relative animate-in fade-in zoom-in duration-300">
+            <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition-colors cursor-pointer text-lg">
+              <FaTimes />
             </button>
             
-            <h2 className="text-2xl font-black mb-6 dark:text-white">Update Property</h2>
+            <h2 className="text-2xl font-black mb-8 dark:text-white uppercase tracking-tight">Update Property</h2>
             
-            <form onSubmit={handleUpdate} className="space-y-4">
+            <form onSubmit={handleUpdate} className="space-y-5">
               <div>
-                <label className="text-xs font-bold uppercase text-gray-400">Property Name</label>
-                <input name="propertyName" defaultValue={propertyName} className="w-full mt-1 p-3 rounded-xl border dark:bg-gray-700 dark:border-gray-600 dark:text-white outline-none focus:ring-2 focus:ring-blue-500" required />
+                <label className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-widest ml-1 block mb-2">Property Name</label>
+                <input name="propertyName" defaultValue={propertyName} className="premium-input w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 outline-none text-sm font-bold dark:text-white transition duration-350" required />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-bold uppercase text-gray-400">Price ($)</label>
-                  <input name="price" type="number" defaultValue={price} className="w-full mt-1 p-3 rounded-xl border dark:bg-gray-700 dark:border-gray-600 dark:text-white outline-none focus:ring-2 focus:ring-blue-500" required />
+                  <label className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-widest ml-1 block mb-2">Price ($)</label>
+                  <input name="price" type="number" defaultValue={price} className="premium-input w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 outline-none text-sm font-bold dark:text-white transition duration-350" required />
                 </div>
                 <div>
-                  <label className="text-xs font-bold uppercase text-gray-400">Category</label>
-                  <input name="category" defaultValue={category} className="w-full mt-1 p-3 rounded-xl border dark:bg-gray-700 dark:border-gray-600 dark:text-white outline-none focus:ring-2 focus:ring-blue-500" required />
+                  <label className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-widest ml-1 block mb-2">Category</label>
+                  <input name="category" defaultValue={category} className="premium-input w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 outline-none text-sm font-bold dark:text-white transition duration-350" required />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-bold uppercase text-gray-400">Location</label>
-                <input name="location" defaultValue={location} className="w-full mt-1 p-3 rounded-xl border dark:bg-gray-700 dark:border-gray-600 dark:text-white outline-none focus:ring-2 focus:ring-blue-500" required />
+                <label className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-widest ml-1 block mb-2">Location</label>
+                <input name="location" defaultValue={location} className="premium-input w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 outline-none text-sm font-bold dark:text-white transition duration-350" required />
               </div>
 
               <div>
-                <label className="text-xs font-bold uppercase text-gray-400">Description</label>
-                <textarea name="description" defaultValue={description} rows="3" className="w-full mt-1 p-3 rounded-xl border dark:bg-gray-700 dark:border-gray-600 dark:text-white outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                <label className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-widest ml-1 block mb-2">Description</label>
+                <textarea name="description" defaultValue={description} rows="3" className="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 outline-none text-sm font-bold dark:text-white transition duration-350" required></textarea>
               </div>
 
-              <button type="submit" className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-lg shadow-lg shadow-blue-600/30 hover:bg-blue-700 transition-all active:scale-95">
+              <button type="submit" className="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-black uppercase tracking-widest rounded-2xl shadow-md hover:shadow-indigo-500/20 active:scale-98 transition-all cursor-pointer">
                 Save Changes
               </button>
             </form>

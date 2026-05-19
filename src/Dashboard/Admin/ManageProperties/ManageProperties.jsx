@@ -76,93 +76,95 @@ const ManageProperties = () => {
   if (isLoading) return <LoadingData />;
 
   return (
-    <div className="p-4 sm:p-8 min-h-screen ">
+    <div className="p-2 sm:p-6 min-h-screen bg-transparent transition-colors duration-500">
       <div className="max-w-7xl mx-auto">
+        
         {/* Header */}
-        <div className="mb-8 flex justify-between items-center">
+        <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4 px-2">
           <div>
-            <h2 className="text-3xl font-black text-gray-800 dark:text-white uppercase">
-              Manage <span className="text-indigo-600">Properties</span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white uppercase tracking-tight">
+              Manage <span className="text-indigo-650 dark:text-indigo-400 italic">Properties</span>
             </h2>
-            <p className="text-gray-500 text-sm font-medium">Review and moderate all listings</p>
+            <p className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-1.5">Review and moderate all listings</p>
           </div>
-          <div className="bg-white dark:bg-gray-900 px-6 py-2 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
-             <p className="text-[10px] font-black uppercase text-gray-400">Total</p>
-             <p className="text-xl font-black dark:text-white">{properties.length}</p>
+          <div className="px-5 py-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl shadow-sm hidden sm:block">
+             <span className="text-xs font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">Total Listings:</span>
+             <span className="ml-3 font-black text-sm text-indigo-605 dark:text-indigo-400">{properties.length}</span>
           </div>
         </div>
 
         {/* Table Container */}
-        <div className="bg-white dark:bg-gray-900 rounded-[2rem] shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <div className="bg-white dark:bg-[#1E293B] rounded-[2.2rem] shadow-sm hover:shadow-2xl border border-slate-100 dark:border-slate-800/80 overflow-hidden transition-all duration-500">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
-                  <th className="p-5 text-[10px] font-black uppercase tracking-widest text-gray-500">Property</th>
-                  <th className="p-5 text-[10px] font-black uppercase tracking-widest text-gray-500">Location</th>
-                  <th className="p-5 text-[10px] font-black uppercase tracking-widest text-gray-500">Agent</th>
-                  <th className="p-5 text-[10px] font-black uppercase tracking-widest text-gray-500">Price</th>
-                  <th className="p-5 text-[10px] font-black uppercase tracking-widest text-gray-500">Status</th>
-                  <th className="p-5 text-[10px] font-black uppercase tracking-widest text-gray-500 text-center">Actions</th>
+                <tr className="border-b border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/20">
+                  <th className="py-6 px-6 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Property</th>
+                  <th className="py-6 px-4 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Location</th>
+                  <th className="py-6 px-4 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Agent</th>
+                  <th className="py-6 px-4 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Price</th>
+                  <th className="py-6 px-4 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Status</th>
+                  <th className="py-6 px-6 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
+              <tbody className="divide-y divide-slate-50 dark:divide-slate-800/40">
                 {properties.map((property) => (
-                  <tr key={property._id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+                  <tr key={property._id} className="hover:bg-slate-50/40 dark:hover:bg-slate-900/10 transition-colors duration-300">
                     {/* Property Image & Name */}
-                    <td className="p-5">
+                    <td className="py-5 px-6">
                       <div className="flex items-center gap-4">
-                        <img src={property.image} alt="" className="w-14 h-14 rounded-2xl object-cover shadow-sm" />
+                        <img src={property.image} alt="" className="w-12 h-12 rounded-xl object-cover border border-slate-205 dark:border-slate-800 shadow-sm" />
                         <div>
-                          <p className="font-bold text-gray-800 dark:text-gray-200">{property.propertyName}</p>
-                          <span className="text-[10px] font-bold text-indigo-500 uppercase">{property.category}</span>
+                          <p className="font-black text-sm text-slate-800 dark:text-white leading-tight">{property.propertyName}</p>
+                          <span className="text-[9px] font-black text-indigo-500 dark:text-indigo-400 uppercase tracking-widest mt-1 block">{property.category}</span>
                         </div>
                       </div>
                     </td>
 
                     {/* Location */}
-                    <td className="p-5 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                    <td className="py-5 px-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {property.location}
                     </td>
 
                     {/* Agent */}
-                    <td className="p-5">
-                      <div className="flex items-center gap-2">
-                        <img src={property.agentImage} className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-100 dark:ring-gray-800" alt="" />
-                        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">{property.agentName}</p>
+                    <td className="py-5 px-4">
+                      <div className="flex items-center gap-2.5">
+                        <img src={property.agentImage} className="w-8 h-8 rounded-full object-cover border border-slate-200 dark:border-slate-850 shadow-sm" alt="" />
+                        <p className="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-300">{property.agentName}</p>
                       </div>
                     </td>
 
                     {/* Price */}
-                    <td className="p-5">
-                      <span className="font-black text-gray-900 dark:text-white">${property.price}</span>
+                    <td className="py-5 px-4">
+                      <span className="font-black text-sm text-slate-855 dark:text-white">${property.price?.toLocaleString()}</span>
                     </td>
 
                     {/* Status Badge */}
-                    <td className="p-5">
-                      <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-tighter ${
-                        property.status === 'verified' ? 'bg-emerald-100 text-emerald-600' :
-                        property.status === 'rejected' ? 'bg-rose-100 text-rose-600' : 'bg-amber-100 text-amber-600'
+                    <td className="py-5 px-4">
+                      <span className={`inline-block px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest shadow-sm border ${
+                        property.status === 'verified' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' :
+                        property.status === 'rejected' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20 animate-pulse' : 
+                        'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
                       }`}>
                         {property.status}
                       </span>
                     </td>
 
                     {/* Action Buttons */}
-                    <td className="p-5">
+                    <td className="py-5 px-6">
                       <div className="flex justify-center gap-2">
                         {property.status !== 'verified' && (
-                          <button onClick={() => handleVerify(property._id)} className="p-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl transition-all shadow-lg shadow-emerald-200 dark:shadow-none" title="Verify">
-                            <FaCheck size={12} />
+                          <button onClick={() => handleVerify(property._id)} className="p-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl transition-all duration-300 shadow-sm cursor-pointer" title="Verify">
+                            <FaCheck size={11} />
                           </button>
                         )}
                         {property.status !== 'rejected' && (
-                          <button onClick={() => handleReject(property._id)} className="p-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl transition-all shadow-lg shadow-amber-200 dark:shadow-none" title="Reject">
-                            <FaTimes size={12} />
+                          <button onClick={() => handleReject(property._id)} className="p-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl transition-all duration-300 shadow-sm cursor-pointer" title="Reject">
+                            <FaTimes size={11} />
                           </button>
                         )}
-                        <button onClick={() => handleDelete(property._id)} className="p-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl transition-all shadow-lg shadow-rose-200 dark:shadow-none" title="Delete">
-                          <FaTrashAlt size={12} />
+                        <button onClick={() => handleDelete(property._id)} className="p-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl transition-all duration-300 shadow-sm cursor-pointer" title="Delete">
+                          <FaTrashAlt size={11} />
                         </button>
                       </div>
                     </td>
@@ -175,8 +177,8 @@ const ManageProperties = () => {
 
         {/* Empty State */}
         {properties.length === 0 && (
-          <div className="text-center py-20 bg-white dark:bg-gray-900 rounded-[2rem] mt-10 border-2 border-dashed border-gray-100 dark:border-gray-800">
-            <p className="text-gray-400 font-bold uppercase tracking-widest">No listings found.</p>
+          <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-[2.2rem] mt-10 border-2 border-dashed border-slate-100 dark:border-slate-800/80">
+            <p className="text-slate-400 dark:text-slate-550 font-black uppercase tracking-widest">No listings found.</p>
           </div>
         )}
       </div>
